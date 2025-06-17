@@ -17,4 +17,7 @@ export default defineNuxtConfig({
     baseUrl: "https://dostyq.kz",
   },
   css: ["~/assets/css/main.css"],
+  ui: {
+    colorMode: false,
+  },
 });

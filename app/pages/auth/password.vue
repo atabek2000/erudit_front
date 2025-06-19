@@ -11,8 +11,6 @@ const state = reactive({
   password: "",
 });
 
-const value = ref([]);
-
 async function onSubmit(event) {}
 </script>
 
@@ -28,13 +26,11 @@ async function onSubmit(event) {}
 
     <div class="my-48 max-w-[424px] mx-auto">
       <h2 class="text-3xl font-semibold text-black">
-        {{ $t("confirmation_code") }}
+        {{ $t("password_recovery") }}
       </h2>
-
-      <p class="text-sm font-normal text-dove-gray mt-3">
-        {{ $t("enter_confirmation_code") }}
+      <p class="text-sm font-normal text-dove-gray mt-2">
+        {{ $t("create_password_description") }}
       </p>
-      <p class="text-sm font-normal text-dove-gray">user12@gmail.com</p>
 
       <UForm
         :schema="schema"
@@ -42,19 +38,16 @@ async function onSubmit(event) {}
         class="space-y-4 mt-4"
         @submit="onSubmit"
       >
-        <UPinInput
-          color="neutral"
-          size="2xl"
-          placeholder=""
-          :length="4"
-          type="number"
-          class="my-4"
-          otp
-          v-model="value"
-        />
+        <UFormField :label="$t('password')" name="email" class="w-full">
+          <UInput v-model="state.email" :placeholder="$t('enter_password')" />
+        </UFormField>
 
-        <UButton type="submit" class="mt-5" to="/auth/password">
-          {{ $t("send") }}
+        <UFormField :label="$t('password')" name="email" class="w-full">
+          <UInput v-model="state.email" :placeholder="$t('enter_password')" />
+        </UFormField>
+
+        <UButton type="submit" class="mt-5" to="/">
+          {{ $t("change") }}
         </UButton>
       </UForm>
     </div>

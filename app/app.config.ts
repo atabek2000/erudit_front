@@ -6,14 +6,21 @@ export default defineAppConfig({
     modal: {
       slots: {
         content: "!rounded-2xl",
+        overlay: "fixed inset-0 bg-black/70",
       },
     },
     button: {
       slots: {
-        base: ["!rounded-xl w-full cursor-pointer"],
+        base: ["rounded-xl w-full cursor-pointer"],
       },
       variants: {
         size: {
+          xs: {
+            base: "px-4 py-1.5 text-xs gap-1.5 font-medium justify-center ",
+            leadingIcon: "size-5",
+            leadingAvatarSize: "2xs",
+            trailingIcon: "size-5",
+          },
           sm: {
             base: "px-4 py-3 text-sm gap-1.5 font-medium justify-center ",
             leadingIcon: "size-5",

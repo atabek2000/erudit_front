@@ -89,6 +89,7 @@ html {
   --color-red-orange: oklch(65.421% 0.23214 28.659); /* #FF3B30 */
   --color-wild-sand: oklch(96.715% 0 none); /* #F4F4F4 */
   --color-wild-sand-400: oklch(97.015% 0 none); /* #F5F5F5 */
+  --color-wild-sand-300: oklch(97.315% 0 none); /* #F6F6F6 */
   --color-mirage: oklch(23.356% 0.02778 271.82); /* #191D2B */
   --color-bunting: oklch(24.635% 0.06177 265.07); /* #121F3E */
   --color-alabaster: oklch(98.212% 0 none); /* #F9F9F9 */
@@ -107,6 +108,8 @@ html {
   --color-alabaster: oklch(99.107% 0 none); /* #FCFCFC */
   --color-medium-purple: oklch(58.329% 0.2539 312.09); /* #AC32E4 */
   --color-don-juan: oklch(43.905% 0.0106 17.563); /* #585050 */
+  --color-shark: oklch(23.83% 0.01473 261.65); /* #1B1F26 */
+  --color-dusty-gray: oklch(68.295% 0 none); /* #999999 */
 
   --color-purple: oklch(40.277% 0.19894 310.35); /* #690695 */
   --color-purple-50: oklch(67.049% 0.23634 313.96); /* #C85AF8 */

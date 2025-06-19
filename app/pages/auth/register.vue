@@ -18,12 +18,12 @@ async function onSubmit(event) {}
   <main class="main-container py-10">
     <UBreadcrumb
       separatorIcon="i-lucide-arrow-right"
-      :items="[{ label: $t('home'), to: '/' }, { label: $t('login') }]"
+      :items="[{ label: $t('home'), to: '/' }, { label: $t('sign_up') }]"
     />
 
     <div class="mt-6 max-w-[424px] mx-auto">
       <h2 class="text-3xl font-semibold text-black">
-        {{ $t("login_to_account") }}
+        {{ $t("create_account") }}
       </h2>
 
       <UForm
@@ -32,34 +32,25 @@ async function onSubmit(event) {}
         class="space-y-4 mt-6"
         @submit="onSubmit"
       >
-        <UFormField :label="$t('email')" name="email" class="w-full">
+        <UFormField :label="$t('full_name')" name="fio" class="w-full">
+          <UInput v-model="state.fio" :placeholder="$t('enter_full_name')" />
+        </UFormField>
+
+        <UFormField :label="$t('email')" name="email" class="mb-3">
           <UInput v-model="state.email" :placeholder="$t('enter_email')" />
         </UFormField>
 
-        <UFormField :label="$t('password')" name="password" class="mb-3">
-          <UInput
-            v-model="state.password"
-            type="password"
-            :placeholder="$t('enter_password')"
-          />
-        </UFormField>
-
-        <nuxt-link
-          to="/auth/forgot"
-          class="block w-full text-end text-base font-normal text-primary m-0"
-          >{{ $t("forgot_password") }}</nuxt-link
-        >
-
-        <UButton type="submit" class="mt-5" disabled>
-          {{ $t("sign_in") }}
+        <UButton type="submit" class="mt-5" to="/cabinet/subjects">
+          {{ $t("sign_up") }}
         </UButton>
       </UForm>
 
-      <p class="text-base font-medium text-dove-gray mt-6 text-center">
-        {{ $t("no_account") }}
-        <nuxt-link to="/auth/register" class="text-primary">{{
-          $t("register")
+      <p class="text-sm font-normal text-dusty-gray mt-3">
+        {{ $t("terms_agreement") }}
+        <nuxt-link to="/auth/login" class="text-shark">{{
+          $t("privacy_policy")
         }}</nuxt-link>
+        {{ $t("data_processing_consent") }}
       </p>
 
       <USeparator :label="$t('or_continue')" class="my-8" />

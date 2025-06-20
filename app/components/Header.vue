@@ -1,4 +1,5 @@
 <script setup>
+const { locale, setLocale } = useI18n();
 const props = defineProps({
   hasMenu: {
     type: Boolean,
@@ -7,6 +8,7 @@ const props = defineProps({
 });
 
 const isOpen = ref(false);
+const isLangOpen = ref(false);
 </script>
 
 <template>
@@ -17,6 +19,7 @@ const isOpen = ref(false);
       </nuxt-link>
       <div class="flex gap-3 items-center">
         <UModal
+          v-model:open="isLangOpen"
           :ui="{
             overlay: 'bg-black/70',
           }"
@@ -36,26 +39,37 @@ const isOpen = ref(false);
               <p class="text-2xl font-semibold text-mirage">Выберите язык</p>
               <div class="mt-5">
                 <UButton
+                  @click="setLocale('kk')"
                   class="text-black text-sm font-normal w-full justify-between"
                   variant="ghost"
                 >
                   Казахский
                   <template #trailing>
-                    <UIcon name="i-lucide-check" class="text-tundora size-5" />
+                    <UIcon
+                      v-if="locale === 'kk'"
+                      name="i-lucide-check"
+                      class="text-tundora size-5"
+                    />
                   </template>
                 </UButton>
                 <UButton
+                  @click="setLocale('ru')"
                   class="text-black text-sm font-normal w-full justify-between"
                   variant="ghost"
                 >
                   Русский
                   <template #trailing>
-                    <UIcon name="i-lucide-check" class="text-tundora size-5" />
+                    <UIcon
+                      v-if="locale === 'ru'"
+                      name="i-lucide-check"
+                      class="text-tundora size-5"
+                    />
                   </template>
                 </UButton>
               </div>
 
               <UButton
+                @click="isLangOpen = false"
                 class="text-base font-semibold text-white w-full justify-center py-3 mt-5 rounded-xl"
               >
                 Выбрать

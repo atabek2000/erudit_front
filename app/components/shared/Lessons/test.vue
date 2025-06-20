@@ -67,6 +67,7 @@ onBeforeUnmount(() => {
           <p class="text-sm font-medium mt-1">Урок 1 из 100</p>
 
           <UButton
+            to="/cabinet/lessons/test/1"
             class="mt-4 bg-white hover:bg-white"
             :style="{ color: color }"
             >Начать</UButton

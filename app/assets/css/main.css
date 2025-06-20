@@ -36,10 +36,30 @@ html {
 }
 
 .tiny-container {
-  width: 670px;
+  max-width: 708px;
   margin-left: auto;
   margin-right: auto;
 }
+
+/* --------------- thin scrollbar ------------------ */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: #dadada #f8f8f8;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: #dadada;
+  border-radius: 10px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background-color: #f8f8f8;
+}
+/* --------------- thin scrollbar ------------------ */
 
 @media screen and (max-width: 1138px) {
   .secondary-container {
@@ -65,8 +85,6 @@ html {
 @media screen and (max-width: 692px) {
   .tiny-container {
     width: 100%;
-    padding-left: 16px;
-    padding-right: 16px;
   }
 }
 
@@ -90,6 +108,7 @@ html {
   --color-wild-sand: oklch(96.715% 0 none); /* #F4F4F4 */
   --color-wild-sand-400: oklch(97.015% 0 none); /* #F5F5F5 */
   --color-wild-sand-300: oklch(97.315% 0 none); /* #F6F6F6 */
+  --color-wild-sand-200: #fbfbfb; /* #FBFBFB */
   --color-mirage: oklch(23.356% 0.02778 271.82); /* #191D2B */
   --color-bunting: oklch(24.635% 0.06177 265.07); /* #121F3E */
   --color-alabaster: oklch(98.212% 0 none); /* #F9F9F9 */
@@ -110,6 +129,7 @@ html {
   --color-don-juan: oklch(43.905% 0.0106 17.563); /* #585050 */
   --color-shark: oklch(23.83% 0.01473 261.65); /* #1B1F26 */
   --color-dusty-gray: oklch(68.295% 0 none); /* #999999 */
+  --color-alto: oklch(87.61% 0 none); /* #D6D6D6 */
 
   --color-purple: oklch(40.277% 0.19894 310.35); /* #690695 */
   --color-purple-50: oklch(67.049% 0.23634 313.96); /* #C85AF8 */

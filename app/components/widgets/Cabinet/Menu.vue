@@ -1,5 +1,21 @@
 <script setup>
-const selected_menu = ref("subjects");
+const route = useRoute();
+const selected_menu = computed(() => {
+  if (
+    route.path.includes("cabinet/subjects") ||
+    route.path.includes("cabinet/lessons")
+  ) {
+    return "subjects";
+  } else if (route.path.includes("cabinet/rating")) {
+    return "rating";
+  } else if (route.path.includes("cabinet/test")) {
+    return "test";
+  } else if (route.path.includes("cabinet/premium")) {
+    return "premium";
+  }
+});
+
+const isPremiumOpen = ref(false);
 </script>
 
 <template>
@@ -51,7 +67,7 @@ const selected_menu = ref("subjects");
       </nuxt-link>
       <nuxt-link to="/cabinet/premium" class="flex py-4 gap-3">
         <img
-          v-if="selected_menu === 'permium'"
+          v-if="selected_menu === 'premium'"
           src="~/assets/svg/premium_light.svg"
           alt="icon"
         />
@@ -59,7 +75,7 @@ const selected_menu = ref("subjects");
         <p
           class="text-base font-medium"
           :class="
-            selected_menu === 'permium' ? 'text-primary' : 'text-cod-gray'
+            selected_menu === 'premium' ? 'text-primary' : 'text-cod-gray'
           "
         >
           {{ $t("erudit_premium") }}
@@ -82,7 +98,10 @@ const selected_menu = ref("subjects");
         <span class="text-primary font-normal">∞</span>
         {{ $t("infinite_lives") }}
       </p>
-      <UButton class="mt-3 py-2" size="sm">{{ $t("try_free") }}</UButton>
+      <UButton @click="isPremiumOpen = true" class="mt-3 py-2" size="sm">{{
+        $t("try_free")
+      }}</UButton>
     </div>
+    <ModalsPremium v-model="isPremiumOpen" />
   </aside>
 </template>

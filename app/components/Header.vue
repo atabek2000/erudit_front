@@ -1,5 +1,5 @@
 <script setup>
-const { locale, setLocale } = useI18n();
+const { locale } = useI18n();
 const props = defineProps({
   hasMenu: {
     type: Boolean,
@@ -18,65 +18,29 @@ const isLangOpen = ref(false);
         <img src="/logo/white.png" alt="logo" />
       </nuxt-link>
       <div class="flex gap-3 items-center">
-        <UModal
-          v-model:open="isLangOpen"
-          :ui="{
-            overlay: 'bg-black/70',
-          }"
+        <UButton
+          @click="isLangOpen = true"
+          class="text-purple-heart text-sm font-medium w-fit p-1 md:p-3"
+          variant="ghost"
         >
-          <UButton
-            class="text-purple-heart text-sm font-medium w-fit p-1 md:p-3"
-            variant="ghost"
-          >
-            Рус
-            <template #trailing>
-              <UIcon name="i-lucide-chevron-down" class="text-tundora size-5" />
-            </template>
-          </UButton>
-
-          <template #content>
-            <div class="p-4 md:p-10">
-              <p class="text-2xl font-semibold text-mirage">Выберите язык</p>
-              <div class="mt-5">
-                <UButton
-                  @click="setLocale('kk')"
-                  class="text-black text-sm font-normal w-full justify-between"
-                  variant="ghost"
-                >
-                  Казахский
-                  <template #trailing>
-                    <UIcon
-                      v-if="locale === 'kk'"
-                      name="i-lucide-check"
-                      class="text-tundora size-5"
-                    />
-                  </template>
-                </UButton>
-                <UButton
-                  @click="setLocale('ru')"
-                  class="text-black text-sm font-normal w-full justify-between"
-                  variant="ghost"
-                >
-                  Русский
-                  <template #trailing>
-                    <UIcon
-                      v-if="locale === 'ru'"
-                      name="i-lucide-check"
-                      class="text-tundora size-5"
-                    />
-                  </template>
-                </UButton>
-              </div>
-
-              <UButton
-                @click="isLangOpen = false"
-                class="text-base font-semibold text-white w-full justify-center py-3 mt-5 rounded-xl"
-              >
-                Выбрать
-              </UButton>
-            </div>
+          {{ locale === "kk" ? "Қаз" : "Рус" }}
+          <template #trailing>
+            <UIcon name="i-lucide-chevron-down" class="text-tundora size-5" />
           </template>
-        </UModal>
+        </UButton>
+        <nuxt-link
+          to="/cabinet/profile"
+          class="md:py-2 md:px-4 rounded-xl bg-wild-sand-400 flex gap-2.5 items-center"
+        >
+          <p class="hidden md:block text-sm font-medium text-cod-gray">
+            Аружан
+          </p>
+          <img
+            src="/temp/ava.png"
+            alt="avatar"
+            class="w-6 h-6 md:w-10 md:h-10"
+          />
+        </nuxt-link>
         <USlideover v-model:open="isOpen" v-if="hasMenu" class="md:hidden">
           <UButton
             label="Open"
@@ -110,6 +74,7 @@ const isLangOpen = ref(false);
           </template>
         </USlideover>
       </div>
+      <ModalsLang v-model:open="isLangOpen" />
     </div>
   </header>
 </template>

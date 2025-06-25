@@ -130,6 +130,8 @@ html {
   --color-shark: oklch(23.83% 0.01473 261.65); /* #1B1F26 */
   --color-dusty-gray: oklch(68.295% 0 none); /* #999999 */
   --color-alto: oklch(87.61% 0 none); /* #D6D6D6 */
+  --color-tuna: oklch(35.885% 0.01198 285.78); /* #3C3C43 */
+  --color-gallery: oklch(94.611% 0 none); /* #EDEDED */
 
   --color-purple: oklch(40.277% 0.19894 310.35); /* #690695 */
   --color-purple-50: oklch(67.049% 0.23634 313.96); /* #C85AF8 */

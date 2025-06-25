@@ -35,9 +35,12 @@ const isOpen = defineModel();
             {{ $t("mistake_analysis") }}
             <UIcon name="i-lucide-check" class="text-tundora size-6" />
           </p>
-          <UButton class="mt-8 py-3 bg-white hover:bg-white text-cod-gray">{{
-            $t("try_free")
-          }}</UButton>
+          <UButton
+            @click="isOpen = false"
+            to="/cabinet/premium/plans"
+            class="mt-8 py-3 bg-white hover:bg-white text-cod-gray"
+            >{{ $t("try_free") }}</UButton
+          >
         </div>
       </div>
     </template>

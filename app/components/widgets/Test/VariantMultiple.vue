@@ -10,23 +10,14 @@ const selectedAnswer = ref(["A) f′(x)=1−x2​1​"]);
 
 <template>
   <div class="max-w-[900px] mt-6 mx-auto">
+    <p class="text-base md:text-lg font-semibold text-mirage text-center">
+      Кто считался верховным правителем и богом в Древнем Египте?
+    </p>
     <img
       src="https://megabyteclub.co.uk/wp-content/uploads/2020/05/blog-article-6.jpg"
       alt="img"
-      class="w-full rounded-xl mb-3"
+      class="w-full rounded-xl mb-4 mt-5"
     />
-    <p class="text-base md:text-xl font-medium text-mirage">
-      Функцияның туындысын табыңыз
-    </p>
-    <p class="text-base font-normal text-mirage mt-2">
-      Салыстыру – бәсекелестіктің егізі және табиғатынан дәл сондай қатерлі.
-      Өзіңді басқалармен салыстыра отырып, жағымсыз жаңалықтардан басқа ештеңе
-      ала алмайсың. Неліктен? Себебі біз бәріміз әлеуметтік, психикалық және
-      физикалық тұрғыдан дамудың әртүрлі кезеңіндеміз. Біздің болмысымыз да
-      әртүрлі. Кейбіреуіміз тұқымы топыраққа енген бойда тез өсe бастайтын терек
-      тәріздіміз, ал кейбіреуіміз төрт жыл бойы мүлдем өспей, ал бесінші жылы
-      биіктігі отыз метрге дейін жететін бамбукке ұқсаймыз.
-    </p>
 
     <UCheckboxGroup
       v-model="selectedAnswer"
@@ -44,14 +35,14 @@ const selectedAnswer = ref(["A) f′(x)=1−x2​1​"]);
           <div class="">
             <img
               v-if="selectedAnswer.includes(item.value)"
-              src="~/assets/svg/check-select.svg"
+              src="~/assets/svg/check/select-black.svg"
               alt="icon"
               width="20"
               height="20"
             />
             <img
               v-else
-              src="~/assets/svg/check-noselect.svg"
+              src="~/assets/svg/check/noselect.svg"
               alt="icon"
               width="20"
               height="20"

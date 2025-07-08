@@ -6,8 +6,8 @@
     </div>
     <Footer
       v-if="
-        $route.path.includes('cabinet/lessons/test') &&
-        $route.path.includes('cabinet/lessons/vide')
+        !$route.path.includes('cabinet/lessons/test') &&
+        !$route.path.includes('cabinet/lessons/vide')
       "
     />
   </div>

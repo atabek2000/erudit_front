@@ -2,7 +2,7 @@
 <template>
   <div class="">
     <Header :hasMenu="true" />
-    <div class="bg-wild-sand-300 pt-[70px] md:pt-[95px] h-[95vh]">
+    <div class="bg-wild-sand-300 pt-[70px] md:pt-[95px] min-h-[95vh]">
       <div class="px-4 py-3 bg-white fixed w-full lg:hidden z-50">
         <SharedScorePanel class="justify-around" />
       </div>

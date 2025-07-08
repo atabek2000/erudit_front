@@ -56,7 +56,7 @@ const onContinue = () => {
 
         <WidgetsTestVariantSingle />
 
-        <div class="flex gap-3">
+        <div class="flex gap-3 md:hidden">
           <UButton
             @click="isErrorOpen = true"
             class="md:w-fit px-5 bg-purple-heart/10 hover:bg-purple-heart/20 text-cod-gray"

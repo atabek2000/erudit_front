@@ -9,12 +9,19 @@ const onContinue = () => {
 </script>
 
 <template>
-  <main class="py-10 bg-wild-sand-300">
-    <div class="main-container">
+  <main class="py-0 lg:py-10 bg-wild-sand-300">
+    <SharedScorePanelBack />
+
+    <div class="lg:main-container pt-16 lg:pt-0">
       <div class="bg-white py-6 px-4 md:px-8 rounded-xl">
         <div class="flex justify-between">
           <p class="text-xl font-semibold text-black">История</p>
-          <SharedScorePanel score="10" life="6" diamond="8" />
+          <SharedScorePanel
+            score="10"
+            life="6"
+            diamond="8"
+            class="hidden lg:flex"
+          />
         </div>
 
         <div class="flex justify-between items-center mt-6 flex-wrap gap-2">
@@ -25,7 +32,7 @@ const onContinue = () => {
           </div>
           <UButton
             @click="isErrorOpen = true"
-            class="md:w-fit px-5"
+            class="hidden md:block md:w-fit px-5"
             size="sm"
             >{{ $t("next_question") }}</UButton
           >
@@ -48,6 +55,21 @@ const onContinue = () => {
         </div>
 
         <WidgetsTestVariantSingle />
+
+        <div class="flex gap-3">
+          <UButton
+            @click="isErrorOpen = true"
+            class="md:w-fit px-5 bg-purple-heart/10 hover:bg-purple-heart/20 text-cod-gray"
+            size="sm"
+            >{{ $t("prev_btn") }}</UButton
+          >
+          <UButton
+            @click="isErrorOpen = true"
+            class="md:w-fit px-5"
+            size="sm"
+            >{{ $t("next_btn") }}</UButton
+          >
+        </div>
         <ModalsTestError v-model="isErrorOpen" @onContinue="onContinue" />
         <ModalsTestResult v-model="isResultOpen" />
       </div>

@@ -22,7 +22,7 @@ const selectedSubject = ref(subjects.value[0].id);
 </script>
 
 <template>
-  <main class="p-4 md:px-8 md:py-6">
+  <main class="bg-white lg:rounded-xl p-4 md:px-8 md:py-6">
     <div class="flex justify-between">
       <p class="text-xl font-semibold text-black">
         {{ $t("work_on_mistakes") }}

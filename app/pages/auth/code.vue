@@ -26,8 +26,8 @@ async function onSubmit(event) {}
       ]"
     />
 
-    <div class="my-48 max-w-[424px] mx-auto">
-      <h2 class="text-3xl font-semibold text-black">
+    <div class="mt-7 max-w-[424px] mx-auto">
+      <h2 class="text-xl md:text-3xl font-semibold text-black">
         {{ $t("confirmation_code") }}
       </h2>
 

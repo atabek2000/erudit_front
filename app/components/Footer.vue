@@ -1,6 +1,8 @@
 <template>
   <footer class="bg-purple text-white">
-    <div class="main-container flex justify-between py-7">
+    <div
+      class="main-container flex justify-between py-7 flex-col md:flex-row gap-8"
+    >
       <nuxt-link to="/">
         <img src="/logo/black.png" alt="logo" />
       </nuxt-link>
@@ -32,8 +34,8 @@
       </div>
     </div>
     <USeparator class="opacity-10" />
-    <div class="py-6">
-      <p class="text-center">
+    <div class="py-6 main-container">
+      <p class="md:text-center">
         {{ new Date().getFullYear() }}©{{ $t("app_name_copyright") }}
       </p>
     </div>

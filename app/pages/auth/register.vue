@@ -22,7 +22,7 @@ async function onSubmit(event) {}
     />
 
     <div class="mt-6 max-w-[424px] mx-auto">
-      <h2 class="text-3xl font-semibold text-black">
+      <h2 class="text-xl md:text-3xl font-semibold text-black">
         {{ $t("create_account") }}
       </h2>
 
@@ -57,14 +57,14 @@ async function onSubmit(event) {}
 
       <div class="flex gap-6">
         <UButton
-          class="text-cod-gray bg-athens-gray hover:bg-athens-gray/60"
+          class="text-cod-gray text-xs md:text-sm bg-athens-gray hover:bg-athens-gray/60"
           size="sm"
         >
           <img src="~/assets/svg/apple.svg" alt="appls" />
           {{ $t("login_with_apple") }}
         </UButton>
         <UButton
-          class="text-cod-gray bg-athens-gray hover:bg-athens-gray/60"
+          class="text-cod-gray text-xs md:text-sm bg-athens-gray hover:bg-athens-gray/60"
           size="sm"
         >
           <img src="~/assets/svg/google.svg" alt="appls" />

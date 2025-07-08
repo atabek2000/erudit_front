@@ -15,7 +15,11 @@ const isLangOpen = ref(false);
   <header class="fixed w-full py-3 bg-white" :style="{ zIndex: 9999999 }">
     <div class="main-container flex justify-between items-center">
       <nuxt-link to="/">
-        <img src="/logo/white.png" alt="logo" />
+        <img
+          src="/logo/white.png"
+          alt="logo"
+          class="max-w-[130px] md:max-w-[200px]"
+        />
       </nuxt-link>
       <div class="flex gap-3 items-center">
         <UButton
@@ -30,18 +34,16 @@ const isLangOpen = ref(false);
         </UButton>
         <nuxt-link
           to="/cabinet/profile"
-          class="md:py-2 md:px-4 rounded-xl bg-wild-sand-400 flex gap-2.5 items-center"
+          class="py-2 px-4 rounded-xl bg-wild-sand-400 flex gap-2.5 items-center"
         >
-          <p class="hidden md:block text-sm font-medium text-cod-gray">
-            Аружан
-          </p>
+          <p class="text-sm font-medium text-cod-gray">Аружан</p>
           <img
             src="/temp/ava.png"
             alt="avatar"
             class="w-6 h-6 md:w-10 md:h-10"
           />
         </nuxt-link>
-        <USlideover v-model:open="isOpen" v-if="hasMenu" class="md:hidden">
+        <!-- <USlideover v-model:open="isOpen" v-if="hasMenu" class="md:hidden">
           <UButton
             label="Open"
             color="neutral"
@@ -72,7 +74,7 @@ const isLangOpen = ref(false);
               </div>
             </div>
           </template>
-        </USlideover>
+        </USlideover> -->
       </div>
       <ModalsLang v-model:open="isLangOpen" />
     </div>

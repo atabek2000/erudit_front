@@ -40,10 +40,10 @@ export default defineAppConfig({
       variants: {
         active: {
           true: {
-            link: "text-black text-sm font-medium ",
+            link: "text-black text-xs md:text-sm font-medium ",
           },
           false: {
-            link: "text-dove-gray text-sm font-normal",
+            link: "text-dove-gray text-xs md:text-sm font-normal",
           },
         },
       },
@@ -62,7 +62,7 @@ export default defineAppConfig({
       variants: {
         size: {
           md: {
-            base: "px-4 py-3 text-base gap-1.5 ",
+            base: "px-4 py-3 text-sm md:text-base gap-1.5 ",
             leading: "ps-2.5",
             trailing: "pe-2.5",
             leadingIcon: "size-5",
@@ -90,6 +90,11 @@ export default defineAppConfig({
           outline:
             "text-highlighted bg-default ring ring-inset ring-accented flex-1 min-h-[70px]",
         },
+      },
+    },
+    formField: {
+      slots: {
+        label: "text-xs md:text-sm",
       },
     },
   },

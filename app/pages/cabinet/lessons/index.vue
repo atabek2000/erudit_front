@@ -24,9 +24,14 @@ const isPremiumOpen = ref(true);
 </script>
 
 <template>
-  <main class="px-4 md:px-8 relative">
+  <main class="bg-white lg:rounded-xl px-4 md:px-8 relative">
     <div class="flex justify-end absolute right-4 top-4">
-      <SharedScorePanel score="10" life="6" diamond="8" />
+      <SharedScorePanel
+        score="10"
+        life="6"
+        diamond="8"
+        class="hidden md:flex"
+      />
     </div>
     <div class="overflow-y-auto">
       <img
@@ -45,7 +50,7 @@ const isPremiumOpen = ref(true);
         background="#FFEBF8"
         title="Откройте 1 модуль по Истории!"
         text="Пройдите еще 20 уроков, чтобы вступить в состязание"
-        class="mt-12 md:mt-6"
+        class="mt-4 lg:mt-6"
       />
       <div class="max-w-[370px] mx-auto mt-8 relative">
         <div v-for="(ls, index) in lessons" :key="ls">

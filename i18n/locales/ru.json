@@ -91,7 +91,7 @@
   "how_many_lives_buy": "Сколько вы жизни хотите купить?",
   "you_have_5_lives": "У вас",
   "life_equals_100_tenge": "1 жизнь = 100 тенге",
-  "buy_2_lives_200_tenge": "Купить {life} жизни за {price} тенге",
+  "buy_2_lives_200_tenge": "Купить {life} за {price} тенге",
   "next_question": "Следующий вопрос",
   "life_restore_timer": "Жизнь восстановится через",
   "time_4h_49min": "4 ч: 49 мин",
@@ -179,5 +179,7 @@
   "resubscribe": "Оформить подписку повторно",
   "retake": "Пройти заново",
   "result": "Результат",
+  "next_btn": "Следующий",
+  "prev_btn": "Предыдущий",
   "premium_required_after": "Последующий доступ — только с подпиской Эрудит Premium."
 }

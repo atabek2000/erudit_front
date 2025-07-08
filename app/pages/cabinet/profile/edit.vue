@@ -20,7 +20,7 @@ definePageMeta({
 const onSubmit = (event) => {};
 </script>
 <template>
-  <main class="p-4 md:px-8 md:py-6">
+  <main class="bg-white lg:rounded-xl p-4 md:px-8 md:py-6">
     <p class="text-xl font-semibold text-black">{{ $t("edit_profile") }}</p>
     <div class="mt-6 mb-4">
       <label

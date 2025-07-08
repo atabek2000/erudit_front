@@ -91,8 +91,8 @@ const periodPeriod = ref(subjects.value[0].id);
 </script>
 
 <template>
-  <main class="px-8 py-6 bg-white rounded-xl">
-    <div class="flex justify-between flex-col md:flex-row">
+  <main class="bg-white lg:rounded-xl p-4 lg:px-8 lg:py-6 max-w-full">
+    <div class="flex justify-between flex-col md:flex-row gap-3">
       <div class="">
         <p class="text-xl font-semibold text-black">{{ $t("rating") }}</p>
         <p class="text-base font-normal text-scorpion mt-2">

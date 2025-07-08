@@ -31,12 +31,18 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <main class="py-10 bg-wild-sand-300">
-    <div class="main-container">
-      <div class="bg-white py-6 px-4 md:px-8 rounded-xl">
+  <main class="py-0 lg:py-10 bg-wild-sand-300">
+    <SharedScorePanelBack />
+    <div class="lg:main-container pt-16 md:pt-0">
+      <div class="bg-white py-6 px-4 md:px-8 lg:rounded-xl">
         <div class="flex justify-between">
           <p class="text-xl font-semibold text-black">История</p>
-          <SharedScorePanel score="10" life="6" diamond="8" />
+          <SharedScorePanel
+            score="10"
+            life="6"
+            diamond="8"
+            class="hidden lg:flex"
+          />
         </div>
 
         <div class="tiny-container mt-6">

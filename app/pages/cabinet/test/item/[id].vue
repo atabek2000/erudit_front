@@ -3,14 +3,19 @@ const isConfirmOpen = ref(false);
 </script>
 
 <template>
-  <main class="py-10 bg-wild-sand-300">
-    <div class="main-container">
+  <main class="py-0 lg:py-10 bg-wild-sand-300">
+    <SharedScorePanelBack />
+
+    <div class="lg:main-container pt-16 lg:pt-0">
       <div class="bg-white py-6 px-4 md:px-8 rounded-xl">
         <div class="flex justify-between">
           <p class="text-xl font-semibold text-black">История</p>
-          <UButton class="md:w-fit px-5 text-sm" size="xs" variant="soft">{{
-            $t("next_subject")
-          }}</UButton>
+          <UButton
+            class="hidden md:block md:w-fit px-5 text-sm"
+            size="xs"
+            variant="soft"
+            >{{ $t("next_subject") }}</UButton
+          >
         </div>
 
         <div class="flex justify-between items-center mt-6 flex-wrap gap-2">
@@ -22,14 +27,14 @@ const isConfirmOpen = ref(false);
           <UButton
             v-if="$route.params.id == 1"
             :to="`/cabinet/test/item/${Number($route.params.id) + 1}`"
-            class="md:w-fit px-5 text-sm"
+            class="md:w-fit px-5 text-sm hidden md:block"
             size="xs"
             >{{ $t("next_question") }}</UButton
           >
           <UButton
             v-else
             @click="isConfirmOpen = true"
-            class="md:w-fit px-5 text-sm text-white bg-black hover:bg-black/80"
+            class="md:w-fit px-5 text-sm text-white bg-black hover:bg-black/80 hidden md:block"
             size="xs"
             >{{ $t("finish_test") }}</UButton
           >
@@ -52,6 +57,37 @@ const isConfirmOpen = ref(false);
 
         <WidgetsTestVariantSingle v-if="$route.params.id == 1" />
         <WidgetsTestVariantMultiple v-if="$route.params.id == 2" />
+
+        <div class="flex gap-3 mt-6 md:hidden">
+          <UButton
+            :to="`/cabinet/test/item/${Number($route.params.id) - 1}`"
+            class="md:w-fit px-5 bg-purple-heart/10 hover:bg-purple-heart/5 disabled:bg-purple-heart/5 text-cod-gray"
+            size="sm"
+            :disabled="Number($route.params.id) <= 1"
+            >{{ $t("prev_btn") }}</UButton
+          >
+          <UButton
+            v-if="$route.params.id == 1"
+            :to="`/cabinet/test/item/${Number($route.params.id) + 1}`"
+            class="md:w-fit px-5"
+            size="sm"
+            >{{ $t("next_btn") }}</UButton
+          >
+          <UButton
+            v-else
+            @click="isConfirmOpen = true"
+            class="md:w-fit px-5 text-sm text-white bg-black hover:bg-black/80"
+            size="xs"
+            >{{ $t("finish_test") }}</UButton
+          >
+        </div>
+        <UButton
+          class="md:hidden md:w-fit px-5 text-sm mt-5"
+          size="xs"
+          variant="ghost"
+          >{{ $t("next_subject") }}</UButton
+        >
+
         <ModalsTestConfirm v-model="isConfirmOpen" />
       </div>
     </div>

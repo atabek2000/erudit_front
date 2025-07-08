@@ -19,8 +19,8 @@ const isPremiumOpen = ref(false);
 </script>
 
 <template>
-  <aside class="min-w-[276px] md:max-w-[276px]">
-    <div class="px-6 rounded-xl bg-white">
+  <aside class="min-w-[276px] lg:max-w-[276px]">
+    <div class="hidden lg:block px-6 rounded-xl bg-white">
       <nuxt-link to="/cabinet/subjects" class="flex py-4 gap-3">
         <img
           v-if="selected_menu === 'subjects'"
@@ -83,25 +83,22 @@ const isPremiumOpen = ref(false);
       </nuxt-link>
     </div>
 
-    <div class="px-6 py-4 rounded-xl bg-white mt-3">
-      <div class="flex gap-2.5">
-        <p class="test-sm font-semibold text-primary">
-          {{ $t("try_erudit_premium") }}
-        </p>
-        <img src="/logo/icon.png" alt="logo" width="54" />
-      </div>
-      <p class="text-xs font-normal text-cod-gray/70">
-        <span class="text-primary font-normal">∞</span>
-        {{ $t("unlimited_trial_tests") }}
-      </p>
-      <p class="text-xs font-normal text-cod-gray/70">
-        <span class="text-primary font-normal">∞</span>
-        {{ $t("infinite_lives") }}
-      </p>
-      <UButton @click="isPremiumOpen = true" class="mt-3 py-2" size="sm">{{
-        $t("try_free")
-      }}</UButton>
+    <div class="flex justify-around w-full lg:hidden">
+      <nuxt-link to="/cabinet/subjects" class="p-5">
+        <img src="~/assets/svg/subject_light.svg" alt="img" class="w-7 h-7" />
+      </nuxt-link>
+      <nuxt-link to="/cabinet/rating" class="p-5">
+        <img src="~/assets/svg/rating_yellow.svg" alt="img" class="w-7 h-7" />
+      </nuxt-link>
+      <nuxt-link to="/cabinet/test" class="p-5">
+        <img src="~/assets/svg/test_ent_green.svg" alt="img" class="w-7 h-7" />
+      </nuxt-link>
+      <nuxt-link to="/cabinet/premium" class="p-5">
+        <img src="~/assets/svg/premium_red.svg" alt="img" class="w-7 h-7" />
+      </nuxt-link>
     </div>
+
+    <WidgetsCabinetPremiumBlock class="hidden lg:block mt-3" />
     <ModalsPremium v-model="isPremiumOpen" />
   </aside>
 </template>

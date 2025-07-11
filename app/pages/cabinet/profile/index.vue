@@ -16,7 +16,7 @@ const menu = [
   {
     bg: "bg-hint-of-green",
     text: "work_on_mistakes",
-    to: "/cabinet/test/mistakes",
+    to: "/cabinet/mistakes",
     click: () => {},
   },
   {

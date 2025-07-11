@@ -61,7 +61,7 @@ const isConfirmOpen = ref(false);
         <div class="flex gap-3 mt-6 md:hidden">
           <UButton
             :to="`/cabinet/test/item/${Number($route.params.id) - 1}`"
-            class="md:w-fit px-5 bg-purple-heart/10 hover:bg-purple-heart/5 disabled:bg-purple-heart/5 text-cod-gray"
+            class="md:w-fit px-5 bg-purple-heart/10 hover:bg-purple-heart/20 aria-disabled:bg-purple-heart/10 text-cod-gray"
             size="sm"
             :disabled="Number($route.params.id) <= 1"
             >{{ $t("prev_btn") }}</UButton

@@ -1,6 +1,7 @@
 <script setup>
 const isErrorOpen = ref(false);
 const isResultOpen = ref(false);
+const isConfirmOpen = ref(false);
 
 const onContinue = () => {
   isErrorOpen.value = false;
@@ -16,12 +17,6 @@ const onContinue = () => {
       <div class="bg-white py-6 px-4 md:px-8 rounded-xl">
         <div class="flex justify-between">
           <p class="text-xl font-semibold text-black">История</p>
-          <SharedScorePanel
-            score="10"
-            life="6"
-            diamond="8"
-            class="hidden lg:flex"
-          />
         </div>
 
         <div class="flex justify-between items-center mt-6 flex-wrap gap-2">
@@ -31,10 +26,18 @@ const onContinue = () => {
             <p class="text-lg font-medium text-mirage">40:00 мин</p>
           </div>
           <UButton
-            @click="isErrorOpen = true"
-            class="hidden md:block md:w-fit px-5"
-            size="sm"
+            v-if="$route.params.id == 1"
+            to="/cabinet/mistakes/test/2"
+            class="hidden md:block text-sm md:w-fit px-5"
+            size="xs"
             >{{ $t("next_question") }}</UButton
+          >
+          <UButton
+            v-else
+            @click="isConfirmOpen = true"
+            class="md:w-fit px-5 text-sm text-white bg-black hover:bg-black/80 hidden md:block"
+            size="xs"
+            >{{ $t("finish_test") }}</UButton
           >
         </div>
 
@@ -54,7 +57,8 @@ const onContinue = () => {
           </button>
         </div>
 
-        <WidgetsTestVariantSingle />
+        <WidgetsTestVariantSingle v-if="$route.params.id == 1" />
+        <WidgetsTestVariantMultiple v-else />
 
         <div class="flex gap-3 md:hidden">
           <UButton
@@ -72,6 +76,10 @@ const onContinue = () => {
         </div>
         <ModalsTestError v-model="isErrorOpen" @onContinue="onContinue" />
         <ModalsTestResult v-model="isResultOpen" />
+        <ModalsTestConfirm
+          v-model="isConfirmOpen"
+          url="/cabinet/mistakes/result"
+        />
       </div>
     </div>
   </main>

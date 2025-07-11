@@ -52,13 +52,13 @@ const isPremiumOpen = ref(true);
         text="Пройдите еще 20 уроков, чтобы вступить в состязание"
         class="mt-4 lg:mt-6"
       />
-      <div class="max-w-[370px] mx-auto mt-8 relative">
+      <div class="max-w-[70%] w-[370px] mx-auto mt-8 relative pb-4">
         <div v-for="(ls, index) in lessons" :key="ls">
           <SharedLessonsVideo
             v-if="ls === 'video'"
             :class="{
-              'mx-auto': index % 4 == 1 || index % 4 == 3,
-              'ml-auto': index % 4 == 2,
+              'mx-auto': index == 0 || index % 4 == 2 || index % 4 === 0,
+              'ml-auto': index % 4 == 1,
             }"
             :disabled="index > 5"
             color="#FBBC05"
@@ -67,8 +67,8 @@ const isPremiumOpen = ref(true);
           <SharedLessonsTest
             v-else
             :class="{
-              'mx-auto': index % 4 == 1 || index % 4 == 3,
-              'ml-auto': index % 4 == 2,
+              'mx-auto': index == 0 || index % 4 == 2 || index % 4 === 0,
+              'ml-auto': index % 4 == 1,
             }"
             :disabled="index > 5"
           />

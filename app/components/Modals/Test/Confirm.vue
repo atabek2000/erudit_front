@@ -1,4 +1,10 @@
 <script setup>
+const props = defineProps({
+  url: {
+    type: String,
+    default: "/cabinet/test/result",
+  },
+});
 const isOpen = defineModel();
 </script>
 <template>
@@ -18,9 +24,7 @@ const isOpen = defineModel();
             size="md"
             >{{ $t("cancel") }}</UButton
           >
-          <UButton to="/cabinet/test/result" class="" size="md">{{
-            $t("finish")
-          }}</UButton>
+          <UButton :to="url" class="" size="md">{{ $t("finish") }}</UButton>
         </div>
       </div>
     </template>

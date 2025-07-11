@@ -40,6 +40,14 @@ async function onSubmit(event) {}
           <UInput v-model="state.email" :placeholder="$t('enter_email')" />
         </UFormField>
 
+        <UFormField :label="$t('password')" name="password" class="mb-3">
+          <UInput
+            v-model="state.password"
+            type="password"
+            :placeholder="$t('enter_password')"
+          />
+        </UFormField>
+
         <UButton type="submit" class="mt-5" to="/cabinet/subjects">
           {{ $t("sign_up") }}
         </UButton>

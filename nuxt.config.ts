@@ -32,6 +32,19 @@ export default defineNuxtConfig({
     APPLE_CLIENT_ID: process.env.APPLE_CLIENT_ID,
     APPLE_PRIVATE_KEY: process.env.APPLE_PRIVATE_KEY,
   },
+  auth: {
+    isEnabled: true,
+    disableServerSideAuth: false,
+    originEnvKey: "AUTH_ORIGIN",
+    baseURL: process.env.AUTH_ORIGIN,
+    provider: {
+      type: "authjs",
+    },
+  },
+  // for setCookie from nitro
+  experimental: {
+    asyncContext: true,
+  },
   ui: {
     colorMode: false,
   },

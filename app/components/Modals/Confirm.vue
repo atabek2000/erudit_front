@@ -1,5 +1,6 @@
 <script setup>
 const isLangOpen = defineModel();
+const emits = defineEmits(["submit"]);
 const props = defineProps({
   title: {
     type: String,
@@ -7,7 +8,7 @@ const props = defineProps({
   },
 });
 const closeModal = () => {
-  isLangOpen.value = false;
+  emits("submit");
 };
 </script>
 

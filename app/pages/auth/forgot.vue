@@ -1,17 +1,30 @@
-<script setup>
-import * as z from "zod";
+<script setup lang="ts">
+const { resetPassword, verifyResetCode, changePassword } = useCustomAuth();
+enum Block {
+  form = "form",
+  code = "code",
+  password = "password",
+}
+const openedBlock = ref<Block>(Block.form);
 
-const schema = z.object({
-  email: z.string().email("Invalid email"),
-  password: z.string().min(8, "Must be at least 8 characters"),
-});
+const email = ref<string>("");
 
-const state = reactive({
-  email: "",
-  password: "",
-});
-
-async function onSubmit(event) {}
+const onSubmitEmail = (data: { email: string }) => {
+  email.value = data.email;
+  resetPassword(data).then(() => {
+    openedBlock.value = Block.code;
+  });
+};
+const onSubmitCode = (data: { code: string }) => {
+  verifyResetCode(data).then(() => {
+    openedBlock.value = Block.password;
+  });
+};
+const onSubmitPassword = (data: { password: string }) => {
+  changePassword(data).then(() => {
+    useRouter().push("/auth/login");
+  });
+};
 </script>
 
 <template>
@@ -23,26 +36,18 @@ async function onSubmit(event) {}
         { label: $t('forgot_password') },
       ]"
     />
-
-    <div class="mt-7 max-w-[424px] mx-auto">
-      <h2 class="text-xl md:text-3xl font-semibold text-black">
-        {{ $t("forgot_password") }}
-      </h2>
-
-      <UForm
-        :schema="schema"
-        :state="state"
-        class="space-y-4 mt-4"
-        @submit="onSubmit"
-      >
-        <UFormField :label="$t('email')" name="email" class="w-full">
-          <UInput v-model="state.email" :placeholder="$t('enter_email')" />
-        </UFormField>
-
-        <UButton type="submit" class="mt-5" to="/auth/code">
-          {{ $t("next") }}
-        </UButton>
-      </UForm>
-    </div>
+    <WidgetsAuthForgot
+      v-if="openedBlock === Block.form"
+      @submit="onSubmitEmail"
+    />
+    <WidgetsAuthCode
+      v-else-if="openedBlock === Block.code"
+      @submit="onSubmitCode"
+      :email="email"
+    />
+    <WidgetsAuthPassword
+      v-else-if="openedBlock === Block.password"
+      @submit="onSubmitPassword"
+    />
   </main>
 </template>

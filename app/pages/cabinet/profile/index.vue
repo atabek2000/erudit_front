@@ -1,4 +1,5 @@
 <script setup>
+const { logout } = useCustomAuth();
 definePageMeta({
   layout: "menu",
 });
@@ -42,6 +43,12 @@ const menu = [
     },
   },
 ];
+
+const onLogout = () => {
+  logout();
+  isLogoutOpen.value = false;
+  useRouter().push("/");
+};
 </script>
 
 <template>
@@ -84,7 +91,11 @@ const menu = [
         </p>
       </nuxt-link>
     </div>
-    <ModalsConfirm v-model="isLogoutOpen" :title="$t('logout')" />
+    <ModalsConfirm
+      v-model="isLogoutOpen"
+      :title="$t('logout')"
+      @submit="onLogout"
+    />
     <ModalsLang v-model:open="isLangOpen" />
   </main>
 </template>

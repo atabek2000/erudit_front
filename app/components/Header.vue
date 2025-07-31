@@ -1,4 +1,7 @@
 <script setup>
+const cookie_jwt = useCookie("jwt", { maxAge: 2592000 });
+const cookie_auth_name = useCookie("user_name", { maxAge: 2592000 });
+
 const { locale } = useI18n();
 const props = defineProps({
   hasMenu: {
@@ -33,10 +36,13 @@ const isLangOpen = ref(false);
           </template>
         </UButton>
         <nuxt-link
+          v-if="cookie_jwt"
           to="/cabinet/profile"
           class="py-2 px-4 rounded-xl bg-wild-sand-400 flex gap-2.5 items-center"
         >
-          <p class="text-sm font-medium text-cod-gray">Аружан</p>
+          <p class="text-sm font-medium text-cod-gray">
+            {{ cookie_auth_name }}
+          </p>
           <img
             src="/temp/ava.png"
             alt="avatar"

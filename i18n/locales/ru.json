@@ -1,4 +1,21 @@
 {
+  "toast": {
+    "invalid_email": "Неверный Email",
+    "invalid_pass": "Введите пароль",
+    "invalid_phone": "Неверный номер телефона",
+    "invalid_fio": "Введите ФИО длиной не менее трёх символов",
+    "error": "Ошибка!",
+    "success": "Успешно!",
+    "success_saved": "Успешно сохранено!",
+    "success_added": "Успешно добавлено!",
+    "success_deleted": "Успешно удалено!",
+    "not_auth": "Вы не авторизованы!",
+    "error_on_server": "Ошибка на сервере",
+    "error_password_not_match": "Пароли не совпадают!",
+    "success_changed": "Успешно изменено!",
+    "min_symbol": "Минимальное количество символов {min}",
+    "max_symbol": "Максимальное количество символов {max}"
+  },
   "free_ent_preparation": "Бесплатная подготовка к ЕНТ",
   "free_lessons_and_tests": "Бесплатные уроки и пробные тесты",
   "start_button": "Начать",

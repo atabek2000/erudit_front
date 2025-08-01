@@ -1,4 +1,21 @@
 {
+  "toast": {
+    "invalid_email": "Қате Email",
+    "invalid_pass": "Құпиясөз енгізіңіз",
+    "invalid_phone": "Қате телефон номерi",
+    "invalid_fio": "Аты жөніңіз кемінде үш таңбадан тұруы керек",
+    "error": "Қате!",
+    "success": "Сәтті!",
+    "success_saved": "Сәтті сақталды!",
+    "success_added": "Сәтті қосылды!",
+    "success_deleted": "Сәтті жойылды!",
+    "not_auth": "Сіз авторизацияланбағансыз!",
+    "error_on_server": "Серверде қате",
+    "error_password_not_match": "Құпиясөздер сәйкес келмейді!",
+    "success_changed": "Сәтті өзгертілді!",
+    "min_symbol": "Минималды символ саны {min}",
+    "max_symbol": "Максималды символ саны {max}"
+  },
   "free_ent_preparation": "Тегін ҰБТ‑ға дайындық",
   "free_lessons_and_tests": "Тегін сабақтар мен сынақтар",
   "start_button": "Бастау",

@@ -8,7 +8,7 @@ const props = defineProps({
   },
 });
 const closeModal = () => {
-  emits("submit");
+  isLangOpen.value = false;
 };
 </script>
 
@@ -30,7 +30,7 @@ const closeModal = () => {
           >
             {{ $t("no") }}
           </UButton>
-          <UButton @click="closeModal">
+          <UButton @click="emits('submit')">
             {{ $t("yes") }}
           </UButton>
         </div>

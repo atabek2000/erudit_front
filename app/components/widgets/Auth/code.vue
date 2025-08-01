@@ -1,6 +1,8 @@
 <script setup>
 import * as z from "zod";
 const emits = defineEmits(["submit"]);
+const { t } = useI18n();
+
 const props = defineProps({
   email: {
     type: String,
@@ -10,12 +12,16 @@ const props = defineProps({
 
 const schema = z.object({
   code: z
-    .array(z.string().regex(/^\d$/)) // каждая цифра — строка из одной цифры
-    .length(4, "PIN-код должен содержать 4 цифры"),
+    .array(z.string().regex(/^\d$/))
+    .length(4, t("toast.min_symbol", { min: 4 })),
 });
 
 const state = reactive({
   code: [],
+});
+
+const isFormValid = computed(() => {
+  return !schema.safeParse(state).success;
 });
 
 const value = ref([]);
@@ -53,7 +59,7 @@ async function onSubmit() {
         v-model="value"
       />
 
-      <UButton type="submit" class="mt-5">
+      <UButton type="submit" class="mt-5" :disabled="isFormValid">
         {{ $t("send") }}
       </UButton>
     </UForm>

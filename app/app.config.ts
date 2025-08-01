@@ -11,7 +11,7 @@ export default defineAppConfig({
     },
     button: {
       slots: {
-        base: ["rounded-xl w-full cursor-pointer"],
+        base: ["rounded-xl w-full cursor-pointer "],
       },
       variants: {
         size: {
@@ -35,6 +35,14 @@ export default defineAppConfig({
           },
         },
       },
+      compoundVariants: [
+        {
+          color: "primary",
+          variant: "solid",
+          class:
+            "text-inverted bg-primary hover:bg-primary/75 active:bg-primary/75 disabled:bg-gray/80 disabled:text-white aria-disabled:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+        },
+      ],
     },
     breadcrumb: {
       variants: {

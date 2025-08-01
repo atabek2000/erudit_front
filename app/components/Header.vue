@@ -17,7 +17,7 @@ const isLangOpen = ref(false);
 <template>
   <header class="fixed w-full py-3 bg-white" :style="{ zIndex: 9999999 }">
     <div class="main-container flex justify-between items-center">
-      <nuxt-link to="/">
+      <nuxt-link :to="cookie_jwt ? '/cabinet/subjects' : '/'">
         <img
           src="/logo/white.png"
           alt="logo"

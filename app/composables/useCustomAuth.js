@@ -25,6 +25,7 @@ export default () => {
         await useFetchApi("user/profile", {
           headers: {
             "Content-Language": $i18n.getLocaleCookie(),
+            Authorization: `Bearer ${cookie_jwt.value}`,
           },
           onResponse({ request, response, options }) {
             if (response.ok) {
@@ -33,9 +34,9 @@ export default () => {
                 response._data.data?.name ?? $i18n.t("profile");
               refreshCookie("user_name");
             } else {
-              setUser({});
-              cookie_jwt.value = "";
-              refreshCookie("jwt");
+              // setUser({});
+              // cookie_jwt.value = "";
+              // refreshCookie("jwt");
               cookie_auth_name.value = "";
               refreshCookie("user_name");
               router.push("/");

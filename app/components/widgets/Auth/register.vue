@@ -2,11 +2,12 @@
 import * as z from "zod";
 import type { UserAuth } from "@/utils/types/user";
 const emits = defineEmits(["submit"]);
+const { t } = useI18n();
 
 const schema = z.object({
-  name: z.string().min(3, "Must be at least 8 characters"),
-  email: z.string().email("Invalid email"),
-  password: z.string().min(3, "Must be at least 8 characters"),
+  name: z.string().min(3, t("toast.invalid_fio")),
+  email: z.string().email(t("toast.invalid_email")),
+  password: z.string().min(3, t("toast.min_symbol", { min: 3 })),
 });
 
 const state = reactive<UserAuth>({
@@ -14,6 +15,11 @@ const state = reactive<UserAuth>({
   email: "",
   password: "",
 });
+
+const isFormValid = computed(() => {
+  return !schema.safeParse(state).success;
+});
+const isPasswordVisible = ref(false);
 
 async function onSubmit() {
   emits("submit", state);
@@ -43,12 +49,29 @@ async function onSubmit() {
       <UFormField :label="$t('password')" name="password" class="mb-3">
         <UInput
           v-model="state.password"
-          type="password"
+          :type="isPasswordVisible ? 'text' : 'password'"
           :placeholder="$t('enter_password')"
-        />
+        >
+          <template #trailing>
+            <button
+              v-if="!isPasswordVisible"
+              @click="isPasswordVisible = true"
+              class="flex items-center bg-white"
+            >
+              <img src="/eye_close.png" alt="eye" class="w-5 object-contain" />
+            </button>
+            <button
+              v-if="isPasswordVisible"
+              @click="isPasswordVisible = false"
+              class="flex items-center"
+            >
+              <img src="/eye.png" alt="eye" class="w-5 object-contain" />
+            </button>
+          </template>
+        </UInput>
       </UFormField>
 
-      <UButton type="submit" class="mt-5">
+      <UButton type="submit" class="mt-5" :disabled="isFormValid">
         {{ $t("sign_up") }}
       </UButton>
     </UForm>

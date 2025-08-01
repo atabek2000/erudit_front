@@ -1,14 +1,19 @@
 <script setup>
 import * as z from "zod";
+const { t } = useI18n();
 
 const emits = defineEmits(["submit"]);
 
 const schema = z.object({
-  email: z.string().email("Invalid email"),
+  email: z.string().email(t("toast.invalid_email")),
 });
 
 const state = reactive({
   email: "",
+});
+
+const isFormValid = computed(() => {
+  return !schema.safeParse(state).success;
 });
 
 async function onSubmit() {
@@ -32,7 +37,7 @@ async function onSubmit() {
         <UInput v-model="state.email" :placeholder="$t('enter_email')" />
       </UFormField>
 
-      <UButton type="submit" class="mt-5">
+      <UButton type="submit" class="mt-5" :disabled="isFormValid">
         {{ $t("next") }}
       </UButton>
     </UForm>

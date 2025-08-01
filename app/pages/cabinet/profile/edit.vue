@@ -34,7 +34,7 @@ const validate = (state) => {
     });
   }
 
-  if (!schema.password.safeParse(state.password).success || !state.password) {
+  if (!schema.password.safeParse(state.password).success && state.password) {
     errors.push({
       path: "password",
       message: t("toast.min_symbol", { min: 3 }),

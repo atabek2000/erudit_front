@@ -1,24 +1,12 @@
 <script setup>
+const route = useRoute();
+const { data } = await useAPI(
+  `list/modules?subject_id=${route.query.subject_id}`
+);
+
 definePageMeta({
   layout: "menu",
 });
-
-const lessons = [
-  "video",
-  "test",
-  "video",
-  "test",
-  "video",
-  "test",
-  "video",
-  "test",
-  "video",
-  "test",
-  "video",
-  "test",
-  "video",
-  "test",
-];
 
 const isPremiumOpen = ref(true);
 </script>
@@ -34,7 +22,7 @@ const isPremiumOpen = ref(true);
       />
     </div>
     <div class="overflow-y-auto">
-      <img
+      <!-- <img
         src="/temp/lesson1.png"
         alt="img"
         class="absolute top-[260px] md:top-[250px] left-1/2 -translate-y-1/2 w-1/2 p-10 md:p-20 max-w-[380px]"
@@ -45,33 +33,36 @@ const isPremiumOpen = ref(true);
         width="167"
         height="167"
         class="absolute top-[940px] md:top-[900px] right-1/2 -translate-y-1/2 w-1/2 p-10 md:p-20 max-w-[380px]"
-      />
-      <SharedLessonsName
-        background="#FFEBF8"
-        title="Откройте 1 модуль по Истории!"
-        text="Пройдите еще 20 уроков, чтобы вступить в состязание"
-        class="mt-4 lg:mt-6"
-      />
-      <div class="max-w-[70%] w-[370px] mx-auto mt-8 relative pb-4">
-        <div v-for="(ls, index) in lessons" :key="ls">
-          <SharedLessonsVideo
-            v-if="ls === 'video'"
-            :class="{
-              'mx-auto': index == 0 || index % 4 == 2 || index % 4 === 0,
-              'ml-auto': index % 4 == 1,
-            }"
-            :disabled="index > 5"
-            color="#FBBC05"
-            shadow="#A57D0A"
-          />
-          <SharedLessonsTest
-            v-else
-            :class="{
-              'mx-auto': index == 0 || index % 4 == 2 || index % 4 === 0,
-              'ml-auto': index % 4 == 1,
-            }"
-            :disabled="index > 5"
-          />
+      /> -->
+      <div v-for="module in data?.data" :key="module.id">
+        <SharedLessonsName
+          background="#FFEBF8"
+          :title="module.name"
+          :text="module.description"
+          class="mt-4 lg:mt-6"
+        />
+        <div class="max-w-[70%] w-[370px] mx-auto mt-8 relative pb-4">
+          <div v-for="(ls, index) in module?.sub_modules" :key="ls">
+            <SharedLessonsVideo
+              v-if="ls.type === 'lesson'"
+              :class="{
+                'mx-auto': index == 0 || index % 4 == 2 || index % 4 === 0,
+                'ml-auto': index % 4 == 1,
+              }"
+              :disabled="index > 5"
+              color="#FBBC05"
+              shadow="#A57D0A"
+              :lesson="ls"
+            />
+            <SharedLessonsTest
+              v-else
+              :class="{
+                'mx-auto': index == 0 || index % 4 == 2 || index % 4 === 0,
+                'ml-auto': index % 4 == 1,
+              }"
+              :disabled="index > 5"
+            />
+          </div>
         </div>
       </div>
     </div>

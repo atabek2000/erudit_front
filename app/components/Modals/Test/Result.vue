@@ -1,4 +1,5 @@
 <script setup>
+const emits = defineEmits(["submit"]);
 const isOpen = defineModel();
 </script>
 
@@ -18,7 +19,7 @@ const isOpen = defineModel();
           <img src="/fire.png" alt="fire" width="70" height="70" />
         </div>
 
-        <UButton @click="isOpen = false" class="mt-8">{{ $t("ok") }}</UButton>
+        <UButton @click="emits('submit')" class="mt-8">{{ $t("ok") }}</UButton>
       </div>
     </template>
   </UModal>

@@ -1,5 +1,10 @@
 <script setup>
 const { locale } = useI18n();
+const { initAuth } = useCustomAuth();
+
+onMounted(async () => {
+  await initAuth();
+});
 
 useHead({
   title: `Бесплатная подготовка к ЕНТ для каждого`,

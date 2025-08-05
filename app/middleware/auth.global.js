@@ -3,5 +3,10 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
   if (!cookie_jwt.value && to.path.includes("cabinet")) {
     return navigateTo("/");
+  } else if (
+    cookie_jwt.value &&
+    (to.path.includes("auth") || to.path === "/")
+  ) {
+    return navigateTo("/cabinet/subjects");
   }
 });

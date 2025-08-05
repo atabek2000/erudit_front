@@ -12,6 +12,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  lesson: {
+    type: Object,
+    default: {},
+  },
 });
 
 const open = ref(false);
@@ -68,7 +72,7 @@ onBeforeUnmount(() => {
           <p class="text-sm font-medium mt-1">Урок 1 из 100</p>
 
           <UButton
-            to="/cabinet/lessons/video/1"
+            :to="`/cabinet/lessons/video/${lesson.id}`"
             class="mt-4 bg-white hover:bg-white"
             :style="{ color: color }"
             >Начать</UButton

@@ -1,16 +1,11 @@
 <script setup>
 import * as z from "zod";
+import { useAPI } from "~/composables/useAPI";
 const { deleteUser, profileEdit } = useCustomAuth();
 const cookie_jwt = useCookie("jwt");
 const { t } = useI18n();
 
-const { data, refresh } = await useAsyncData(() =>
-  $fetch(useRuntimeConfig().public.API_URL + "user/profile", {
-    headers: {
-      Authorization: `Bearer ${cookie_jwt.value}`,
-    },
-  })
-);
+const { data } = await useAPI("user/profile");
 
 const schema = {
   name: z.string().min(3, t("toast.invalid_fio")),
@@ -94,7 +89,9 @@ const onSubmit = async () => {
       <label
         for="avatar"
         class="mx-auto rounded-full flex items-center justify-center cursor-pointer"
-        :style="`background:  linear-gradient(rgba(235, 237, 240, 0.5), rgba(235, 237, 240, 0.5)), url('/temp/ava.png') no-repeat center; width: 90px; height: 90px;`"
+        :style="`background:  linear-gradient(rgba(235, 237, 240, 0.5), rgba(235, 237, 240, 0.5)), url('${
+          data?.data?.avatar || '/avatar.png'
+        }') no-repeat center; width: 90px; height: 90px;`"
       >
         <img src="~/assets/svg/camera.svg" alt="camera" />
         <input

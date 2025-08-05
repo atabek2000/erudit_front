@@ -15,8 +15,6 @@ export default () => {
   const setUser = (newUser) => {
     const authUser = useAuthUser();
     authUser.value = newUser;
-    // if (localStorage)
-    // localStorage.setItem("auth_user", JSON.stringify(newUser));
   };
 
   const fetchUser = () => {
@@ -27,18 +25,14 @@ export default () => {
             "Content-Language": $i18n.getLocaleCookie(),
             Authorization: `Bearer ${cookie_jwt.value}`,
           },
-          onResponse({ request, response, options }) {
+          async onResponse({ request, response, options }) {
             if (response.ok) {
               setUser(response._data.data);
               cookie_auth_name.value =
                 response._data.data?.name ?? $i18n.t("profile");
               refreshCookie("user_name");
             } else {
-              // setUser({});
-              // cookie_jwt.value = "";
-              // refreshCookie("jwt");
-              cookie_auth_name.value = "";
-              refreshCookie("user_name");
+              await logout();
               router.push("/");
             }
           },
@@ -50,45 +44,13 @@ export default () => {
     });
   };
 
-  // проверка токена
-  const checkJWT = async () => {
-    if (cookie_jwt.value) {
-      let verified = true;
-      // await $fetch(runtimeConfig.public.API_URL + "user/exists", {
-      //   headers: {
-      //     Authorization: `Bearer ${cookie_jwt.value}`,
-      //   },
-      // })
-      //   .then(() => {
-      //     // cookie_jwt.value = cookie_jwt.value;
-      //   })
-      //   .catch(() => {
-      //     verified = false;
-      //   });
-
-      return verified;
-    } else {
-      return false;
-    }
-  };
-
   const initAuth = () => {
     return new Promise(async (resolve, reject) => {
       try {
-        const token_valid = await checkJWT();
-        if (!token_valid) {
-          setUser("");
-          cookie_jwt.value = "";
-          cookie_auth_name.value = "";
-          refreshCookie("jwt");
-          refreshCookie("user_name");
-          // if (route.path.includes("/profile")) router.push("/");
-        } else {
+        if (cookie_jwt.value) {
           await fetchUser();
-          // const authUser = useAuthUser();
-          // authUser.value = JSON.parse(localStorage.getItem("auth_user"));
-          // cookie_auth_name.value = authUser?.value?.name;
-          // refreshCookie("user_name");
+        } else {
+          await logout();
         }
 
         resolve(true);
@@ -496,9 +458,6 @@ export default () => {
         stopLoading();
         if (response.ok) {
           await logout();
-          // setUser({});
-          // cookie_jwt.value = "";
-          // refreshCookie("jwt"); // обновим куки сразу
           toast.add({
             title: $i18n.t("toast.success"),
             description: $i18n.t("toast.success_deleted"),
@@ -514,7 +473,6 @@ export default () => {
     login,
     fetchUser,
     initAuth,
-    checkJWT,
     logout,
     registration,
     profileEdit,

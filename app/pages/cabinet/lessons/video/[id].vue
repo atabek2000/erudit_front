@@ -1,6 +1,8 @@
 <script setup>
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
+const route = useRoute();
+const { data } = await useAPI(`lesson?id=${route.params?.id}`);
 
 const videooptions = ref({
   autoplay: false,
@@ -10,7 +12,7 @@ const videooptions = ref({
   aspectRatio: "16:9",
   sources: [
     {
-      src: "/temp/video.mp4",
+      src: useRuntimeConfig().public.API_STORAGE + data.value?.data?.[0]?.video,
       type: "video/mp4",
     },
   ],
@@ -47,7 +49,7 @@ onBeforeUnmount(() => {
 
         <div class="tiny-container mt-6">
           <p class="text-xl font-medium text-cod-gray">
-            №1 урок, древний Египет: фараоны, культура, пирамиды
+            {{ data?.data?.[0]?.title }}
           </p>
           <video
             ref="videoPlayer"
@@ -70,11 +72,7 @@ onBeforeUnmount(() => {
             <p class="text-base font-semibold text-bunting">Описание</p>
 
             <p class="text-sm font-medium text-cod-gray/60 mt-2">
-              🏺 Погружаемся в тайны Древнего Египта! В этом видео ты узнаешь,
-              кто такие фараоны, зачем строили пирамиды и какие тайны хранят
-              берега Нила. Расскажем просто и интересно о жизни, религии и
-              культуре одной из самых загадочных цивилизаций в истории
-              человечества.
+              {{ data?.data?.[0]?.description }}
             </p>
           </div>
 

@@ -1,7 +1,8 @@
 <script setup>
 const cookie_jwt = useCookie("jwt", { maxAge: 2592000 });
 const cookie_auth_name = useCookie("user_name", { maxAge: 2592000 });
-
+const { useAuthUser } = useCustomAuth();
+const authUser = useAuthUser();
 const { locale } = useI18n();
 const props = defineProps({
   hasMenu: {
@@ -17,7 +18,7 @@ const isLangOpen = ref(false);
 <template>
   <header class="fixed w-full py-3 bg-white" :style="{ zIndex: 9999999 }">
     <div class="main-container flex justify-between items-center">
-      <nuxt-link :to="cookie_jwt ? '/cabinet/subjects' : '/'">
+      <nuxt-link to="/">
         <img
           src="/logo/white.png"
           alt="logo"
@@ -44,7 +45,7 @@ const isLangOpen = ref(false);
             {{ cookie_auth_name }}
           </p>
           <img
-            src="/temp/ava.png"
+            :src="authUser?.avatar || '/avatar.png'"
             alt="avatar"
             class="w-6 h-6 md:w-10 md:h-10"
           />

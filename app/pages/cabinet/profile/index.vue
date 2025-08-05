@@ -1,5 +1,7 @@
 <script setup>
 const { logout } = useCustomAuth();
+const { useAuthUser } = useCustomAuth();
+const authUser = useAuthUser();
 definePageMeta({
   layout: "menu",
 });
@@ -66,7 +68,7 @@ const onLogout = () => {
         />
       </div>
       <img
-        src="/temp/ava.png"
+        :src="authUser?.avatar || '/avatar.png'"
         alt="avatar"
         class="w-[60px] h-[60px] lg:w-[90px] lg:h-[90px]"
       />

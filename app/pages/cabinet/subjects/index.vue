@@ -1,4 +1,6 @@
 <script setup>
+const { data } = await useAPI("list/subjects");
+
 definePageMeta({
   layout: "menu",
 });
@@ -18,7 +20,11 @@ definePageMeta({
         />
       </div>
       <div class="grid grid-cols-2 md:grid-cols-4 mt-6 gap-x-8 gap-y-6">
-        <SharedSubjectCard v-for="i in 10" :key="i" />
+        <SharedSubjectCard
+          v-for="sbj in data?.data"
+          :key="sbj.id"
+          :subject="sbj"
+        />
       </div>
     </div>
   </main>

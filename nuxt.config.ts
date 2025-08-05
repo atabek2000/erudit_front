@@ -23,6 +23,7 @@ export default defineNuxtConfig({
       APP_DOMEN: process.env.APP_DOMEN,
       API_HOST: process.env.API_HOST,
       API_URL: process.env.API_HOST + "/api/",
+      API_STORAGE: process.env.API_HOST + "/storage/",
     },
     authSecret: process.env.NEXTAUTH_SECRET,
 

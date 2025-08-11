@@ -12,7 +12,7 @@ const props = defineProps({
 
 const schema = z.object({
   code: z
-    .array(z.string().regex(/^\d$/))
+    .array(z.number().int().min(0).max(9))
     .length(4, t("toast.min_symbol", { min: 4 })),
 });
 
@@ -24,10 +24,8 @@ const isFormValid = computed(() => {
   return !schema.safeParse(state).success;
 });
 
-const value = ref([]);
-
 async function onSubmit() {
-  emits("submit", state);
+  emits("submit", { email: props.email, code: state.code.join("") });
 }
 </script>
 
@@ -48,17 +46,18 @@ async function onSubmit() {
       class="space-y-4 mt-4"
       @submit="onSubmit"
     >
-      <UPinInput
-        color="neutral"
-        size="2xl"
-        placeholder=""
-        :length="4"
-        type="number"
-        class="my-4"
-        otp
-        v-model="value"
-      />
-
+      <UFormField name="code" class="w-full">
+        <UPinInput
+          color="neutral"
+          size="2xl"
+          placeholder=""
+          :length="4"
+          type="number"
+          class="my-4"
+          otp
+          v-model="state.code"
+        />
+      </UFormField>
       <UButton type="submit" class="mt-5" :disabled="isFormValid">
         {{ $t("send") }}
       </UButton>

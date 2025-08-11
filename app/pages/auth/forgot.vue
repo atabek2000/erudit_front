@@ -48,6 +48,7 @@ const onSubmitPassword = (data: { password: string }) => {
     <WidgetsAuthPassword
       v-else-if="openedBlock === Block.password"
       @submit="onSubmitPassword"
+      :email="email"
     />
   </main>
 </template>

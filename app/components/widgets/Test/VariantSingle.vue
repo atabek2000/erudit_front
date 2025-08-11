@@ -15,8 +15,8 @@ const onChangeAnswer = () => {
   disabled.value = true;
   emits(
     "onAnswer",
+    props?.question?.id,
     props?.question?.answers?.find((ans) => ans?.id === selectedAnswer.value)
-      ?.is_correct
   );
 };
 </script>

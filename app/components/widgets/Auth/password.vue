@@ -3,6 +3,13 @@ import * as z from "zod";
 const emits = defineEmits(["submit"]);
 const { t } = useI18n();
 
+const props = defineProps({
+  email: {
+    type: String,
+    default: "",
+  },
+});
+
 const schema = z.object({
   password: z.string().min(3, t("toast.min_symbol", { min: 3 })),
   password_repeat: z.string().min(3, t("toast.min_symbol", { min: 3 })),
@@ -21,7 +28,7 @@ const isPasswordVisible = ref(false);
 const isPasswordVisible2 = ref(false);
 
 async function onSubmit() {
-  emits("submit", state);
+  emits("submit", { password: state.password, email: props.email });
 }
 </script>
 

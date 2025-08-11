@@ -26,13 +26,21 @@ const nextQuestion = () => {
   }
 };
 
-const onAnswer = (is_correct) => {
-  answers.value.push(is_correct);
+const onAnswer = async (question_id, answer) => {
+  answers.value.push(answer.is_correct);
   hasAnswer.value = true;
-  if (is_correct) {
+  if (answer.is_correct) {
   } else {
     isErrorOpen.value = true;
   }
+  await useFetchApi("test/store/user/answer", {
+    method: "POST",
+    body: {
+      question_id: question_id,
+      answer_id: answer.id,
+      test_id: data.value?.data?.id,
+    },
+  });
 };
 
 const onFinish = () => {

@@ -4,13 +4,22 @@ const props = defineProps({
     type: Object,
     default: {},
   },
+  isEnt: {
+    type: Boolean,
+    default: false,
+  },
 });
 </script>
 
 <template>
   <nuxt-link
-    :to="`/cabinet/lessons?subject_id=${subject.id}`"
-    class="border border-gray/30 rounded-xl overflow-hidden hover:shadow-xl transition duration-300 ease-in-out cursor-pointer hover:scale-[1.02] hover:-translate-y-1.5"
+    :to="isEnt ? '' : `/cabinet/lessons?subject_id=${subject.id}`"
+    class="border border-gray/30 rounded-xl overflow-hidden cursor-pointer"
+    :class="
+      isEnt
+        ? ''
+        : 'transition duration-300 ease-in-out hover:scale-[1.02] hover:shadow-xl hover:-translate-y-1.5'
+    "
   >
     <div class="bg-[#FFF1C7] flex justify-center items-center">
       <img

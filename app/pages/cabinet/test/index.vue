@@ -1,4 +1,43 @@
 <script setup>
+const { data } = await useAPI("list/subjects");
+const { t } = useI18n();
+
+const main_subjects = computed(() => {
+  return data.value?.data.filter((sbj) => sbj.is_main);
+});
+const not_main_subjects = computed(() => {
+  return data.value?.data.filter((sbj) => !sbj.is_main);
+});
+const selected_subjects = ref([]);
+
+const addSubject = (sbj) => {
+  if (
+    !selected_subjects.value.includes(sbj) &&
+    selected_subjects.value.length < 2
+  ) {
+    selected_subjects.value.push(sbj);
+  } else if (selected_subjects.value.includes(sbj)) {
+    selected_subjects.value.splice(selected_subjects.value.indexOf(sbj), 1);
+  }
+};
+
+const onStart = () => {
+  if (selected_subjects.value.length === 2) {
+    navigateTo({
+      path: "/cabinet/test/start",
+      query: {
+        sbj1: selected_subjects.value[0],
+        sbj2: selected_subjects.value[1],
+      },
+    });
+  } else {
+    useToast().add({
+      title: t("toast.error"),
+      color: "red",
+      description: t("select_2_subjects"),
+    });
+  }
+};
 definePageMeta({
   layout: "menu",
 });
@@ -31,13 +70,37 @@ definePageMeta({
         {{ $t("main_subjects") }}
       </p>
       <div class="grid grid-cols-2 md:grid-cols-4 mt-4 gap-x-8 gap-y-6">
-        <SharedSubjectCard v-for="i in 3" :key="i" />
+        <SharedSubjectCard
+          v-for="sbj in main_subjects"
+          :key="sbj.id"
+          :subject="sbj"
+          :isEnt="true"
+        />
       </div>
       <p class="text-base font-medium text-shark/70 mt-6">
         {{ $t("profile_subjects") }}
       </p>
       <div class="grid grid-cols-2 md:grid-cols-4 mt-4 gap-x-8 gap-y-6">
-        <SharedSubjectCard v-for="i in 9" :key="i" />
+        <div
+          class="relative"
+          v-for="sbj in not_main_subjects"
+          :key="sbj.id"
+          @click="addSubject(sbj.id)"
+        >
+          <SharedSubjectCard :subject="sbj" :isEnt="true" class="block" />
+          <img
+            v-if="selected_subjects.includes(sbj.id)"
+            src="~/assets/svg/radio/select-black.svg"
+            alt=""
+            class="absolute top-2 right-2 w-6"
+          />
+          <img
+            v-else
+            src="~/assets/svg/radio/noselect.svg"
+            alt=""
+            class="absolute top-2 right-2 w-6"
+          />
+        </div>
       </div>
 
       <div
@@ -55,7 +118,7 @@ definePageMeta({
       </div>
 
       <UButton
-        to="/cabinet/test/start"
+        @click="onStart"
         class="mt-6 fixed lg:static bottom-20 left-4 right-4 w-auto lg:w-full"
         >{{ $t("confirm_selection") }}</UButton
       >

@@ -110,6 +110,7 @@
   "life_equals_100_tenge": "1 өмір = 100 теңге",
   "buy_2_lives_200_tenge": "{life} өмір сатып алу үшін {price} теңге",
   "next_question": "Келесі сұрақ",
+  "prev_question": "Алдыңғы сұрақ",
   "life_restore_timer": "Өмір қалпына келеді:",
   "time_4h_49min": "4 сағ: 49 мин",
   "exchange_diamonds_for_lives_action": "Алмаздарды өмірге айырбастау",
@@ -180,6 +181,7 @@
   "start_test": "Тестті бастау",
   "change_subjects": "Пәндер таңдауын өзгерту",
   "next_subject": "Келесі пән",
+  "prev_subject": "Алдыңғы пән",
   "finish_test": "Тестті аяқтау",
   "confirm_finish_test": "Сіз шынымен тесті аяқтағыңыз келе ме?",
   "results_saved_info": "Нәтижелеріңіз “Сынақ тесті” бөлімінде сақталады",
@@ -199,5 +201,6 @@
   "result": "Нәтиже",
   "next_btn": "Келесі",
   "prev_btn": "Алдыңғы",
-  "premium_required_after": "Кейінгі қолжетімділік тек Erudit Premium жазылымымен мүмкін."
+  "premium_required_after": "Кейінгі қолжетімділік тек Erudit Premium жазылымымен мүмкін.",
+  "select_2_subjects": "Профильдік пәндерді таңдаңыз"
 }

@@ -27,9 +27,9 @@ const nextQuestion = () => {
 };
 
 const onAnswer = async (question_id, answer) => {
-  answers.value.push(answer.is_correct);
+  answers.value.push(answer[0].is_correct);
   hasAnswer.value = true;
-  if (answer.is_correct) {
+  if (answer[0].is_correct) {
   } else {
     isErrorOpen.value = true;
   }
@@ -37,7 +37,7 @@ const onAnswer = async (question_id, answer) => {
     method: "POST",
     body: {
       question_id: question_id,
-      answer_id: answer.id,
+      answer_id: answer[0].id,
       test_id: data.value?.data?.id,
     },
   });
@@ -52,14 +52,6 @@ const totalSeconds = ref((data.value?.data?.time || 20) * 60);
 const timerText = ref("");
 
 let timerInterval = null;
-
-const formatTime = (seconds) => {
-  const mins = Math.floor(seconds / 60)
-    .toString()
-    .padStart(2, "0");
-  const secs = (seconds % 60).toString().padStart(2, "0");
-  return `${mins}:${secs}`;
-};
 
 onMounted(() => {
   timerText.value = formatTime(totalSeconds.value);

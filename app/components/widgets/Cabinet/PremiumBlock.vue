@@ -14,8 +14,6 @@
       <span class="text-primary font-normal">∞</span>
       {{ $t("infinite_lives") }}
     </p>
-    <UButton @click="isPremiumOpen = true" class="mt-3 py-2" size="sm">{{
-      $t("try_free")
-    }}</UButton>
+    <UButton class="mt-3 py-2" size="sm">{{ $t("try_free") }}</UButton>
   </div>
 </template>

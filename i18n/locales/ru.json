@@ -110,6 +110,7 @@
   "life_equals_100_tenge": "1 жизнь = 100 тенге",
   "buy_2_lives_200_tenge": "Купить {life} за {price} тенге",
   "next_question": "Следующий вопрос",
+  "prev_question": "Предыдущий вопрос",
   "life_restore_timer": "Жизнь восстановится через",
   "time_4h_49min": "4 ч: 49 мин",
   "exchange_diamonds_for_lives_action": "Обменять алмазы на жизни",
@@ -180,6 +181,7 @@
   "start_test": "Начать тест",
   "change_subjects": "Изменить выбор предметов",
   "next_subject": "Следующий предмет",
+  "prev_subject": "Предыдущий предмет",
   "finish_test": "Завершить тест",
   "confirm_finish_test": "Вы действительно хотите завершить тест?",
   "results_saved_info": "Ваши результаты будут сохранены в разделе “Пробный тест”",
@@ -199,5 +201,6 @@
   "result": "Результат",
   "next_btn": "Следующий",
   "prev_btn": "Предыдущий",
-  "premium_required_after": "Последующий доступ — только с подпиской Эрудит Premium."
+  "premium_required_after": "Последующий доступ — только с подпиской Эрудит Premium.",
+  "select_2_subjects": "Выберите профильные предметы"
 }

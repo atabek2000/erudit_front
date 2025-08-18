@@ -4,6 +4,7 @@ export default () => {
   const runtimeConfig = useRuntimeConfig();
   const router = useRouter();
   const toast = useToast();
+  const { init: initAttribute } = useAttribute();
 
   const cookie_jwt = useCookie("jwt", { maxAge: 2592000 }); // max age 1 month
   const cookie_auth_name = useCookie("user_name", { maxAge: 2592000 }); // max age 1 month
@@ -28,6 +29,7 @@ export default () => {
           async onResponse({ request, response, options }) {
             if (response.ok) {
               setUser(response._data.data);
+              initAttribute(response._data.data.attributes);
               cookie_auth_name.value =
                 response._data.data?.name ?? $i18n.t("profile");
               refreshCookie("user_name");

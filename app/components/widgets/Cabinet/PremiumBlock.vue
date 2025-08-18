@@ -14,6 +14,8 @@
       <span class="text-primary font-normal">∞</span>
       {{ $t("infinite_lives") }}
     </p>
-    <UButton class="mt-3 py-2" size="sm">{{ $t("try_free") }}</UButton>
+    <UButton to="/cabinet/premium/plans" class="mt-3 py-2" size="sm">{{
+      $t("try_free")
+    }}</UButton>
   </div>
 </template>

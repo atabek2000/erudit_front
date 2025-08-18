@@ -1,4 +1,6 @@
 <script setup>
+const { point, live, diamond } = useAttribute();
+
 definePageMeta({
   layout: "menu",
 });
@@ -56,9 +58,10 @@ const minus = () => {
       </div>
 
       <UButton
-        class="text-white w-fit bg-selective-yellow-600 hover:bg-selective-yellow/80 py-2 h-fit"
+        class="text-white w-fit bg-selective-yellow-600 hover:bg-selective-yellow/80 active:bg-selective-yellow/80 py-2 h-fit"
       >
-        {{ $t("you_have_120_diamonds") }} {{ getDiamondsLabel(120) }}
+        {{ $t("you_have_120_diamonds") }}
+        {{ getDiamondsLabel(diamond().value) }}
 
         <template #trailing>
           <img src="~/assets/svg/diamond_white.svg" alt="diamond" />
@@ -70,12 +73,16 @@ const minus = () => {
       {{ $t("life_equals_10_diamonds") }}
     </p>
 
-    <UButton @click="isSuccessOpen = true">{{
-      $t("exchange_10_diamonds_for_1_life", {
-        from: getDiamondsLabel(diamonCount),
-        to: getLifeLabel(lifeCount),
-      })
-    }}</UButton>
+    <UButton
+      @click="isSuccessOpen = true"
+      :disabled="diamonCount > diamond().value"
+      >{{
+        $t("exchange_10_diamonds_for_1_life", {
+          from: getDiamondsLabel(diamonCount),
+          to: getLifeLabel(lifeCount),
+        })
+      }}</UButton
+    >
 
     <ModalsDiamondSuccess v-model="isSuccessOpen" />
     <ModalsDiamondError v-model="isErrorOpen" />

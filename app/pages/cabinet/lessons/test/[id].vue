@@ -27,9 +27,9 @@ const nextQuestion = () => {
 };
 
 const onAnswer = async (question_id, answer) => {
-  answers.value.push(answer[0].is_correct);
+  answers.value.push(answer.is_correct);
   hasAnswer.value = true;
-  if (answer[0].is_correct) {
+  if (answer.is_correct) {
   } else {
     isErrorOpen.value = true;
   }
@@ -37,7 +37,7 @@ const onAnswer = async (question_id, answer) => {
     method: "POST",
     body: {
       question_id: question_id,
-      answer_id: answer[0].id,
+      answer_id: answer.id,
       test_id: data.value?.data?.id,
     },
   });

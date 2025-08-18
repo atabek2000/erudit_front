@@ -4,96 +4,51 @@ definePageMeta({
   layout: "menu",
 });
 
+const selectedSubject = ref(undefined);
+const selectedPeriod = ref(undefined);
+
+const { data, status } = await useAPI("main/rating", {
+  params: {
+    subject_id: selectedSubject,
+    period: selectedPeriod,
+  },
+  watch: [selectedSubject, selectedPeriod],
+});
+const { data: subjects } = await useAPI("list/subjects");
+
 const columns = [
   { accessorKey: "id", header: "№" },
   {
-    accessorKey: "fullName",
+    accessorKey: "user.name",
     header: t("name_surname"),
-    meta: { class: { td: "text-center" } },
   },
   {
-    accessorKey: "score",
+    accessorKey: "point",
     header: t("pointss"),
-    meta: { class: { td: "text-dodger-blue-600" } },
+    meta: { class: { td: "text-dodger-blue-600 " } },
   },
 ];
 
-const table = ref([
-  {
-    id: 1,
-    fullName: "Аружан Нурланқызы",
-    score: "200 XP",
-  },
-  {
-    id: 2,
-    fullName: "Арманова Айгуль",
-    score: "100 XP",
-  },
-  {
-    id: 3,
-    fullName: "Аскаров Айдос",
-    score: "90 XP",
-  },
-  {
-    id: 4,
-    fullName: "Әсел Куаныш",
-    score: "80 XP",
-  },
-  {
-    id: 5,
-    fullName: "Мадияр Талгат",
-    score: "70 XP",
-  },
-  {
-    id: 6,
-    fullName: "Алтынай Саматқызы",
-    score: "60 XP",
-  },
-  {
-    id: 7,
-    fullName: "Рауан Әли",
-    score: "50 XP",
-  },
-]);
-
-const subjects = ref([
-  {
-    id: 1,
-    name: "Математика",
-  },
-  {
-    id: 2,
-    name: "Русский",
-  },
-  {
-    id: 3,
-    name: "Английский",
-  },
-]);
-
 const periods = ref([
   {
-    id: 1,
+    id: "by_days",
     name: t("by_days"),
   },
   {
-    id: 2,
+    id: "by_weeks",
     name: t("by_weeks"),
   },
   {
-    id: 3,
+    id: "by_months",
     name: t("by_months"),
   },
 ]);
-
-const selectedSubject = ref(subjects.value[0].id);
-const periodPeriod = ref(subjects.value[0].id);
 </script>
 
 <template>
   <main class="bg-white lg:rounded-xl p-4 lg:px-8 lg:py-6 max-w-full">
     <div class="flex justify-between flex-col md:flex-row gap-3">
-      <div class="">
+      <div class=" ">
         <p class="text-xl font-semibold text-black">{{ $t("rating") }}</p>
         <p class="text-base font-normal text-scorpion mt-2">
           {{ $t("rating_description") }}
@@ -103,18 +58,19 @@ const periodPeriod = ref(subjects.value[0].id);
         <SharedFilterDropdown
           v-model="selectedSubject"
           :label="$t('by_subjects')"
-          :items="subjects"
+          :items="subjects.data"
         />
         <SharedFilterDropdown
-          v-model="periodPeriod"
+          v-model="selectedPeriod"
           :label="$t('by_days')"
           :items="periods"
         />
       </div>
     </div>
     <UTable
+      v-if="status === 'success'"
       :columns="columns"
-      :data="table"
+      :data="data?.data"
       class="rounded-xl border-1 border-athens-gray-500 [&_tr]:odd:bg-wild-sand [&_tr]:even:bg-white [&_tr]:border-0 divide-y-0 mt-6"
       :ui="{
         th: 'bg-alabaster-400',
@@ -125,5 +81,32 @@ const periodPeriod = ref(subjects.value[0].id);
         {{ row }}
       </template>
     </UTable>
+    <div
+      v-else-if="status === 'pending'"
+      class="border border-athens-gray-500 rounded-xl mt-6"
+    >
+      <div
+        v-for="i in 5"
+        :key="i"
+        class="flex justify-around p-3"
+        :class="i % 2 == 0 ? 'bg-wild-sand' : 'bg-white'"
+      >
+        <USkeleton
+          class="h-5 w-20 rounded-md"
+          :class="i % 2 == 0 ? 'bg-white' : ''"
+        />
+        <USkeleton
+          class="h-5 w-20 rounded-md"
+          :class="i % 2 == 0 ? 'bg-white' : ''"
+        />
+        <USkeleton
+          class="h-5 w-20 rounded-md"
+          :class="i % 2 == 0 ? 'bg-white' : ''"
+        />
+      </div>
+    </div>
+    <div class="w-fit mx-auto">
+      <UPagination v-model:page="page" :total="100" class="mt-6" />
+    </div>
   </main>
 </template>

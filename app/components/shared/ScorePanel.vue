@@ -1,18 +1,19 @@
 <script setup>
-const props = defineProps({
-  score: {
-    type: Number,
-    default: 0,
-  },
-  life: {
-    type: Number,
-    default: 0,
-  },
-  diamond: {
-    type: Number,
-    default: 0,
-  },
-});
+const { point, live, diamond } = useAttribute();
+// const props = defineProps({
+//   score: {
+//     type: Number,
+//     default: 0,
+//   },
+//   life: {
+//     type: Number,
+//     default: 0,
+//   },
+//   diamond: {
+//     type: Number,
+//     default: 0,
+//   },
+// });
 </script>
 <template>
   <div class="flex gap-x-6">
@@ -20,14 +21,14 @@ const props = defineProps({
       <button class="flex gap-2 cursor-pointer">
         <img src="~/assets/svg/star.svg" alt="star" />
         <p class="text-lg font-semibold text-selective-yellow-600">
-          {{ score }}
+          {{ point().value }}
         </p>
       </button>
       <template #content>
         <div class="px-4 py-3 flex gap-3">
           <div class="">
             <p class="text-sm font-semibold text-black">
-              {{ getPointsLabel(12) }}
+              {{ getPointsLabel(point().value) }}
             </p>
             <p class="text-xs font-normal text-black">
               {{ $t("complete_lessons") }}
@@ -40,7 +41,7 @@ const props = defineProps({
     <UPopover arrow>
       <button class="flex gap-2 cursor-pointer">
         <img src="~/assets/svg/heart.svg" alt="star" />
-        <p class="text-lg font-semibold text-red-orange">{{ life }}</p>
+        <p class="text-lg font-semibold text-red-orange">{{ live().value }}</p>
       </button>
       <template #content>
         <div class="px-4 py-3">
@@ -49,8 +50,14 @@ const props = defineProps({
               <p class="text-sm font-semibold text-black">
                 {{ $t("lives") }}
               </p>
-              <p class="text-xs font-normal text-black">
+              <p
+                v-if="live().value == 5"
+                class="text-xs font-normal text-black"
+              >
                 {{ $t("your_life_reserve") }}
+              </p>
+              <p v-else class="text-xs font-normal text-black">
+                {{ $t("you_have_5_lives") }} {{ getLifeLabel(live().value) }}
               </p>
             </div>
             <img
@@ -61,7 +68,7 @@ const props = defineProps({
             />
           </div>
           <div class="mt-3 space-y-2 max-w-[240px]">
-            <UButton size="xs">
+            <UButton size="xs" to="/cabinet/diamonds">
               {{ $t("exchange_diamonds_for_lives") }}</UButton
             >
             <UButton
@@ -72,6 +79,7 @@ const props = defineProps({
               {{ $t("buy_lives") }}</UButton
             >
             <UButton
+              to="/cabinet/premium"
               size="xs"
               class="bg-gradient-to-r from-purple-heart to-dodger-blue hover:from-purple-heart-600 hover:to-dodger-blue/60"
             >
@@ -84,7 +92,9 @@ const props = defineProps({
     <UPopover arrow>
       <button class="flex gap-2 cursor-pointer">
         <img src="~/assets/svg/diamond.svg" alt="star" />
-        <p class="text-lg font-semibold text-dodger-blue-600">{{ diamond }}</p>
+        <p class="text-lg font-semibold text-dodger-blue-600">
+          {{ diamond().value }}
+        </p>
       </button>
       <template #content>
         <div class="px-4 py-3">
@@ -94,7 +104,8 @@ const props = defineProps({
                 {{ $t("diamonds") }}
               </p>
               <p class="text-xs font-normal text-black">
-                {{ $t("you_have_diamonds") }}
+                {{ $t("you_have_120_diamonds") }}
+                {{ getDiamondsLabel(diamond().value) }}
               </p>
             </div>
             <img

@@ -2,7 +2,6 @@
 const { data } = await useAPI("ent");
 const {
   init,
-  subject_id,
   currentRound,
   rounds,
   goToRound,
@@ -160,15 +159,15 @@ onUnmounted(() => {
 
         <div class="flex gap-3 mt-6 md:hidden">
           <UButton
-            @click="goToRound(currentRound.round + 1)"
+            @click="goToRound(currentRound.round - 1)"
             class="md:w-fit px-5 bg-purple-heart/10 hover:bg-purple-heart/20 aria-disabled:bg-purple-heart/10 text-cod-gray"
             size="sm"
-            :disabled="Number($route.params.id) <= 1"
+            :disabled="currentRound.round <= 1"
             >{{ $t("prev_btn") }}</UButton
           >
           <UButton
-            v-if="$route.params.id == 1"
-            @click="goToRound(currentRound.round - 1)"
+            v-if="rounds?.length > currentRound.round"
+            @click="goToRound(currentRound.round + 1)"
             class="md:w-fit px-5"
             size="sm"
             >{{ $t("next_btn") }}</UButton
@@ -181,12 +180,24 @@ onUnmounted(() => {
             >{{ $t("finish_test") }}</UButton
           >
         </div>
-        <UButton
-          class="md:hidden md:w-fit px-5 text-sm mt-5"
-          size="xs"
-          variant="ghost"
-          >{{ $t("next_subject") }}</UButton
-        >
+        <div class="flex justify-between">
+          <UButton
+            class="md:hidden md:w-fit text-sm mt-5 px-0"
+            size="xs"
+            variant="ghost"
+            :disabled="!hasPrevSubject"
+            @click="goPrevSubject"
+            >{{ $t("prev_subject") }}</UButton
+          >
+          <UButton
+            class="md:hidden md:w-fit text-sm mt-5 px-0"
+            size="xs"
+            variant="ghost"
+            :disabled="!hasNextSubject"
+            @click="goNextSubject"
+            >{{ $t("next_subject") }}</UButton
+          >
+        </div>
 
         <ModalsTestConfirm v-model="isConfirmOpen" />
       </div>

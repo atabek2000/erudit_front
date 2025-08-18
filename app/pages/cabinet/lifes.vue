@@ -1,4 +1,6 @@
 <script setup>
+const { live } = useAttribute();
+
 definePageMeta({
   layout: "menu",
 });
@@ -31,7 +33,9 @@ const minus = () => {
       {{ $t("refill_lives") }}
     </p>
 
-    <div class="mt-6 flex flex-col-reverse md:flex-row gap-3 justify-between">
+    <div
+      class="mt-6 flex flex-col-reverse md:flex-row gap-3 justify-between md:items-center"
+    >
       <div>
         <p class="text-base font-medium text-cod-gray">
           {{ $t("how_many_lives_buy") }}
@@ -50,14 +54,15 @@ const minus = () => {
             class="w-fit rounded-lg"
             icon="i-lucide-plus"
             @click="plus"
+            :disabled="lifeCount + live().value >= 5"
           ></UButton>
         </div>
       </div>
 
       <UButton
-        class="text-white w-fit bg-red-orange hover:bg-red-orange/80 py-2 h-fit"
+        class="text-white w-fit bg-red-orange hover:bg-red-orange/80 active:bg-red-orange/80 py-2 h-fit"
       >
-        {{ $t("you_have_5_lives") }} {{ getLifeLabel(4) }}
+        {{ $t("you_have_5_lives") }} {{ getLifeLabel(live().value) }}
 
         <template #trailing>
           <img src="~/assets/svg/heart_white.svg" alt="diamond" />

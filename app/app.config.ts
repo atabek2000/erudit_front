@@ -105,5 +105,11 @@ export default defineAppConfig({
         label: "text-xs md:text-sm",
       },
     },
+    table: {
+      slots: {
+        th: "text-center",
+        td: "text-center",
+      },
+    },
   },
 });

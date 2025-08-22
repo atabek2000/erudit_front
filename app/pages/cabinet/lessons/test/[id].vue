@@ -1,9 +1,15 @@
 <script setup>
 const route = useRoute();
-const { data } = await useAPI(`test?id=${route.params?.id}`);
+const { setLive, live } = useAttribute();
+const { hasPremium } = useCustomAuth();
+
+const { data } = await useAPI(
+  `test?test_id=${route.params?.id}&module_id=${route.query?.module}&module_sub_id=${route.query?.sub_module}`
+);
 
 const isErrorOpen = ref(false);
 const isResultOpen = ref(false);
+const isLiveEndOpen = ref(false);
 const hasAnswer = ref(false);
 const answers = ref([]);
 const onContinue = () => {
@@ -30,15 +36,22 @@ const onAnswer = async (question_id, answer) => {
   answers.value.push(answer.is_correct);
   hasAnswer.value = true;
   if (answer.is_correct) {
-  } else {
-    isErrorOpen.value = true;
+  } else if (!hasPremium.value) {
+    setLive(live().value - 1);
+    if (live().value == 0) {
+      isLiveEndOpen.value = true;
+    } else {
+      isErrorOpen.value = true;
+    }
   }
   await useFetchApi("test/store/user/answer", {
     method: "POST",
     body: {
+      module_id: route.query?.module,
+      module_sub_id: route.query?.sub_module,
       question_id: question_id,
       answer_id: answer.id,
-      test_id: data.value?.data?.id,
+      test_id: route.params?.id,
     },
   });
 };
@@ -160,6 +173,7 @@ onUnmounted(() => {
         </div>
         <ModalsTestError v-model="isErrorOpen" @onContinue="onContinue" />
         <ModalsTestResult v-model="isResultOpen" @submit="onFinish" />
+        <ModalsTestLiveEnd v-model="isLiveEndOpen" />
       </div>
     </div>
   </main>

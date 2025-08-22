@@ -1,5 +1,6 @@
 <script setup>
 const route = useRoute();
+const { hasPremium } = useCustomAuth();
 const { data } = await useAPI(
   `list/modules?subject_id=${route.query.subject_id}`
 );
@@ -8,7 +9,33 @@ definePageMeta({
   layout: "menu",
 });
 
-const isPremiumOpen = ref(true);
+const getInfo = (status) => {
+  const info = {
+    color: "#F2F2F7",
+    shadow: "#949494",
+    disabled: true,
+  };
+  if (status === "active") {
+    info.color = "#58CC02";
+    info.shadow = "#58A700";
+    info.disabled = false;
+  } else if (status === "end") {
+    info.color = "#FBBC05";
+    info.shadow = "#A57D0A";
+    info.disabled = false;
+  }
+
+  return info;
+};
+
+const isPremiumOpen = ref(false);
+const isLiveEndOpen = ref(false);
+
+onMounted(() => {
+  if (!hasPremium.value) {
+    isPremiumOpen.value = true;
+  }
+});
 </script>
 
 <template>
@@ -49,9 +76,9 @@ const isPremiumOpen = ref(true);
                 'mx-auto': index == 0 || index % 4 == 2 || index % 4 === 0,
                 'ml-auto': index % 4 == 1,
               }"
-              :disabled="index > 5"
-              color="#FBBC05"
-              shadow="#A57D0A"
+              :color="getInfo(ls?.user_progress?.status).color"
+              :shadow="getInfo(ls?.user_progress?.status).shadow"
+              :disabled="getInfo(ls?.user_progress?.status).disabled"
               :lesson="ls"
             />
             <SharedLessonsTest
@@ -60,12 +87,17 @@ const isPremiumOpen = ref(true);
                 'mx-auto': index == 0 || index % 4 == 2 || index % 4 === 0,
                 'ml-auto': index % 4 == 1,
               }"
-              :disabled="index > 5"
+              :color="getInfo(ls?.user_progress?.status).color"
+              :shadow="getInfo(ls?.user_progress?.status).shadow"
+              :disabled="getInfo(ls?.user_progress?.status).disabled"
+              :lesson="ls"
+              @openLiveEnd="isLiveEndOpen = true"
             />
           </div>
         </div>
       </div>
     </div>
     <ModalsPremium v-model="isPremiumOpen" />
+    <ModalsTestLiveEnd v-model="isLiveEndOpen" :hasExitButton="false" />
   </main>
 </template>

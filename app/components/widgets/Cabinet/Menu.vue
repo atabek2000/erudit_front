@@ -1,8 +1,6 @@
 <script setup>
 const route = useRoute();
-const { useAuthUser } = useCustomAuth();
-const user = useAuthUser();
-const hasPremium = computed(() => user.value?.subscribe?.status === "active");
+const { hasPremium } = useCustomAuth();
 const selected_menu = computed(() => {
   if (
     route.path.includes("cabinet/subjects") ||

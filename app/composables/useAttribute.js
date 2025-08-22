@@ -10,15 +10,17 @@ export default () => {
   };
 
   const setPoint = (val) => {
-    point.value = val;
+    point().value = val;
   };
 
   const setDiamond = (val) => {
-    diamond.value = val;
+    diamond().value = val;
   };
 
   const setLive = (val) => {
-    live.value = val;
+    if (val < 0) live().value = 0;
+    else if (val > 5) live().value = 5;
+    else live().value = val;
   };
 
   return {

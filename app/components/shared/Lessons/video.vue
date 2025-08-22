@@ -47,7 +47,6 @@ onBeforeUnmount(() => {
           background: disabled ? '#F2F2F7' : color,
           boxShadow: `0 6px 0 0 ${disabled ? '#949494' : shadow}`,
         }"
-        :disabled="disabled"
       >
         <img
           v-if="disabled"
@@ -65,13 +64,19 @@ onBeforeUnmount(() => {
 
       <template #content>
         <div
-          class="px-5 py-3 rounded-xl text-white"
-          :style="{ background: color }"
+          class="px-5 py-3 rounded-xl"
+          :class="disabled ? 'text-cod-gray' : 'text-white'"
+          :style="{ background: disabled ? 'white' : color }"
         >
-          <p class="text-base font-semibold">Пройдите доступный урок</p>
+          <p class="text-base font-semibold">
+            {{
+              disabled ? $t("lesson_unavailable") : "Пройдите доступный урок"
+            }}
+          </p>
           <p class="text-sm font-medium mt-1">Урок 1 из 100</p>
 
           <UButton
+            v-if="!disabled"
             :to="`/cabinet/lessons/video/${lesson.id}`"
             class="mt-4 bg-white hover:bg-white"
             :style="{ color: color }"

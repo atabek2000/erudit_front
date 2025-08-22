@@ -6,13 +6,14 @@ definePageMeta({
 
 const selectedSubject = ref(undefined);
 const selectedPeriod = ref(undefined);
+const page = ref(1);
 
 const { data, status } = await useAPI("main/rating", {
   params: {
     subject_id: selectedSubject,
     period: selectedPeriod,
   },
-  watch: [selectedSubject, selectedPeriod],
+  watch: [selectedSubject, selectedPeriod, page],
 });
 const { data: subjects } = await useAPI("list/subjects");
 
@@ -70,7 +71,7 @@ const periods = ref([
     <UTable
       v-if="status === 'success'"
       :columns="columns"
-      :data="data?.data"
+      :data="data?.data?.data"
       class="rounded-xl border-1 border-athens-gray-500 [&_tr]:odd:bg-wild-sand [&_tr]:even:bg-white [&_tr]:border-0 divide-y-0 mt-6"
       :ui="{
         th: 'bg-alabaster-400',
@@ -106,7 +107,13 @@ const periods = ref([
       </div>
     </div>
     <div class="w-fit mx-auto">
-      <UPagination v-model:page="page" :total="100" class="mt-6" />
+      <UPagination
+        v-model:page="page"
+        :total="data?.data?.total"
+        :items-per-page="data?.data?.per_page"
+        color="neutral"
+        class="mt-6"
+      />
     </div>
   </main>
 </template>

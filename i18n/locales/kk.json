@@ -117,7 +117,7 @@
   "exchange_diamonds_for_lives_action": "Алмаздарды өмірге айырбастау",
   "buy_lives_action": "Өмір сатып алу",
   "unlimited_lives_action": "Шексіз өмірлер",
-  "mistake_costs_life": "Әр қате 1 өмірге кетеді!",
+  "mistake_costs_life": "Әр қатеге 1 өмір кетеді!",
   "collect_be_careful": "Ой жинап, мұқият болыңыз — сіз жетістікке жетесіз!",
   "continue": "Жалғастыру",
   "test_passed": "Сіз тестті тапсырдыңыз!",
@@ -208,6 +208,9 @@
   "trial_tests": "cынақ тесттер",
   "current_plan": "Ағымдағы жазылым",
   "payment_cancelled": "Жазылым сәтті жойылды!",
+  "exit_test": "Тесттен шығу",
+  "lost_all_lives": "Барлық өмірді жоғалттыңыз ба?",
+  "one_returns": "{time} ішінде біреуі қайта оралады — мүмкіндікті жіберіп алма!",
 
   "months_genitive": {
     "1": "қаңтар",

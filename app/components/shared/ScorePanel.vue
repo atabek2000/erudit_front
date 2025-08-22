@@ -1,8 +1,6 @@
 <script setup>
 const { point, live, diamond } = useAttribute();
-const { useAuthUser } = useCustomAuth();
-const user = useAuthUser();
-const hasPremium = computed(() => user.value?.subscribe?.status === "active");
+const { hasPremium } = useCustomAuth();
 </script>
 <template>
   <div class="flex gap-x-6">

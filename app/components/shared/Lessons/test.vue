@@ -1,4 +1,10 @@
 <script setup>
+const route = useRoute();
+const { live } = useAttribute();
+const { hasPremium } = useCustomAuth();
+
+const emits = defineEmits(["openLiveEnd"]);
+
 const props = defineProps({
   color: {
     type: String,
@@ -12,14 +18,25 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  lesson: {
+    type: Object,
+    default: {},
+  },
 });
-
 const open = ref(false);
 
 // Обработчик, который закрывает Popover
 function onScroll() {
   open.value = false;
 }
+
+const openTest = () => {
+  if (hasPremium.value || live().value > 0)
+    navigateTo(
+      `/cabinet/lessons/test/${props.lesson.test?.id}?subject=${route.query.subject_id}&module=${props.lesson.module_id}&sub_module=${props.lesson.id}`
+    );
+  else emits("openLiveEnd");
+};
 
 onMounted(() => {
   window.addEventListener("scroll", onScroll);
@@ -43,7 +60,6 @@ onBeforeUnmount(() => {
           background: disabled ? '#F2F2F7' : color,
           boxShadow: `0 6px 0 0 ${disabled ? '#949494' : shadow}`,
         }"
-        :disabled="disabled"
       >
         <img
           v-if="disabled"
@@ -60,14 +76,20 @@ onBeforeUnmount(() => {
       </button>
       <template #content>
         <div
-          class="px-5 py-3 rounded-xl text-white"
-          :style="{ background: color }"
+          class="px-5 py-3 rounded-xl"
+          :class="disabled ? 'text-cod-gray' : 'text-white'"
+          :style="{ background: disabled ? 'white' : color }"
         >
-          <p class="text-base font-semibold">Пройдите доступный урок</p>
+          <p class="text-base font-semibold">
+            {{
+              disabled ? $t("lesson_unavailable") : "Пройдите доступный урок"
+            }}
+          </p>
           <p class="text-sm font-medium mt-1">Урок 1 из 100</p>
 
           <UButton
-            to="/cabinet/lessons/test/1"
+            v-if="!disabled"
+            @click="openTest"
             class="mt-4 bg-white hover:bg-white"
             :style="{ color: color }"
             >Начать</UButton

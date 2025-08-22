@@ -208,6 +208,9 @@
   "trial_tests": "пробные тесты",
   "current_plan": "Текущий план",
   "payment_cancelled": "Платеж успешно отменен!",
+  "exit_test": "Выйти из теста",
+  "lost_all_lives": "Потеряли все жизни?",
+  "one_returns": "Через {time} вернётся одна — не упусти шанс!",
 
   "months_genitive": {
     "1": "января",

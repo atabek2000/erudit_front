@@ -1,7 +1,6 @@
 <script setup>
-const { useAuthUser } = useCustomAuth();
+const { useAuthUser, hasPremium } = useCustomAuth();
 const user = useAuthUser();
-const hasPremium = computed(() => user.value?.subscribe?.status === "active");
 </script>
 
 <template>

@@ -13,6 +13,10 @@ export default () => {
   const useAuthUser = () => useState("auth_user", () => {});
   const useResetPhone = () => useState("reset_phone", () => undefined);
 
+  const hasPremium = computed(
+    () => useAuthUser().value?.subscribe?.status === "active"
+  );
+
   const setUser = (newUser) => {
     const authUser = useAuthUser();
     authUser.value = newUser;
@@ -485,6 +489,7 @@ export default () => {
     useResetPhone,
     registerSendCode,
     registerCheckCode,
+    hasPremium,
     // authLate,
   };
 };

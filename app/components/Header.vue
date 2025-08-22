@@ -16,7 +16,7 @@ const isLangOpen = ref(false);
 </script>
 
 <template>
-  <header class="fixed w-full py-3 bg-white" :style="{ zIndex: 9999999 }">
+  <header class="fixed w-full py-3 bg-white" :style="{ zIndex: 9999 }">
     <div class="main-container flex justify-between items-center">
       <nuxt-link to="/">
         <img
@@ -83,7 +83,7 @@ const isLangOpen = ref(false);
           </template>
         </USlideover> -->
       </div>
-      <ModalsLang v-model:open="isLangOpen" />
+      <ModalsLang v-model="isLangOpen" />
     </div>
   </header>
 </template>

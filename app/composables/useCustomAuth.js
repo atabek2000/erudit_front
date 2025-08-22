@@ -107,36 +107,36 @@ export default () => {
     });
   };
 
-  const authLate = () => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const data = await $fetch(
-          runtimeConfig.public.API_URL + "user/auth/late",
-          {
-            headers: {
-              "Content-Language": $i18n.getLocaleCookie(),
-              "Content-Type": "application/json",
-            },
-            method: "POST",
-            async onResponseError({ request, response, options }) {
-              stopLoading();
-              reject(error);
-            },
-          }
-        );
+  // const authLate = () => {
+  //   return new Promise(async (resolve, reject) => {
+  //     try {
+  //       const data = await $fetch(
+  //         runtimeConfig.public.API_URL + "user/auth/late",
+  //         {
+  //           headers: {
+  //             "Content-Language": $i18n.getLocaleCookie(),
+  //             "Content-Type": "application/json",
+  //           },
+  //           method: "POST",
+  //           async onResponseError({ request, response, options }) {
+  //             stopLoading();
+  //             reject(error);
+  //           },
+  //         }
+  //       );
 
-        setUser(data?.data);
-        cookie_jwt.value = data?.data.access_token;
-        cookie_auth_name.value = "";
-        refreshCookie("jwt");
-        refreshCookie("user_name");
+  //       setUser(data?.data);
+  //       cookie_jwt.value = data?.data.access_token;
+  //       cookie_auth_name.value = "";
+  //       refreshCookie("jwt");
+  //       refreshCookie("user_name");
 
-        resolve(true);
-      } catch (e) {
-        reject(e);
-      }
-    });
-  };
+  //       resolve(true);
+  //     } catch (e) {
+  //       reject(e);
+  //     }
+  //   });
+  // };
 
   const resetPassword = (contact) => {
     return new Promise(async (resolve, reject) => {
@@ -485,6 +485,6 @@ export default () => {
     useResetPhone,
     registerSendCode,
     registerCheckCode,
-    authLate,
+    // authLate,
   };
 };

@@ -28,7 +28,7 @@ const onStart = () => {
     method: "POST",
     body: data,
   }).then((res) => {
-    console.log(res);
+    // console.log(res);
     navigateTo(
       `/cabinet/test/item?ent_id=${res.data?.user_progress?.id}&subject_id=${res?.data?.test_subject?.subject_id}&round=1`
     );

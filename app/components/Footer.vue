@@ -39,5 +39,7 @@
         {{ new Date().getFullYear() }}©{{ $t("app_name_copyright") }}
       </p>
     </div>
+
+    <SharedLoader />
   </footer>
 </template>

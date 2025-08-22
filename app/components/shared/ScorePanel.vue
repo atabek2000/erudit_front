@@ -1,19 +1,8 @@
 <script setup>
 const { point, live, diamond } = useAttribute();
-// const props = defineProps({
-//   score: {
-//     type: Number,
-//     default: 0,
-//   },
-//   life: {
-//     type: Number,
-//     default: 0,
-//   },
-//   diamond: {
-//     type: Number,
-//     default: 0,
-//   },
-// });
+const { useAuthUser } = useCustomAuth();
+const user = useAuthUser();
+const hasPremium = computed(() => user.value?.subscribe?.status === "active");
 </script>
 <template>
   <div class="flex gap-x-6">
@@ -38,7 +27,7 @@ const { point, live, diamond } = useAttribute();
         </div>
       </template>
     </UPopover>
-    <UPopover arrow>
+    <UPopover v-if="!hasPremium" arrow>
       <button class="flex gap-2 cursor-pointer">
         <img src="~/assets/svg/heart.svg" alt="star" />
         <p class="text-lg font-semibold text-red-orange">{{ live().value }}</p>
@@ -115,7 +104,7 @@ const { point, live, diamond } = useAttribute();
               height="28"
             />
           </div>
-          <div class="mt-3 space-y-2 max-w-[240px]">
+          <div v-if="!hasPremium" class="mt-3 space-y-2 max-w-[240px]">
             <UButton size="xs" to="/cabinet/diamonds">
               {{ $t("exchange_diamonds_for_lives_btn") }}</UButton
             >

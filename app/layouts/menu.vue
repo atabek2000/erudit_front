@@ -22,6 +22,6 @@
         </div>
       </div>
     </div>
-    <!-- <Footer class="mb-16" /> -->
+    <Footer />
   </div>
 </template>

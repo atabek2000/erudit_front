@@ -1,5 +1,8 @@
 <script setup>
 const route = useRoute();
+const { useAuthUser } = useCustomAuth();
+const user = useAuthUser();
+const hasPremium = computed(() => user.value?.subscribe?.status === "active");
 const selected_menu = computed(() => {
   if (
     route.path.includes("cabinet/subjects") ||
@@ -65,7 +68,10 @@ const isPremiumOpen = ref(false);
           {{ $t("trial_ent_test") }}
         </p>
       </nuxt-link>
-      <nuxt-link to="/cabinet/premium" class="flex py-4 gap-3">
+      <nuxt-link
+        :to="hasPremium ? '/cabinet/premium/plans' : '/cabinet/premium'"
+        class="flex py-4 gap-3"
+      >
         <img
           v-if="selected_menu === 'premium'"
           src="~/assets/svg/premium_light.svg"
@@ -93,7 +99,10 @@ const isPremiumOpen = ref(false);
       <nuxt-link to="/cabinet/test" class="p-5">
         <img src="~/assets/svg/test_ent_green.svg" alt="img" class="w-7 h-7" />
       </nuxt-link>
-      <nuxt-link to="/cabinet/premium" class="p-5">
+      <nuxt-link
+        :to="hasPremium ? '/cabinet/premium/plans' : '/cabinet/premium'"
+        class="p-5"
+      >
         <img src="~/assets/svg/premium_red.svg" alt="img" class="w-7 h-7" />
       </nuxt-link>
     </div>

@@ -1,9 +1,6 @@
 <script setup>
 const { locale, setLocale } = useI18n();
 const isLangOpen = defineModel();
-const closeModal = () => {
-  isLangOpen.value = false;
-};
 </script>
 
 <template>
@@ -50,7 +47,7 @@ const closeModal = () => {
         </div>
 
         <UButton
-          @click="closeModal"
+          @click="isLangOpen = false"
           class="text-base font-semibold text-white w-full justify-center py-3 mt-5 rounded-xl"
         >
           {{ $t("select") }}

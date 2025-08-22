@@ -98,6 +98,6 @@ const onLogout = () => {
       :title="$t('logout')"
       @submit="onLogout"
     />
-    <ModalsLang v-model:open="isLangOpen" />
+    <ModalsLang v-model="isLangOpen" />
   </main>
 </template>

@@ -57,8 +57,13 @@ const onAnswer = async (question_id, answer) => {
 };
 
 const onFinish = () => {
-  isResultOpen.value = false;
-  useRouter().push("/cabinet/subjects");
+  useFetchApi("test/end", {
+    method: "POST",
+    body: { id: route.query?.sub_module },
+  }).then(() => {
+    isResultOpen.value = false;
+    useRouter().push(`/cabinet/lessons?subject_id=${route.query.subject}`);
+  });
 };
 
 const totalSeconds = ref((data.value?.data?.time || 20) * 60);
@@ -105,7 +110,7 @@ onUnmounted(() => {
 
         <div class="flex justify-between items-center mt-6 flex-wrap gap-2">
           <p class="text-lg font-semibold text-mirage">
-            Сұрақ №{{ question_index + 1 }}
+            {{ $t("question") }} №{{ question_index + 1 }}
           </p>
           <div class="flex gap-2 items-center">
             <img src="~/assets/svg/alarm.svg" alt="icon" />
@@ -172,7 +177,12 @@ onUnmounted(() => {
           >
         </div>
         <ModalsTestError v-model="isErrorOpen" @onContinue="onContinue" />
-        <ModalsTestResult v-model="isResultOpen" @submit="onFinish" />
+        <ModalsTestResult
+          v-model="isResultOpen"
+          @submit="onFinish"
+          :right="answers.filter(Boolean).length"
+          :count="data?.data?.questions?.length"
+        />
         <ModalsTestLiveEnd v-model="isLiveEndOpen" />
       </div>
     </div>

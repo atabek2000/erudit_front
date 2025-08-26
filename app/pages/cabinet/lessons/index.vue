@@ -9,19 +9,29 @@ definePageMeta({
   layout: "menu",
 });
 
-const getInfo = (status) => {
+const getInfo = (m_index, l_index, lesson, lessons) => {
   const info = {
     color: "#F2F2F7",
     shadow: "#949494",
     disabled: true,
   };
-  if (status === "active") {
-    info.color = "#58CC02";
-    info.shadow = "#58A700";
-    info.disabled = false;
-  } else if (status === "end") {
+  if (lesson?.user_progress?.status === "ended") {
     info.color = "#FBBC05";
     info.shadow = "#A57D0A";
+    info.disabled = false;
+  } else if (
+    lesson?.user_progress?.status === "active" ||
+    // первый доступный урок (если еще не начал)
+    (m_index == 0 &&
+      l_index == 0 &&
+      !lessons?.[l_index + 1]?.user_progress?.status) ||
+    // последний доступный урок
+    (l_index > 0 &&
+      lessons?.[l_index - 1]?.user_progress?.status == "ended" &&
+      !lesson?.user_progress?.status)
+  ) {
+    info.color = "#58CC02";
+    info.shadow = "#58A700";
     info.disabled = false;
   }
 
@@ -78,28 +88,13 @@ onMounted(() => {
                 'mx-auto': index == 0 || index % 4 == 2 || index % 4 === 0,
                 'ml-auto': index % 4 == 1,
               }"
-              :color="
-                getInfo(
-                  m_index == 0 && index == 0
-                    ? 'active'
-                    : ls?.user_progress?.status
-                ).color
-              "
-              :shadow="
-                getInfo(
-                  m_index == 0 && index == 0
-                    ? 'active'
-                    : ls?.user_progress?.status
-                ).shadow
-              "
+              :color="getInfo(m_index, index, ls, module?.sub_modules).color"
+              :shadow="getInfo(m_index, index, ls, module?.sub_modules).shadow"
               :disabled="
-                getInfo(
-                  m_index == 0 && index == 0
-                    ? 'active'
-                    : ls?.user_progress?.status
-                ).disabled
+                getInfo(m_index, index, ls, module?.sub_modules).disabled
               "
               :lesson="ls"
+              :lesson_amount="module.sub_modules.length"
             />
             <SharedLessonsTest
               v-else
@@ -107,28 +102,13 @@ onMounted(() => {
                 'mx-auto': index == 0 || index % 4 == 2 || index % 4 === 0,
                 'ml-auto': index % 4 == 1,
               }"
-              :color="
-                getInfo(
-                  m_index == 0 && index == 0
-                    ? 'active'
-                    : ls?.user_progress?.status
-                ).color
-              "
-              :shadow="
-                getInfo(
-                  m_index == 0 && index == 0
-                    ? 'active'
-                    : ls?.user_progress?.status
-                ).shadow
-              "
+              :color="getInfo(m_index, index, ls, module?.sub_modules).color"
+              :shadow="getInfo(m_index, index, ls, module?.sub_modules).shadow"
               :disabled="
-                getInfo(
-                  m_index == 0 && index == 0
-                    ? 'active'
-                    : ls?.user_progress?.status
-                ).disabled
+                getInfo(m_index, index, ls, module?.sub_modules).disabled
               "
               :lesson="ls"
+              :lesson_amount="module.sub_modules.length"
               @openLiveEnd="isLiveEndOpen = true"
             />
           </div>

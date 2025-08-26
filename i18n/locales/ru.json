@@ -74,7 +74,7 @@
   "points_10": "10 Очков",
   "complete_lessons": "Пройдите уроки",
   "take_available_lesson": "Пройдите доступный урок",
-  "lesson_1_of_100": "Урок 1 из 100",
+  "lesson_1_of_100": "Урок {number} из {from}",
   "begin": "Начать",
   "unlock_2_modules": "Откройте 2 модуля",
   "unlock_5_modules": "Откройте 5 модуль!",
@@ -211,6 +211,11 @@
   "exit_test": "Выйти из теста",
   "lost_all_lives": "Потеряли все жизни?",
   "one_returns": "Через {time} вернётся одна — не упусти шанс!",
+  "lessonSummary_title": "Конспект урока",
+  "lessonSummary_description": "После просмотра видео вы сможете легко пересказать его краткое содержание и запомнить ключевые факты по теме.",
+  "lesson_pass": "Урок пройден",
+  "description": "Описание",
+  "question": "Вопрос",
 
   "months_genitive": {
     "1": "января",

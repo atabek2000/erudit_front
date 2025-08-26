@@ -1,6 +1,16 @@
 <script setup>
 const emits = defineEmits(["submit"]);
 const isOpen = defineModel();
+const props = defineProps({
+  right: {
+    type: Number,
+    default: 0,
+  },
+  count: {
+    type: Number,
+    default: 0,
+  },
+});
 </script>
 
 <template>
@@ -13,7 +23,7 @@ const isOpen = defineModel();
               {{ $t("test_passed") }}
             </p>
             <p class="text-base font-medium text-cod-gray/70 mt-2.5">
-              {{ $t("correct_answers", { result: "9/10" }) }}
+              {{ $t("correct_answers", { result: `${right}/${count}` }) }}
             </p>
           </div>
           <img src="/fire.png" alt="fire" width="70" height="70" />

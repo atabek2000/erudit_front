@@ -32,9 +32,11 @@ const isPremiumOpen = ref(false);
 const isLiveEndOpen = ref(false);
 
 onMounted(() => {
-  if (!hasPremium.value) {
-    isPremiumOpen.value = true;
-  }
+  setTimeout(() => {
+    if (!hasPremium.value) {
+      isPremiumOpen.value = true;
+    }
+  }, 1000);
 });
 </script>
 
@@ -61,7 +63,7 @@ onMounted(() => {
         height="167"
         class="absolute top-[940px] md:top-[900px] right-1/2 -translate-y-1/2 w-1/2 p-10 md:p-20 max-w-[380px]"
       /> -->
-      <div v-for="module in data?.data" :key="module.id">
+      <div v-for="(module, m_index) in data?.data" :key="module.id">
         <SharedLessonsName
           background="#FFEBF8"
           :title="module.name"
@@ -76,9 +78,27 @@ onMounted(() => {
                 'mx-auto': index == 0 || index % 4 == 2 || index % 4 === 0,
                 'ml-auto': index % 4 == 1,
               }"
-              :color="getInfo(ls?.user_progress?.status).color"
-              :shadow="getInfo(ls?.user_progress?.status).shadow"
-              :disabled="getInfo(ls?.user_progress?.status).disabled"
+              :color="
+                getInfo(
+                  m_index == 0 && index == 0
+                    ? 'active'
+                    : ls?.user_progress?.status
+                ).color
+              "
+              :shadow="
+                getInfo(
+                  m_index == 0 && index == 0
+                    ? 'active'
+                    : ls?.user_progress?.status
+                ).shadow
+              "
+              :disabled="
+                getInfo(
+                  m_index == 0 && index == 0
+                    ? 'active'
+                    : ls?.user_progress?.status
+                ).disabled
+              "
               :lesson="ls"
             />
             <SharedLessonsTest
@@ -87,9 +107,27 @@ onMounted(() => {
                 'mx-auto': index == 0 || index % 4 == 2 || index % 4 === 0,
                 'ml-auto': index % 4 == 1,
               }"
-              :color="getInfo(ls?.user_progress?.status).color"
-              :shadow="getInfo(ls?.user_progress?.status).shadow"
-              :disabled="getInfo(ls?.user_progress?.status).disabled"
+              :color="
+                getInfo(
+                  m_index == 0 && index == 0
+                    ? 'active'
+                    : ls?.user_progress?.status
+                ).color
+              "
+              :shadow="
+                getInfo(
+                  m_index == 0 && index == 0
+                    ? 'active'
+                    : ls?.user_progress?.status
+                ).shadow
+              "
+              :disabled="
+                getInfo(
+                  m_index == 0 && index == 0
+                    ? 'active'
+                    : ls?.user_progress?.status
+                ).disabled
+              "
               :lesson="ls"
               @openLiveEnd="isLiveEndOpen = true"
             />

@@ -21,6 +21,10 @@ const videooptions = ref({
 const videoPlayer = ref(null);
 let player = null;
 
+const finish = () => {
+  navigateTo(`/cabinet/lessons?subject_id=${route.query.subject}`);
+};
+
 onMounted(() => {
   player = videojs(videoPlayer.value, videooptions.value);
 });
@@ -91,7 +95,7 @@ onBeforeUnmount(() => {
             </nuxt-link>
           </div>
 
-          <UButton class="mt-4" disabled=""> Урок пройден </UButton>
+          <UButton @click="finish" class="mt-4"> Урок пройден </UButton>
         </div>
       </div>
     </div>

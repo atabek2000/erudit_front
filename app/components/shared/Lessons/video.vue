@@ -77,7 +77,7 @@ onBeforeUnmount(() => {
 
           <UButton
             v-if="!disabled"
-            :to="`/cabinet/lessons/video/${lesson.id}`"
+            :to="`/cabinet/lessons/video/${lesson.id}?subject=${$route.query.subject_id}`"
             class="mt-4 bg-white hover:bg-white"
             :style="{ color: color }"
             >Начать</UButton

@@ -22,9 +22,7 @@ const getInfo = (m_index, l_index, lesson, lessons) => {
   } else if (
     lesson?.user_progress?.status === "active" ||
     // первый доступный урок (если еще не начал)
-    (m_index == 0 &&
-      l_index == 0 &&
-      !lessons?.[l_index + 1]?.user_progress?.status) ||
+    (m_index == 0 && l_index == 0) ||
     // последний доступный урок
     (l_index > 0 &&
       lessons?.[l_index - 1]?.user_progress?.status == "ended" &&

@@ -2,9 +2,13 @@
 const route = useRoute();
 const { setLive, live } = useAttribute();
 const { hasPremium } = useCustomAuth();
+const { locale } = useI18n();
 
 const { data } = await useAPI(
-  `test?test_id=${route.params?.id}&module_id=${route.query?.module}&module_sub_id=${route.query?.sub_module}`
+  `test?test_id=${route.params?.id}&module_id=${route.query?.module}&module_sub_id=${route.query?.sub_module}`,
+  {
+    watch: [locale],
+  }
 );
 
 const isErrorOpen = ref(false);

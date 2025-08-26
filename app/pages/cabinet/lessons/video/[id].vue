@@ -2,7 +2,10 @@
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 const route = useRoute();
-const { data } = await useAPI(`lesson?id=${route.params?.id}`);
+const {locale} = useI18n()
+const { data } = await useAPI(`lesson?id=${route.params?.id}`, {
+  watch: [locale],
+});
 
 const videooptions = ref({
   autoplay: false,

@@ -2,7 +2,7 @@
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 const route = useRoute();
-const {locale} = useI18n()
+const { locale } = useI18n();
 const { data } = await useAPI(`lesson?id=${route.params?.id}`, {
   watch: [locale],
 });
@@ -32,6 +32,16 @@ const finish = () => {
     navigateTo(`/cabinet/lessons?subject_id=${route.query.subject}`);
   });
 };
+
+watch(locale, () => {
+  if (videoPlayer.value) {
+    player.src({
+      src: useRuntimeConfig().public.API_STORAGE + data.value?.data?.[0]?.video,
+      type: "video/mp4",
+    });
+    // player.play();
+  }
+});
 
 onMounted(() => {
   player = videojs(videoPlayer.value, videooptions.value);

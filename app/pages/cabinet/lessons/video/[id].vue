@@ -33,7 +33,8 @@ const finish = () => {
   });
 };
 
-watch(locale, () => {
+// если изменился язык
+watch(data, () => {
   if (videoPlayer.value) {
     player.src({
       src: useRuntimeConfig().public.API_STORAGE + data.value?.data?.[0]?.video,

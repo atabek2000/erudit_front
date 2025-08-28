@@ -1,4 +1,5 @@
 <script setup>
+const { formattedTimeLeft, checkRecovery } = useAttribute();
 const isOpen = defineModel();
 const emits = defineEmits(["submit"]);
 const props = defineProps({
@@ -7,6 +8,13 @@ const props = defineProps({
     default: true,
   },
 });
+
+let t;
+onMounted(() => {
+  checkRecovery(); // мгновенный пересчёт при загрузке
+  t = setInterval(checkRecovery, 1000);
+});
+onBeforeUnmount(() => clearInterval(t));
 </script>
 
 <template>
@@ -21,7 +29,7 @@ const props = defineProps({
           ⏳ {{ $t("lost_all_lives") }}
         </p>
         <p class="text-base font-medium text-cod-gray">
-          {{ $t("one_returns", { time: "4:00 min" }) }}
+          {{ $t("one_returns", { time: `${formattedTimeLeft} мин` }) }}
         </p>
         <div class="flex flex-col gap-2 mt-8">
           <UButton to="/cabinet/diamonds">

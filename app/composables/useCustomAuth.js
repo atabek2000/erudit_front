@@ -97,6 +97,7 @@ export default () => {
         });
 
         setUser(data?.data);
+        initAttribute(data?.data?.attributes);
         cookie_auth_name.value = data?.data.name ?? $i18n.t("profile");
         cookie_jwt.value = data?.data.access_token;
         refreshCookie("jwt");

@@ -143,6 +143,7 @@ onUnmounted(() => {
 
         <WidgetsTestVariantSingleEnt
           v-if="
+            currentRound?.question?.answers.length &&
             currentRound?.question?.answers?.filter((ans) => !ans.is_correct)
               .length == 1
           "
@@ -152,10 +153,15 @@ onUnmounted(() => {
           :key="currentRound?.question?.id"
         />
         <WidgetsTestVariantMultiple
-          v-else
+          v-else-if="currentRound?.question?.answers.length"
           :question="currentRound?.question"
           :key="currentRound?.question?.id"
         />
+        <div v-else>
+          <p class="text-base font-semibold text-red-orange text-center">
+            {{ $t("not_found") }}
+          </p>
+        </div>
 
         <div class="flex gap-3 mt-6 md:hidden">
           <UButton

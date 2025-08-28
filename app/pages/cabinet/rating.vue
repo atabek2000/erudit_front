@@ -12,6 +12,7 @@ const { data, status } = await useAPI("main/rating", {
   params: {
     subject_id: selectedSubject,
     period: selectedPeriod,
+    page: page,
   },
   watch: [selectedSubject, selectedPeriod, page],
 });

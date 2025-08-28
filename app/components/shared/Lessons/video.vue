@@ -3,6 +3,8 @@ const route = useRoute();
 const { live } = useAttribute();
 const { hasPremium } = useCustomAuth();
 
+const emits = defineEmits(["openLiveEnd"]);
+
 const props = defineProps({
   color: {
     type: String,

@@ -216,6 +216,7 @@
   "lesson_pass": "Сабақ аяқталды",
   "description": "Сипаттама",
   "question": "Сұрақ",
+  "not_found": "Деректер табылмады!",
 
   "months_genitive": {
     "1": "қаңтар",

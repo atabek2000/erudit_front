@@ -216,6 +216,7 @@
   "lesson_pass": "Урок пройден",
   "description": "Описание",
   "question": "Вопрос",
+  "not_found": "Данные не найдены!",
 
   "months_genitive": {
     "1": "января",

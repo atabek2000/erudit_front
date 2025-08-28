@@ -1,6 +1,12 @@
 <script setup>
 const { locale, setLocale } = useI18n();
+const { profileEdit } = useCustomAuth();
 const isLangOpen = defineModel();
+
+const onSelect = (lang) => {
+  setLocale(lang);
+  profileEdit({ lang });
+};
 </script>
 
 <template>
@@ -17,7 +23,7 @@ const isLangOpen = defineModel();
         </p>
         <div class="mt-5">
           <UButton
-            @click="setLocale('kk')"
+            @click="onSelect('kk')"
             class="text-black text-sm font-normal w-full justify-between"
             variant="ghost"
           >
@@ -31,7 +37,7 @@ const isLangOpen = defineModel();
             </template>
           </UButton>
           <UButton
-            @click="setLocale('ru')"
+            @click="onSelect('ru')"
             class="text-black text-sm font-normal w-full justify-between"
             variant="ghost"
           >

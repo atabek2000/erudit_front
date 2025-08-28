@@ -167,7 +167,7 @@ onUnmounted(() => {
         />
 
         <div class="flex gap-3 md:hidden">
-          <UButton
+          <!-- <UButton
             @click="isErrorOpen = true"
             class="md:w-fit px-5 bg-purple-heart/10 hover:bg-purple-heart/20 aria-disabled:bg-purple-heart/10 text-cod-gray"
             size="sm"
@@ -178,6 +178,23 @@ onUnmounted(() => {
             class="md:w-fit px-5"
             size="sm"
             >{{ $t("next_btn") }}</UButton
+          > -->
+          <UButton
+            v-if="
+              question_index === data?.data?.questions?.length - 1 && hasAnswer
+            "
+            @click="nextQuestion()"
+            class="md:w-fit px-5 text-sm text-white bg-black hover:bg-black/80 block md:hidden"
+            size="sm"
+            >{{ $t("finish_test") }}</UButton
+          >
+          <UButton
+            v-else
+            @click="nextQuestion()"
+            class="block md:hidden md:w-fit px-5"
+            size="sm"
+            :disabled="!hasAnswer"
+            >{{ $t("next_question") }}</UButton
           >
         </div>
         <ModalsTestError v-model="isErrorOpen" @onContinue="onContinue" />

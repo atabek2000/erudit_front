@@ -36,6 +36,20 @@ export default () => {
     }
   };
 
+  const saveState = () => {
+    localStorage.setItem("user_live", live().value);
+    localStorage.setItem("last_added_time", lastAddedTime().value || "");
+  };
+
+  // === Загрузка из localStorage ===
+  const loadState = () => {
+    const storedLives = Number(localStorage.getItem("user_live"));
+    const storedTime = localStorage.getItem("last_added_time");
+
+    if (!isNaN(storedLives)) live().value = Math.min(MAX_LIVES, storedLives);
+    if (storedTime) lastAddedTime().value = Number(storedTime);
+  };
+
   // Проверяем таймер и восстанавливаем жизни
   const checkRecovery = () => {
     // console.log("checkRecovery");
@@ -73,6 +87,8 @@ export default () => {
         lastAddedTime().value = null;
         timeLeft().value = 0;
       }
+
+      saveState();
     } else {
       // ещё не набежал полный интервал — считаем обратный отсчёт
       timeLeft().value = RECOVERY_TIME - elapsed;
@@ -102,5 +118,6 @@ export default () => {
     setLive,
     formattedTimeLeft,
     checkRecovery,
+    loadState,
   };
 };

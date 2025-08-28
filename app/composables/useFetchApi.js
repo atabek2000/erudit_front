@@ -11,6 +11,8 @@ export default (url, options = {}) => {
       ...options.headers,
       Authorization: `Bearer ${cookie_jwt.value}`,
       "Content-Language": $i18n.locale.value,
+      "Accept-Language": $i18n.locale.value,
+      Accept: "application/json",
     },
     async onResponseError({ request, response, options }) {
       stopLoading();

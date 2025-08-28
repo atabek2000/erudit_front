@@ -8,7 +8,9 @@ export function useAPI<T>(
     ...options,
     headers: {
       "Content-Language": useNuxtApp().$i18n.locale,
+      "Accept-Language": useNuxtApp().$i18n.locale,
       Authorization: `Bearer ${useCookie("jwt").value}`,
+      Accept: "application/json",
       ...options?.headers,
     },
     $fetch: useNuxtApp().$api,

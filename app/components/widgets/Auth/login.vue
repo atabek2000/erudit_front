@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import * as z from "zod";
 import type { UserAuth } from "@/utils/types/user";
+const { signIn } = useAuth();
 const { t } = useI18n();
 
 const emits = defineEmits(["submit"]);
@@ -20,9 +21,20 @@ const state = reactive<UserAuth>({
   password: "",
 });
 
+const loading = reactive({
+  google: false,
+  apple: false,
+});
+
 async function onSubmit() {
   emits("submit", state);
 }
+
+const signInWithAccount = async (provider: "apple" | "google") => {
+  loading[provider] = true;
+  signIn(provider, { callbackUrl: "/profile/info/edit" });
+  setTimeout(() => (loading[provider] = false), 5000);
+};
 </script>
 
 <template>
@@ -88,6 +100,7 @@ async function onSubmit() {
 
     <div class="flex gap-6">
       <UButton
+        @click="signInWithAccount('apple')"
         class="text-cod-gray text-xs md:text-sm bg-athens-gray hover:bg-athens-gray/60"
         size="sm"
       >
@@ -95,6 +108,7 @@ async function onSubmit() {
         {{ $t("login_with_apple") }}
       </UButton>
       <UButton
+        @click="signInWithAccount('google')"
         class="text-cod-gray text-xs md:text-sm bg-athens-gray hover:bg-athens-gray/60"
         size="sm"
       >

@@ -32,7 +32,7 @@ async function onSubmit() {
 
 const signInWithAccount = async (provider: "apple" | "google") => {
   loading[provider] = true;
-  signIn(provider, { callbackUrl: "/profile/info/edit" });
+  signIn(provider, { callbackUrl: "/cabinet/profile/edit" });
   setTimeout(() => (loading[provider] = false), 5000);
 };
 </script>

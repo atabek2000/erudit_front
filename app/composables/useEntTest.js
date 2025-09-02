@@ -43,9 +43,9 @@ export default () => {
       `/cabinet/test/item?ent_id=${ent_id.value}&subject_id=${subject_id.value}&round=${to_round}`
     );
   };
-  const onAnswer = (question_id, answers) => {
+  const onAnswer = async (question_id, answers) => {
     // compute points
-    sendAnswer(answers.map((ans) => ans.id)).then(() => {
+    await sendAnswer(answers.map((ans) => ans.id)).then(() => {
       answeredQuestions[question_id] = answers.map((ans) => ans.id);
       answeredQuestionList.push(question_id);
     });

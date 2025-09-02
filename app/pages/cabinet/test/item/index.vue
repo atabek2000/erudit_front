@@ -144,7 +144,7 @@ onUnmounted(() => {
         <WidgetsTestVariantSingleEnt
           v-if="
             currentRound?.question?.answers.length &&
-            currentRound?.question?.answers?.filter((ans) => !ans.is_correct)
+            currentRound?.question?.answers?.filter((ans) => ans.is_correct)
               .length == 1
           "
           :question="currentRound?.question"
@@ -155,7 +155,8 @@ onUnmounted(() => {
         <WidgetsTestVariantMultiple
           v-else-if="currentRound?.question?.answers.length"
           :question="currentRound?.question"
-          :key="currentRound?.question?.id"
+          :selectedAnswer="answeredQuestions[currentRound?.question?.id]"
+          @onAnswer="onAnswer"
         />
         <div v-else>
           <p class="text-base font-semibold text-red-orange text-center">

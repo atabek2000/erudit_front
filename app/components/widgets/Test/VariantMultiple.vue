@@ -1,31 +1,62 @@
 <script setup>
-const items = ref([
-  "A) f′(x)=1−x2​1​",
-  "B) f′(x)=71+x2f′(x)=1+x2​",
-  "C) f′(x)=1−x2​",
-  "D) f′(x)=1−x2​",
-]);
-const selectedAnswer = ref(["A) f′(x)=1−x2​1​"]);
+const props = defineProps({
+  question: {
+    type: Object,
+    default: {},
+  },
+  selectedAnswer: {
+    type: Array,
+    default: () => [],
+  },
+});
+
+const emits = defineEmits(["onAnswer"]);
+
+const selectedAnswer = ref(props.selectedAnswer ? props.selectedAnswer : []);
+
+const onChangeAnswer = () => {
+  console.log(
+    props?.question?.answers?.filter((ans) =>
+      selectedAnswer.value.includes(ans.id)
+    )
+  );
+
+  emits(
+    "onAnswer",
+    props?.question?.id,
+    props?.question?.answers?.filter((ans) =>
+      selectedAnswer.value.includes(ans.id)
+    )
+  );
+};
 </script>
 
 <template>
   <div class="max-w-[900px] mt-6 mx-auto">
     <p class="text-base md:text-lg font-semibold text-mirage text-center">
-      Кто считался верховным правителем и богом в Древнем Египте?
+      {{ question?.text }}
     </p>
     <img
-      src="https://megabyteclub.co.uk/wp-content/uploads/2020/05/blog-article-6.jpg"
+      v-if="question?.image"
+      :src="question?.image"
       alt="img"
       class="w-full rounded-xl mb-4 mt-5"
     />
 
     <UCheckboxGroup
       v-model="selectedAnswer"
-      :items="items"
+      :items="
+        question?.answers?.map((ans) => ({
+          label: ans?.text,
+          value: ans?.id,
+          is_correct: ans?.is_correct,
+        }))
+      "
       :ui="{
         base: 'hidden',
         wrapper: 'ms-0',
       }"
+      @change="onChangeAnswer"
       class="mt-6"
     >
       <template #label="{ item }">

@@ -100,6 +100,7 @@ const signInWithAccount = async (provider: "apple" | "google") => {
 
     <div class="flex gap-6">
       <UButton
+        :loading="loading.apple"
         @click="signInWithAccount('apple')"
         class="text-cod-gray text-xs md:text-sm bg-athens-gray hover:bg-athens-gray/60"
         size="sm"
@@ -108,6 +109,7 @@ const signInWithAccount = async (provider: "apple" | "google") => {
         {{ $t("login_with_apple") }}
       </UButton>
       <UButton
+        :loading="loading.google"
         @click="signInWithAccount('google')"
         class="text-cod-gray text-xs md:text-sm bg-athens-gray hover:bg-athens-gray/60"
         size="sm"

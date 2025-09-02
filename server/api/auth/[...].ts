@@ -71,7 +71,7 @@ export default NuxtAuthHandler({
                     apple_token: user.id,
                     email: user.email,
                   }),
-              ...(user.name ? { fio: user.name } : {}),
+              ...(user.name ? { name: user.name } : {}),
             },
           }).then((res) => {
             if (res?.data) {

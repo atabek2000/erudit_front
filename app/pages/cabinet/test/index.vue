@@ -1,6 +1,8 @@
 <script setup>
 const { data } = await useAPI("list/subjects");
 const { t } = useI18n();
+const { data: results } = await useAPI("ent/results");
+const { hasPremium } = useCustomAuth();
 
 const main_subjects = computed(() => {
   return data.value?.data.filter((sbj) => sbj.is_main);
@@ -104,6 +106,7 @@ definePageMeta({
       </div>
 
       <div
+        v-if="!results && !hasPremium"
         class="hidden lg:flex gap-2 p-3 w-full bg-sea-buckthorn/10 rounded-2xl mt-6 items-center"
       >
         <img src="/lamp.png" alt="lamp" />
@@ -117,11 +120,39 @@ definePageMeta({
         </div>
       </div>
 
+      <div
+        v-if="results && !hasPremium"
+        class="hidden lg:flex gap-2 p-3 w-full bg-athens-gray rounded-2xl mt-6 items-center"
+      >
+        <img src="/warning.png" alt="lamp" width="34" />
+        <div>
+          <p class="text-sm font-medium text-cod-gray">
+            {{ $t("ent_passed") }}
+          </p>
+          <p class="text-sm font-medium text-cod-gray">
+            {{ $t("ent_with_premium") }}
+          </p>
+        </div>
+        <nuxt-link
+          to="/cabinet/premium"
+          class="ml-auto bg-button-gradient text-white rounded-xl text-sm font-medium px-5 py-2"
+        >
+          {{ $t("purchase") }}
+        </nuxt-link>
+      </div>
+
       <UButton
         @click="onStart"
+        :disabled="results && !hasPremium"
         class="mt-6 fixed lg:static bottom-20 left-4 right-4 w-auto lg:w-full"
         >{{ $t("confirm_selection") }}</UButton
       >
     </div>
   </main>
 </template>
+
+<style scoped>
+.bg-button-gradient {
+  background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+}
+</style>

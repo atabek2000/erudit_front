@@ -1,4 +1,6 @@
 <script setup>
+// const { data: results } = await useAPI("ent/results");
+// const { hasPremium } = useCustomAuth();
 const { data } = await useAPI("ent");
 const {
   init,
@@ -25,6 +27,18 @@ const remainingTime = ref(totalDuration);
 let intervalId;
 
 onMounted(() => {
+  // получим информацию о прохождении ент
+  const entPassed = localStorage.getItem("nuxt-344-nnm", "1");
+
+  if (entPassed) {
+    useToast().add({
+      title: t("toast.error"),
+      color: "red",
+      description: t("ent_with_premium"),
+    });
+    router.push("/cabinet/test");
+    return;
+  }
   const status = init(data.value?.data, route.query.ent_id);
   if (!status) {
     useToast().add({

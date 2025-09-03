@@ -1,5 +1,10 @@
 <script setup>
 const { data } = await useAPI("ent/results");
+
+onMounted(() => {
+  // сохраним информацию о прохождении ент
+  localStorage.setItem("nuxt-344-nnm", "1");
+});
 </script>
 
 <template>

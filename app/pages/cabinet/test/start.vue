@@ -1,5 +1,9 @@
 <script setup>
 const { data } = await useAPI("list/subjects");
+const { data: results } = await useAPI("ent/results");
+const { hasPremium } = useCustomAuth();
+const { t } = useI18n();
+
 const route = useRoute();
 
 const loading = ref(false);
@@ -20,6 +24,15 @@ const sbj2 = computed(() => {
 });
 
 const onStart = () => {
+  // пробный ент недоступен
+  if (results.value && !hasPremium.value) {
+    useToast().add({
+      title: t("toast.error"),
+      color: "red",
+      description: t("ent_with_premium"),
+    });
+    return;
+  }
   const data = new FormData();
 
   data.append("subjects[0][id]", sbj1.value.id);

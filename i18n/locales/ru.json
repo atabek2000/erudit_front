@@ -217,6 +217,9 @@
   "description": "Описание",
   "question": "Вопрос",
   "not_found": "Данные не найдены!",
+  "ent_passed": "Вы уже прошли пробный тест.",
+  "ent_with_premium": "Доступ к тестированию — только с подпиской Эрудит Premium.",
+  "purchase": "Приобрести",
 
   "months_genitive": {
     "1": "января",

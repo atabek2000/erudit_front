@@ -217,6 +217,9 @@
   "description": "Сипаттама",
   "question": "Сұрақ",
   "not_found": "Деректер табылмады!",
+  "ent_passed": "Сіз сынақ тест-ті тапсырып қойдыңыз.",
+  "ent_with_premium": "Тест тапсыру тек Erudit Premium жазылымымен ғана қолжетімді.",
+  "purchase": "Сатып алу",
 
   "months_genitive": {
     "1": "қаңтар",

@@ -48,6 +48,7 @@ definePageMeta({
 <template>
   <main class="pb-10">
     <div
+      v-if="!results && !hasPremium"
       class="flex lg:hidden gap-2 p-3 w-full bg-selective-yellow-600/35 rounded-2xl items-center mb-2"
     >
       <img src="/lamp.png" alt="lamp" />
@@ -59,6 +60,28 @@ definePageMeta({
           {{ $t("premium_required_after") }}
         </p>
       </div>
+    </div>
+    <div
+      v-if="results && !hasPremium"
+      class="lg:hidden p-3 w-full bg-athens-gray rounded-2xl mt-6 items-center space-y-4"
+    >
+      <div class="flex gap-2 w-full">
+        <img src="/warning.png" alt="warning" width="34" />
+        <div>
+          <p class="text-sm font-medium text-cod-gray">
+            {{ $t("ent_passed") }}
+          </p>
+          <p class="text-sm font-medium text-cod-gray">
+            {{ $t("ent_with_premium") }}
+          </p>
+        </div>
+      </div>
+      <nuxt-link
+        to="/cabinet/premium"
+        class="ml-auto block w-fit bg-button-gradient text-white rounded-xl text-sm font-medium px-5 py-2"
+      >
+        {{ $t("purchase") }}
+      </nuxt-link>
     </div>
     <div class="bg-white lg:rounded-xl px-4 py-4 md:px-8 md:py-6">
       <div class="">
@@ -124,7 +147,7 @@ definePageMeta({
         v-if="results && !hasPremium"
         class="hidden lg:flex gap-2 p-3 w-full bg-athens-gray rounded-2xl mt-6 items-center"
       >
-        <img src="/warning.png" alt="lamp" width="34" />
+        <img src="/warning.png" alt="warning" width="34" />
         <div>
           <p class="text-sm font-medium text-cod-gray">
             {{ $t("ent_passed") }}

@@ -14,7 +14,7 @@ const props = defineProps({
 <template>
   <nuxt-link
     :to="isEnt ? '' : `/cabinet/lessons?subject_id=${subject.id}`"
-    class="border border-gray/30 rounded-xl overflow-hidden cursor-pointer"
+    class="border border-gray/30 rounded-xl overflow-hidden cursor-pointer h-full"
     :class="
       isEnt
         ? ''

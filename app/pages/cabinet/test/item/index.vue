@@ -1,6 +1,6 @@
 <script setup>
 // const { data: results } = await useAPI("ent/results");
-// const { hasPremium } = useCustomAuth();
+const { hasPremium } = useCustomAuth();
 const { data } = await useAPI("ent");
 const {
   init,
@@ -30,7 +30,7 @@ onMounted(() => {
   // получим информацию о прохождении ент
   const entPassed = localStorage.getItem("nuxt-344-nnm", "1");
 
-  if (entPassed) {
+  if (entPassed && !hasPremium.value) {
     useToast().add({
       title: t("toast.error"),
       color: "red",

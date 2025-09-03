@@ -6,15 +6,12 @@ export default () => {
   const timeLeft = () => useState("time_left", () => 0); // миллисекунды до новой жизни
 
   const MAX_LIVES = 5;
-  const RECOVERY_TIME = 10 * 60 * 1000; // 4 минуты в мс
+  const RECOVERY_TIME = 6 * 60 * 60 * 1000; // 6 часов в мс
 
   const init = (data) => {
     point().value = Math.max(0, Number(data?.point) || 0);
     diamond().value = Math.max(0, Number(data?.diamond) || 0);
-    live().value = Math.max(
-      0,
-      Math.min(MAX_LIVES, Number(data?.live) || MAX_LIVES)
-    );
+    live().value = Math.max(0, Number(data?.live) || 0);
   };
 
   const setPoint = (val) => {
@@ -34,6 +31,7 @@ export default () => {
       lastAddedTime().value = null;
       timeLeft().value = 0;
     }
+    localStorage.setItem("user_live", live().value);
   };
 
   const saveState = () => {
@@ -98,9 +96,11 @@ export default () => {
   // Форматирование оставшегося времени (MM:SS)
   const formattedTimeLeft = computed(() => {
     const totalSeconds = Math.ceil(timeLeft().value / 1000);
-    const minutes = Math.floor(totalSeconds / 60);
+    const totalMinutes = Math.floor(totalSeconds / 60);
+    const hours = Math.floor(totalMinutes / 60);
     const seconds = totalSeconds % 60;
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    const minutes = totalMinutes % 60;
+    return `${hours}:${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   });
 
   // Запускаем интервал восстановления

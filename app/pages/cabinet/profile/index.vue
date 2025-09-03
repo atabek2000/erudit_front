@@ -59,13 +59,8 @@ const onLogout = () => {
       class="flex gap-3 lg:justify-between flex-row-reverse md:flex-row items-center"
     >
       <div class="flex-1">
-        <p class="text-xl font-semibold text-black">Аружан Айболовна</p>
-        <SharedScorePanel
-          score="10"
-          life="6"
-          diamond="8"
-          class="mt-3 hidden lg:flex"
-        />
+        <p class="text-xl font-semibold text-black">{{ authUser?.name }}</p>
+        <SharedScorePanel class="mt-3 hidden lg:flex" />
       </div>
       <img
         :src="authUser?.avatar || '/avatar.png'"

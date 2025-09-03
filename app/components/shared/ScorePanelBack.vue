@@ -3,11 +3,6 @@
     <nuxt-link @click="$router.go(-1)">
       <img src="~/assets/svg/arrow_left.svg" alt="img" class="w-7 h-7" />
     </nuxt-link>
-    <SharedScorePanel
-      :score="10"
-      :life="6"
-      :diamond="8"
-      class="justify-around flex-1"
-    />
+    <SharedScorePanel class="justify-around flex-1" />
   </div>
 </template>

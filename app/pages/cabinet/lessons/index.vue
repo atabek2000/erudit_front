@@ -1,6 +1,6 @@
 <script setup>
 const route = useRoute();
-const { hasPremium } = useCustomAuth();
+const { hasPremium, fetchUser } = useCustomAuth();
 const { data } = await useAPI(
   `list/modules?subject_id=${route.query.subject_id}`
 );
@@ -39,7 +39,8 @@ const getInfo = (m_index, l_index, lesson, lessons) => {
 const isPremiumOpen = ref(false);
 const isLiveEndOpen = ref(false);
 
-onMounted(() => {
+onMounted(async () => {
+  await fetchUser();
   setTimeout(() => {
     if (!hasPremium.value) {
       isPremiumOpen.value = true;
@@ -51,12 +52,7 @@ onMounted(() => {
 <template>
   <main class="bg-white lg:rounded-xl px-4 md:px-8 relative">
     <div class="flex justify-end absolute right-4 top-4">
-      <SharedScorePanel
-        score="10"
-        life="6"
-        diamond="8"
-        class="hidden md:flex"
-      />
+      <SharedScorePanel class="hidden md:flex" />
     </div>
     <div class="overflow-y-auto">
       <!-- <img
@@ -93,6 +89,7 @@ onMounted(() => {
               "
               :lesson="ls"
               :lesson_amount="module.sub_modules.length"
+              @openLiveEnd="isLiveEndOpen = true"
             />
             <SharedLessonsTest
               v-else

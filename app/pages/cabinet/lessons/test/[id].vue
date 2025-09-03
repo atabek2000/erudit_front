@@ -104,12 +104,7 @@ onUnmounted(() => {
           <p class="text-xl font-semibold text-black">
             {{ data?.data?.title }}
           </p>
-          <SharedScorePanel
-            score="10"
-            life="6"
-            diamond="8"
-            class="hidden lg:flex"
-          />
+          <SharedScorePanel class="hidden lg:flex" />
         </div>
 
         <div class="flex justify-between items-center mt-6 flex-wrap gap-2">

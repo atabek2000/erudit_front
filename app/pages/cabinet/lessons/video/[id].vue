@@ -64,12 +64,7 @@ onBeforeUnmount(() => {
           <p class="text-xl font-semibold text-black">
             {{ data?.data?.[0]?.subject_name }}
           </p>
-          <SharedScorePanel
-            score="10"
-            life="6"
-            diamond="8"
-            class="hidden lg:flex"
-          />
+          <SharedScorePanel class="hidden lg:flex" />
         </div>
 
         <div class="tiny-container mt-6">

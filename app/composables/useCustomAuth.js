@@ -272,6 +272,7 @@ export default () => {
         refreshCookie("jwt");
         refreshCookie("user_name");
         resolve(true);
+        localStorage.removeItem("nuxt-344-nnm");
       } catch (e) {
         reject(e);
       }

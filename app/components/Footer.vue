@@ -7,7 +7,7 @@
         <img src="/logo/black.png" alt="logo" />
       </nuxt-link>
       <div class="flex items-center gap-5">
-        <nuxt-link to="/">
+        <nuxt-link to="https://wa.me/77066230218">
           <img
             src="~/assets/svg/social/whatsapp.svg"
             alt="whatsapp"
@@ -15,7 +15,7 @@
             height="22"
           />
         </nuxt-link>
-        <nuxt-link to="/">
+        <nuxt-link to="https://t.me/Erudit_kz">
           <img
             src="~/assets/svg/social/telegram.svg"
             alt="telegram"
@@ -23,7 +23,7 @@
             height="20"
           />
         </nuxt-link>
-        <nuxt-link to="/">
+        <nuxt-link to="https://www.instagram.com/erudit.kz">
           <img
             src="~/assets/svg/social/insta.svg"
             alt="insta"

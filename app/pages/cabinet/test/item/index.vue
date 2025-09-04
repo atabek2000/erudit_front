@@ -1,4 +1,6 @@
 <script setup>
+import { WidgetsTestVariantContext } from "#components";
+
 // const { data: results } = await useAPI("ent/results");
 const { hasPremium } = useCustomAuth();
 const { data } = await useAPI("ent");
@@ -155,8 +157,22 @@ onUnmounted(() => {
           </button>
         </div>
 
-        <WidgetsTestVariantSingleEnt
+        <WidgetsTestVariantContextSingle
           v-if="
+            currentRound?.question?.context &&
+            currentRound?.question?.answers.length &&
+            currentRound?.question?.answers?.filter((ans) => ans.is_correct)
+              .length == 1
+          "
+        />
+        <WidgetsTestVariantContextMultiple
+          v-else-if="
+            currentRound?.question?.context &&
+            currentRound?.question?.answers.length
+          "
+        />
+        <WidgetsTestVariantSingleEnt
+          v-else-if="
             currentRound?.question?.answers.length &&
             currentRound?.question?.answers?.filter((ans) => ans.is_correct)
               .length == 1

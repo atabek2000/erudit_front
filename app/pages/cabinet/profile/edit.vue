@@ -5,7 +5,7 @@ const { deleteUser, profileEdit } = useCustomAuth();
 const cookie_jwt = useCookie("jwt");
 const { t } = useI18n();
 
-const { data } = await useAPI("user/profile");
+const { data, refresh } = await useAPI("user/profile");
 
 const schema = {
   name: z.string().min(3, t("toast.invalid_fio")),
@@ -90,7 +90,9 @@ const onSubmit = async () => {
         for="avatar"
         class="mx-auto rounded-full flex items-center justify-center cursor-pointer"
         :style="`background:  linear-gradient(rgba(235, 237, 240, 0.5), rgba(235, 237, 240, 0.5)), url('${
-          data?.data?.avatar || '/avatar.png'
+          data?.data?.avatar
+            ? useRuntimeConfig().public.API_STORAGE + data?.data?.avatar
+            : '/avatar.png'
         }') no-repeat center; width: 90px; height: 90px;`"
       >
         <img src="~/assets/svg/camera.svg" alt="camera" />

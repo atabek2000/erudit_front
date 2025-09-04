@@ -45,9 +45,13 @@ const isLangOpen = ref(false);
             {{ cookie_auth_name }}
           </p>
           <img
-            :src="authUser?.avatar || '/avatar.png'"
+            :src="
+              authUser?.avatar
+                ? useRuntimeConfig().public.API_STORAGE + authUser?.avatar
+                : '/avatar.png'
+            "
             alt="avatar"
-            class="w-6 h-6 md:w-10 md:h-10"
+            class="w-6 h-6 md:w-10 md:h-10 rounded-full"
           />
         </nuxt-link>
         <!-- <USlideover v-model:open="isOpen" v-if="hasMenu" class="md:hidden">

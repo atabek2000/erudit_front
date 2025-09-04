@@ -1,6 +1,4 @@
 <script setup>
-import { WidgetsTestVariantContext } from "#components";
-
 // const { data: results } = await useAPI("ent/results");
 const { hasPremium } = useCustomAuth();
 const { data } = await useAPI("ent");

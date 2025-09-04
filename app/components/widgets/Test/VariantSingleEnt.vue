@@ -29,6 +29,13 @@ const onChangeAnswer = () => {
       {{ question?.text }}
     </p>
 
+    <img
+      v-if="question?.image"
+      :src="useRuntimeConfig().public.API_STORAGE + question?.image"
+      alt="img"
+      class="w-full rounded-xl mb-4 mt-5"
+    />
+
     <URadioGroup
       v-model="selectedAnswer"
       :items="

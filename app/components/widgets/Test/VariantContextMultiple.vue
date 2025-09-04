@@ -39,9 +39,10 @@ const onChangeAnswer = () => {
     <p class="text-base md:text-lg font-semibold text-mirage text-center">
       {{ question?.text }}
     </p>
+
     <img
       v-if="question?.image"
-      :src="question?.image"
+      :src="useRuntimeConfig().public.API_STORAGE + question?.image"
       alt="img"
       class="w-full rounded-xl mb-4 mt-5"
     />

@@ -100,7 +100,11 @@ export default () => {
     const hours = Math.floor(totalMinutes / 60);
     const seconds = totalSeconds % 60;
     const minutes = totalMinutes % 60;
-    return `${hours}:${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    // return `${hours}:${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    return {
+      hours: hours,
+      minutes: minutes < 10 ? `0${minutes}` : `${minutes}`,
+    };
   });
 
   // Запускаем интервал восстановления

@@ -1,5 +1,5 @@
 <script setup>
-const { point, live, diamond } = useAttribute();
+const { point, live, diamond, formattedTimeLeft } = useAttribute();
 const { hasPremium } = useCustomAuth();
 </script>
 <template>
@@ -34,8 +34,14 @@ const { hasPremium } = useCustomAuth();
         <div class="px-4 py-3">
           <div class="flex gap-3 justify-between">
             <div class="">
-              <p class="text-sm font-semibold text-black">
+              <p
+                v-if="live().value > 0"
+                class="text-sm font-semibold text-black"
+              >
                 {{ $t("lives") }}
+              </p>
+              <p v-else class="text-sm font-semibold text-black">
+                {{ $t("life_restore_timer") }}
               </p>
               <p
                 v-if="live().value == 5"
@@ -43,8 +49,18 @@ const { hasPremium } = useCustomAuth();
               >
                 {{ $t("your_life_reserve") }}
               </p>
-              <p v-else class="text-xs font-normal text-black">
+              <p
+                v-else-if="live().value > 0"
+                class="text-xs font-normal text-black"
+              >
                 {{ $t("you_have_5_lives") }} {{ getLifeLabel(live().value) }}
+              </p>
+              <p v-else class="text-sm font-semibold text-red-orange">
+                {{
+                  `${formattedTimeLeft.hours} ${$t("hour_short")}:${
+                    formattedTimeLeft.minutes
+                  } ${$t("minute_short")}`
+                }}
               </p>
             </div>
             <img

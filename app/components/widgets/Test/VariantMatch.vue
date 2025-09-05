@@ -17,18 +17,28 @@ const emits = defineEmits(["onAnswer"]);
 const questions = ref(
   props.question?.answers?.filter((ans) => ans?.match_side === "left") || []
 );
+const selectedAnswers = ref(
+  props.selectedAnswer
+    ? props.selectedAnswer
+    : Array(
+        props.question?.answers?.filter((ans) => ans?.match_side === "left")
+          .length
+      ).fill(0)
+);
 const answers = ref(
-  props.question?.answers
-    ?.filter((ans) => ans?.match_side === "right")
-    .sort(
-      (a, b) =>
-        props.selectedAnswer.indexOf(a.id) - props.selectedAnswer.indexOf(b.id)
-    ) || []
+  props.question?.answers?.filter((ans) => ans?.match_side === "right") || []
 );
 
 function checkAnswers() {
-  console.log(answers.value);
-  emits("onAnswer", props?.question?.id, questions.value, answers.value);
+  if (questions.value.length === selectedAnswers.value.length) {
+    // console.log(selectedAnswers.value);
+    emits(
+      "onAnswer",
+      props?.question?.id,
+      questions.value,
+      selectedAnswers.value
+    );
+  }
 }
 </script>
 
@@ -59,8 +69,18 @@ function checkAnswers() {
       </div>
 
       <!-- Правая колонка -->
-      <div>
-        <client-only>
+      <div class="space-y-2">
+        <USelect
+          v-for="(item, index) in questions"
+          :key="item.id"
+          v-model="selectedAnswers[index]"
+          :items="answers"
+          value-key="id"
+          label-key="text"
+          class="w-full p-2 md:p-4 border-1 border-catskill-white ring-0 bg-alabaster"
+          @change="checkAnswers"
+        />
+        <!-- <client-only>
           <draggable
             v-model="answers"
             @change="checkAnswers"
@@ -76,7 +96,7 @@ function checkAnswers() {
               </div>
             </template>
           </draggable>
-        </client-only>
+        </client-only> -->
       </div>
     </div>
     <p class="mt-4 text-xs text-gray-500">👉 {{ $t("match_info") }}.</p>

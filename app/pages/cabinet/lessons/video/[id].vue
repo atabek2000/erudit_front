@@ -86,7 +86,7 @@ onBeforeUnmount(() => {
             />
           </video>
 
-          <div
+          <!-- <div
             class="rounded-2xl p-4 border border-black/5 bg-wild-sand-200 mt-4"
           >
             <p class="text-base font-semibold text-bunting">
@@ -96,7 +96,7 @@ onBeforeUnmount(() => {
             <p class="text-sm font-medium text-cod-gray/60 mt-2">
               {{ data?.data?.[0]?.description }}
             </p>
-          </div>
+          </div> -->
 
           <div
             class="rounded-2xl p-4 border border-black/5 bg-wild-sand-200 mt-4 flex gap-3"

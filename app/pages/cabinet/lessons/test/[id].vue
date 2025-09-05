@@ -1,7 +1,7 @@
 <script setup>
 const route = useRoute();
 const { setLive, live } = useAttribute();
-const { hasPremium } = useCustomAuth();
+const { hasPremium, fetchUser } = useCustomAuth();
 const { locale } = useI18n();
 
 const { data } = await useAPI(
@@ -75,7 +75,8 @@ const timerText = ref("");
 
 let timerInterval = null;
 
-onMounted(() => {
+onMounted(async () => {
+  await fetchUser();
   timerText.value = formatTime(totalSeconds.value);
 
   timerInterval = setInterval(() => {

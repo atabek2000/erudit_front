@@ -30,7 +30,13 @@ onBeforeUnmount(() => clearInterval(t));
           ⏳ {{ $t("lost_all_lives") }}
         </p>
         <p class="text-base font-medium text-cod-gray">
-          {{ $t("one_returns", { time: `${formattedTimeLeft} мин` }) }}
+          {{
+            $t("one_returns", {
+              time: `${formattedTimeLeft.hours} ${$t("hour_short")}:${
+                formattedTimeLeft.minutes
+              } ${$t("minute_short")}`,
+            })
+          }}
         </p>
         <div class="flex flex-col gap-2 mt-8">
           <UButton to="/cabinet/diamonds">

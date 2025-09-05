@@ -39,11 +39,11 @@ export default () => {
 
   const sendAnswerMatch = async (left_answers = [], right_answers = []) => {
     const fd = new FormData();
-    right_answers.forEach((ans, index) => {
-      fd.append(`left_keys[${index}]`, left_answers[index].match_key);
-      fd.append(`right_keys[${index}]`, ans.match_key);
-      fd.append(`left_ids[${index}]`, left_answers[index].id);
-      fd.append(`right_ids[${index}]`, ans.id);
+    left_answers.forEach((ans, index) => {
+      fd.append(`left_keys[${index}]`, ans.match_key);
+      // fd.append(`right_keys[${index}]`, ans.match_key);
+      fd.append(`left_ids[${index}]`, ans.id);
+      fd.append(`right_ids[${index}]`, right_answers[index]);
     });
     fd.append("ent_id", ent_id.value);
     fd.append("round_id", currentRound.value.id);
@@ -71,7 +71,7 @@ export default () => {
 
   const onAnswerMatch = async (question_id, left_answers, right_answers) => {
     await sendAnswerMatch(left_answers, right_answers).then(() => {
-      answeredQuestions[question_id] = right_answers.map((ans) => ans.id);
+      answeredQuestions[question_id] = right_answers;
       answeredQuestionList.push(question_id);
     });
   };

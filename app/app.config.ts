@@ -83,10 +83,31 @@ export default defineAppConfig({
         },
       },
     },
+    select: {
+      slots: {
+        root: "w-full",
+        base: [" rounded-xl "],
+      },
+      variants: {
+        size: {
+          md: {
+            base: "px-4 py-3 text-sm md:text-base gap-1.5 ",
+            leading: "ps-2.5",
+            trailing: "pe-2.5",
+            leadingIcon: "size-5",
+            leadingAvatarSize: "2xs",
+            trailingIcon: "size-5",
+          },
+        },
+        variant: {
+          outline: " ring-black/20",
+        },
+      },
+    },
     pinInput: {
       slots: {
-        root: "w-full p-0",
-        base: ["rounded-xl border-0"],
+        root: "",
+        base: ["rounded-xl border-0 w-full p-0 "],
       },
       variants: {
         size: {

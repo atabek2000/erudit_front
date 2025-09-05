@@ -27,6 +27,11 @@ const isLangOpen = ref(false);
       </nuxt-link>
       <div class="flex gap-3 items-center">
         <UButton
+          v-if="
+            !$route.path.startsWith('/cabinet/lessons') &&
+            !$route.path.startsWith('/cabinet/test/item') &&
+            !$route.path.startsWith('/cabinet/test/start')
+          "
           @click="isLangOpen = true"
           class="text-purple-heart text-sm font-medium w-fit p-1 md:p-3"
           variant="ghost"

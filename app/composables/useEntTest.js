@@ -26,7 +26,25 @@ export default () => {
 
   const sendAnswer = async (answers = []) => {
     const fd = new FormData();
-    answers.forEach((ans) => fd.append("answer_ids[]", ans));
+    answers.forEach((ans, index) => fd.append(`answer_ids[${index}]`, ans));
+    fd.append("ent_id", ent_id.value);
+    fd.append("round_id", currentRound.value.id);
+    fd.append("question_id", currentRound.value.question.id);
+
+    await useFetchApi("ent/store/round", {
+      method: "POST",
+      body: fd,
+    });
+  };
+
+  const sendAnswerMatch = async (left_answers = [], right_answers = []) => {
+    const fd = new FormData();
+    right_answers.forEach((ans, index) => {
+      fd.append(`left_keys[${index}]`, left_answers[index].match_key);
+      fd.append(`right_keys[${index}]`, ans.match_key);
+      fd.append(`left_ids[${index}]`, left_answers[index].id);
+      fd.append(`right_ids[${index}]`, ans.id);
+    });
     fd.append("ent_id", ent_id.value);
     fd.append("round_id", currentRound.value.id);
     fd.append("question_id", currentRound.value.question.id);
@@ -47,6 +65,13 @@ export default () => {
     // compute points
     await sendAnswer(answers.map((ans) => ans.id)).then(() => {
       answeredQuestions[question_id] = answers.map((ans) => ans.id);
+      answeredQuestionList.push(question_id);
+    });
+  };
+
+  const onAnswerMatch = async (question_id, left_answers, right_answers) => {
+    await sendAnswerMatch(left_answers, right_answers).then(() => {
+      answeredQuestions[question_id] = right_answers.map((ans) => ans.id);
       answeredQuestionList.push(question_id);
     });
   };
@@ -125,6 +150,7 @@ export default () => {
     hasNextSubject,
     hasPrevSubject,
     sendAnswer,
+    onAnswerMatch,
     goToRound,
     onAnswer,
     goNextSubject,

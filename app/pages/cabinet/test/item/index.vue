@@ -8,6 +8,7 @@ const {
   rounds,
   goToRound,
   onAnswer,
+  onAnswerMatch,
   answeredQuestions,
   answeredQuestionList,
   goNextSubject,
@@ -28,17 +29,7 @@ let intervalId;
 
 onMounted(() => {
   // получим информацию о прохождении ент
-  const entPassed = localStorage.getItem("nuxt-344-nnm", "1");
 
-  if (entPassed && !hasPremium.value) {
-    useToast().add({
-      title: t("toast.error"),
-      color: "red",
-      description: t("ent_with_premium"),
-    });
-    router.push("/cabinet/test");
-    return;
-  }
   const status = init(data.value?.data, route.query.ent_id);
   if (!status) {
     useToast().add({
@@ -61,6 +52,18 @@ onMounted(() => {
       40 * 60
     );
   }, 1000);
+
+  const entPassed = localStorage.getItem("nuxt-344-nnm", "1");
+
+  if (entPassed && !hasPremium.value) {
+    useToast().add({
+      title: t("toast.error"),
+      color: "red",
+      description: t("ent_with_premium"),
+    });
+    router.push("/cabinet/test");
+    return;
+  }
 });
 
 onUnmounted(() => {
@@ -155,19 +158,34 @@ onUnmounted(() => {
           </button>
         </div>
 
+        <WidgetsTestVariantMatch
+          v-if="currentRound?.question?.type === 'matching'"
+          :question="currentRound?.question"
+          :selectedAnswer="answeredQuestions[currentRound?.question?.id]"
+          @onAnswer="onAnswerMatch"
+          :key="currentRound?.question?.id"
+        />
         <WidgetsTestVariantContextSingle
-          v-if="
+          v-else-if="
             currentRound?.question?.context &&
             currentRound?.question?.answers.length &&
             currentRound?.question?.answers?.filter((ans) => ans.is_correct)
               .length == 1
           "
+          :question="currentRound?.question"
+          :selectedAnswer="answeredQuestions[currentRound?.question?.id]?.[0]"
+          @onAnswer="onAnswer"
+          :key="currentRound?.question?.id"
         />
         <WidgetsTestVariantContextMultiple
           v-else-if="
             currentRound?.question?.context &&
             currentRound?.question?.answers.length
           "
+          :question="currentRound?.question"
+          :selectedAnswer="answeredQuestions[currentRound?.question?.id]?.[0]"
+          @onAnswer="onAnswer"
+          :key="currentRound?.question?.id"
         />
         <WidgetsTestVariantSingleEnt
           v-else-if="

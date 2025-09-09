@@ -73,7 +73,7 @@ export default NuxtAuthHandler({
                   apple_token: user.id,
                   email: user.email,
                 }),
-            ...(user.name ? { name: user.name } : {}),
+            ...{ name: user.name || user.email },
           },
         }).then((res) => {
           if (res?.data) {
@@ -81,18 +81,6 @@ export default NuxtAuthHandler({
             // setting token to client
             const event = useEvent();
             setCookie(event, "jwt", res?.data?.access_token, {
-              httpOnly: false, // Доступна на клиенте
-              sameSite: "lax",
-              path: "/",
-              secure: process.env.NODE_ENV === "production",
-            });
-            setCookie(event, "auth_type", "user", {
-              httpOnly: false, // Доступна на клиенте
-              sameSite: "lax",
-              path: "/",
-              secure: process.env.NODE_ENV === "production",
-            });
-            setCookie(event, "auth_late_id", "", {
               httpOnly: false, // Доступна на клиенте
               sameSite: "lax",
               path: "/",

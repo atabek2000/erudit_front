@@ -25,10 +25,10 @@ const onChangeAnswer = () => {
 
 <template>
   <div class="max-w-[670px] mt-6 mx-auto">
-    <p class="text-base md:text-xl font-medium text-mirage">
+    <p class="text-sm md:text-base font-normal text-tuna text-justify">
       {{ question?.context }}
     </p>
-    <p class="text-base md:text-xl font-medium text-mirage text-center">
+    <p class="text-base md:text-xl font-semibold text-mirage text-center mt-2">
       {{ question?.text }}
     </p>
 

@@ -20,16 +20,27 @@ export default () => {
     else {
       data.value = init_data;
       subjects.value = init_data?.test_subject;
+      console.log("si:", subject_id.value);
+
+      if (!subject_id.value) goNextSubject();
       return true;
     }
   }
 
   const sendAnswer = async (answers = []) => {
-    const fd = new FormData();
-    answers.forEach((ans, index) => fd.append(`answer_ids[${index}]`, ans));
-    fd.append("ent_id", ent_id.value);
-    fd.append("round_id", currentRound.value.id);
-    fd.append("question_id", currentRound.value.question.id);
+    const fd = {};
+    answers.forEach(
+      (ans, index) =>
+        // fd.append(`answer_ids[${index}]`, ans)
+        (fd[`answer_ids[${index}]`] = ans)
+    );
+    // fd.append("ent_id", ent_id.value);
+    // fd.append("round_id", currentRound.value.id);
+    // fd.append("question_id", currentRound.value.question.id);
+
+    fd["ent_id"] = ent_id.value;
+    fd["round_id"] = currentRound.value.id;
+    fd["question_id"] = currentRound.value.question.id;
 
     await useFetchApi("ent/store/round", {
       method: "POST",
@@ -38,20 +49,23 @@ export default () => {
   };
 
   const sendAnswerMatch = async (left_answers = [], right_answers = []) => {
-    const fd = new FormData();
+    const fd = {
+      ent_id: ent_id.value,
+      round_id: currentRound.value.id,
+      question_id: currentRound.value.question.id,
+      matches: [],
+    };
+
     left_answers.forEach((ans, index) => {
-      fd.append(`left_keys[${index}]`, ans.match_key);
-      // fd.append(`right_keys[${index}]`, ans.match_key);
-      fd.append(`left_ids[${index}]`, ans.id);
-      fd.append(`right_ids[${index}]`, right_answers[index]);
+      fd.matches.push({
+        left_id: ans.id, // или ans.id, смотри по ТЗ
+        right_id: right_answers[index],
+      });
     });
-    fd.append("ent_id", ent_id.value);
-    fd.append("round_id", currentRound.value.id);
-    fd.append("question_id", currentRound.value.question.id);
 
     await useFetchApi("ent/store/round", {
       method: "POST",
-      body: fd,
+      body: JSON.stringify(fd),
     });
   };
 

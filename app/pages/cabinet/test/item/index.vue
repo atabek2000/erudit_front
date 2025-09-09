@@ -23,9 +23,14 @@ const route = useRoute();
 const loadingData = ref(true);
 const isConfirmOpen = ref(false);
 
-const totalDuration = 40 * 60;
+const totalDuration = 240 * 60;
 const remainingTime = ref(totalDuration);
 let intervalId;
+
+const beforeUnloadHandler = (event) => {
+  event.preventDefault();
+  event.returnValue = ""; // Обязательно, чтобы появилось окно
+};
 
 onMounted(() => {
   // получим информацию о прохождении ент
@@ -44,12 +49,12 @@ onMounted(() => {
   }
   remainingTime.value = updateTimer(
     data.value?.data?.user_progress?.created_at,
-    40 * 60
+    totalDuration
   );
   intervalId = setInterval(() => {
     remainingTime.value = updateTimer(
       data.value?.data?.user_progress?.created_at,
-      40 * 60
+      totalDuration
     );
   }, 1000);
 
@@ -64,10 +69,13 @@ onMounted(() => {
     router.push("/cabinet/test");
     return;
   }
+
+  window.addEventListener("beforeunload", beforeUnloadHandler);
 });
 
-onUnmounted(() => {
+onBeforeUnmount(() => {
   clearInterval(intervalId);
+  window.removeEventListener("beforeunload", beforeUnloadHandler);
 });
 </script>
 
@@ -108,7 +116,7 @@ onUnmounted(() => {
           <div class="flex gap-2 items-center">
             <img src="~/assets/svg/alarm.svg" alt="icon" />
             <p class="text-lg font-medium text-mirage">
-              {{ formatTime(remainingTime) }} мин
+              {{ formatTime(remainingTime) }}
             </p>
           </div>
           <div class="flex items-center gap-2">

@@ -1,4 +1,6 @@
 <script setup>
+import "katex/dist/katex.min.css";
+
 const props = defineProps({
   question: {
     type: Object,
@@ -33,9 +35,11 @@ const onChangeAnswer = () => {
 
 <template>
   <div class="max-w-[900px] mt-6 mx-auto">
-    <p class="text-base md:text-lg font-semibold text-mirage text-center">
-      {{ question?.text }}
-    </p>
+    <p
+      class="text-base md:text-xl font-medium text-mirage text-center"
+      v-html="renderTextWithMath(question?.text)"
+      :key="question?.text"
+    ></p>
 
     <img
       v-if="question?.image"

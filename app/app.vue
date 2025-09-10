@@ -156,6 +156,11 @@ useHead({
       href: "/favicon/apple-touch-icon-120.png",
     },
   ],
+  script: [
+    {
+      src: "https://widget.paysage.kz",
+    },
+  ],
 });
 </script>
 

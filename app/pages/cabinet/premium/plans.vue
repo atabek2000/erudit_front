@@ -13,6 +13,19 @@ const isPaymentOpen = ref(false);
 
 const selected_plan = ref(0);
 const isConfirmOpen = ref(false);
+
+const pay_amount = computed(() => {
+  return (
+    plans.value.data.find((plan) => plan.id === selected_plan.value)?.amount ||
+    0
+  );
+});
+
+const pay_days = computed(() => {
+  return (
+    plans.value.data.find((plan) => plan.id === selected_plan.value)?.days || 0
+  );
+});
 const getPaymentForm = async () => {
   if (!selected_plan.value) {
     useToast().add({
@@ -38,6 +51,63 @@ const getPaymentForm = async () => {
     isPaymentOpen.value = true;
   });
 };
+
+function openPaymentWidgetHandler() {
+  if (!selected_plan.value) {
+    useToast().add({
+      title: t("toast.error"),
+      color: "red",
+      description: t("select_plan"),
+    });
+    return;
+  }
+
+  const pay_data = {
+    api_key: useRuntimeConfig().public.PAY_API_KEY,
+    amount: pay_amount.value,
+    currency: "KZT",
+    order_id: "17",
+    payment_type: "pay",
+    payment_method: "ecom",
+    items: [
+      {
+        merchant_id: useRuntimeConfig().public.PAY_MERCHANT_ID,
+        service_id: useRuntimeConfig().public.PAY_SERVICE_ID,
+        merchant_name: "Merchant name",
+        name: "Name",
+        quantity: 1,
+        amount_one_pcs: 1,
+        amount_sum: pay_amount.value,
+      },
+    ],
+    user_id: String(user.value.id),
+    email: user.value.email,
+    success_url: useRuntimeConfig().public.APP_DOMEN + "/cabinet/premium/plans",
+    payment_lifetime: 600,
+    create_recurrent_profile: false,
+    recurrent_profile_lifetime: 0,
+    lang: "ru",
+    extra_params: {
+      subscribe_id: selected_plan.value,
+      days: pay_days.value,
+      user: JSON.stringify(toRaw(user.value)),
+    },
+    payment_gateway_host: "https://api.paysage.kz/",
+    payment_widget_host: "https://widget.paysage.kz",
+  };
+
+  console.log(pay_data);
+
+  openPaymentWidget(
+    pay_data,
+    (success) => {
+      console.log(success);
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+}
 
 const cancelPayment = async () => {
   isConfirmOpen.value = false;
@@ -106,7 +176,7 @@ definePageMeta({
 
         <div v-if="user?.subscribe">
           <UButton
-            @click="getPaymentForm"
+            @click="openPaymentWidgetHandler"
             class="bg-white hover:bg-white/80 mt-6 text-purple-heart"
             >{{ $t("subscribe") }}</UButton
           >
@@ -124,7 +194,7 @@ definePageMeta({
         </div>
         <UButton
           v-else
-          @click="getPaymentForm"
+          @click="openPaymentWidgetHandler"
           class="bg-white hover:bg-white/80 mt-6 text-purple-heart"
           >{{ $t("start_7_days_free") }}</UButton
         >

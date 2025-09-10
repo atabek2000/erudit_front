@@ -32,6 +32,16 @@ const beforeUnloadHandler = (event) => {
   event.returnValue = ""; // Обязательно, чтобы появилось окно
 };
 
+const finishTest = async () => {
+  await useFetchApi("ent/end", {
+    method: "POST",
+    body: { id: route.query.ent_id },
+  }).then(() => {
+    isConfirmOpen.value = false;
+    router.push("/cabinet/test/result");
+  });
+};
+
 onMounted(() => {
   // получим информацию о прохождении ент
 
@@ -260,7 +270,7 @@ onBeforeUnmount(() => {
           >
         </div>
 
-        <ModalsTestConfirm v-model="isConfirmOpen" />
+        <ModalsTestConfirm v-model="isConfirmOpen" @submit="finishTest" />
       </div>
       <div v-else class="bg-white py-6 px-4 md:px-8 rounded-xl">
         <div class="flex justify-between">

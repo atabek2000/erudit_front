@@ -2,10 +2,27 @@
 const props = defineProps({
   url: {
     type: String,
-    default: "/cabinet/test/result",
+    default: undefined,
   },
 });
+
 const isOpen = defineModel();
+const emits = defineEmits(["submit"]);
+const isLoading = ref(false);
+
+const onSubmit = () => {
+  isLoading.value = true;
+
+  try {
+    if (props.url) {
+      useRouter().push(props.url);
+    } else {
+      emits("submit");
+    }
+  } finally {
+    isLoading.value = false;
+  }
+};
 </script>
 <template>
   <UModal v-model:open="isOpen" :ui="{ content: 'md:max-w-[480px]' }">
@@ -24,7 +41,9 @@ const isOpen = defineModel();
             size="md"
             >{{ $t("cancel") }}</UButton
           >
-          <UButton :to="url" class="" size="md">{{ $t("finish") }}</UButton>
+          <UButton class="" size="md" :loading="isLoading" @click="onSubmit">{{
+            $t("finish")
+          }}</UButton>
         </div>
       </div>
     </template>

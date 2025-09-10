@@ -60,7 +60,7 @@ onBeforeUnmount(() => {
   <div class="relative w-fit">
     <UPopover v-model:open="open" arrow :ui="{ content: 'rounded-xl ring-0' }">
       <button
-        class="rounded-full w-fit p-7 relative transition duration-100 ease-in-out cursor-pointer rotate-x-[30deg]"
+        class="rounded-full w-fit p-4 md:p-7 relative transition duration-100 ease-in-out cursor-pointer rotate-x-[30deg]"
         :class="'hover:opacity-80 active:translate-y-[6px] active:!shadow-none'"
         :style="{
           background: disabled ? '#F2F2F7' : color,
@@ -71,13 +71,13 @@ onBeforeUnmount(() => {
           v-if="disabled"
           src="~/assets/svg/lesson/test_gray.svg"
           alt="video"
-          class="w-[55px]"
+          class="w-10 md:w-[55px]"
         />
         <img
           v-else
           src="~/assets/svg/lesson/test.svg"
           alt="video"
-          class="w-[55px]"
+          class="w-10 md:w-[55px]"
         />
       </button>
       <template #content>

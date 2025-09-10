@@ -24,6 +24,9 @@ export default defineNuxtConfig({
       API_HOST: process.env.API_HOST,
       API_URL: process.env.API_HOST + "/api/",
       API_STORAGE: process.env.API_HOST + "/storage/",
+      PAY_API_KEY: process.env.PAY_API_KEY,
+      PAY_MERCHANT_ID: process.env.PAY_MERCHANT_ID,
+      PAY_SERVICE_ID: process.env.PAY_SERVICE_ID,
     },
     authSecret: process.env.NEXTAUTH_SECRET,
 

@@ -5,9 +5,8 @@ const { data } = await useAPI(
   `list/modules?subject_id=${route.query.subject_id}`
 );
 
-definePageMeta({
-  layout: "menu",
-});
+const isPremiumOpen = ref(false);
+const isLiveEndOpen = ref(false);
 
 const getInfo = (m_index, l_index, lesson, lessons) => {
   const info = {
@@ -36,16 +35,28 @@ const getInfo = (m_index, l_index, lesson, lessons) => {
   return info;
 };
 
-const isPremiumOpen = ref(false);
-const isLiveEndOpen = ref(false);
+const generateBrainsNumber = (index) => {
+  return `/brains/brain${getCycleNumber(index)}.png`;
+};
+
+function getCycleNumber(index) {
+  // index = 1, 7, 13, ...
+  const k = Math.floor((index - 1) / 6) + 1; // порядковый номер
+  return ((k - 1) % 4) + 1;
+}
 
 onMounted(async () => {
   await fetchUser();
+  generateBrains();
   setTimeout(() => {
     if (!hasPremium.value) {
       isPremiumOpen.value = true;
     }
   }, 1000);
+});
+
+definePageMeta({
+  layout: "menu",
 });
 </script>
 
@@ -54,19 +65,7 @@ onMounted(async () => {
     <div class="flex justify-end absolute right-4 top-4">
       <SharedScorePanel class="hidden md:flex" />
     </div>
-    <div class="overflow-y-auto">
-      <!-- <img
-        src="/temp/lesson1.png"
-        alt="img"
-        class="absolute top-[260px] md:top-[250px] left-1/2 -translate-y-1/2 w-1/2 p-10 md:p-20 max-w-[380px]"
-      />
-      <img
-        src="/temp/lesson2.png"
-        alt="img"
-        width="167"
-        height="167"
-        class="absolute top-[940px] md:top-[900px] right-1/2 -translate-y-1/2 w-1/2 p-10 md:p-20 max-w-[380px]"
-      /> -->
+    <div class="overflow-y-auto relative">
       <div v-for="(module, m_index) in data?.data" :key="module.id">
         <SharedLessonsName
           background="#FFEBF8"
@@ -74,8 +73,23 @@ onMounted(async () => {
           :text="module.description"
           class="mt-4 lg:mt-6"
         />
-        <div class="max-w-[70%] w-[370px] mx-auto mt-8 relative pb-4">
+
+        <div class="max-w-[50%] w[370px] mx-auto mt-8 pb-4">
           <div v-for="(ls, index) in module?.sub_modules" :key="ls">
+            <div
+              v-if="index % 6 == 1"
+              class="absolute w-20 md:w-40 h-20 md:h-40"
+              :style="{
+                left: getCycleNumber(index) % 2 == 0 ? 'auto' : '10%',
+                right: getCycleNumber(index) % 2 == 0 ? '10%' : 'auto',
+              }"
+            >
+              <img
+                :src="generateBrainsNumber(index)"
+                alt="Brain"
+                class="w-full h-full object-contain"
+              />
+            </div>
             <SharedLessonsVideo
               v-if="ls.type === 'lesson'"
               :class="{

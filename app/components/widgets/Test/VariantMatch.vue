@@ -1,5 +1,5 @@
 <script setup>
-import draggable from "vuedraggable";
+import "katex/dist/katex.min.css";
 
 const props = defineProps({
   question: {
@@ -44,9 +44,11 @@ function checkAnswers() {
 
 <template>
   <div class="max-w-[670px] mt-6 mx-auto">
-    <p class="text-base md:text-xl font-medium text-mirage text-center">
-      {{ question?.text }}
-    </p>
+    <p
+      class="text-base md:text-xl font-medium text-mirage text-center"
+      v-html="renderTextWithMath(question?.text)"
+      :key="question?.text"
+    ></p>
 
     <img
       v-if="question?.image"

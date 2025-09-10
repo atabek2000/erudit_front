@@ -6,28 +6,16 @@ const { data: plans } = await useAPI(`list/subscribes`, {
 });
 const { useAuthUser, fetchUser } = useCustomAuth();
 const user = useAuthUser();
-const premiumId = computed(() => user.value?.subscribe?.id || 0);
-
-const payment_html = ref("");
-const isPaymentOpen = ref(false);
+const premiumId = computed(() => user.value?.subscribe?.subscribe_id || 0);
 
 const selected_plan = ref(0);
 const isConfirmOpen = ref(false);
 
-const pay_amount = computed(() => {
-  return (
-    plans.value.data.find((plan) => plan.id === selected_plan.value)?.amount ||
-    0
-  );
-});
-
-const pay_days = computed(() => {
-  return (
-    plans.value.data.find((plan) => plan.id === selected_plan.value)?.days || 0
-  );
+const pay_plan = computed(() => {
+  return plans.value.data.find((plan) => plan.id === selected_plan.value) || {};
 });
 const getPaymentForm = async () => {
-  if (!selected_plan.value) {
+  if (!selected_plan.value || !pay_plan.value?.amount) {
     useToast().add({
       title: t("toast.error"),
       color: "red",
@@ -36,67 +24,52 @@ const getPaymentForm = async () => {
     return;
   }
   const body = {
-    subscribe_id: selected_plan.value,
-    amount: plans.value.data.find((plan) => plan.id === selected_plan.value)
-      .amount,
-    days: plans.value.data.find((plan) => plan.id === selected_plan.value).days,
+    entity_id: selected_plan.value,
+    entity_type: pay_plan.value?.entity_type,
+    amount: pay_plan.value?.amount,
   };
-  useFetchApi("payment", {
+  useFetchApi("payment/init", {
     method: "POST",
     body: body,
   }).then((res) => {
-    // console.log(res);
-
-    payment_html.value = res;
-    isPaymentOpen.value = true;
+    openPaymentWidgetHandler(res?.data);
   });
 };
 
-function openPaymentWidgetHandler() {
-  if (!selected_plan.value) {
-    useToast().add({
-      title: t("toast.error"),
-      color: "red",
-      description: t("select_plan"),
-    });
-    return;
-  }
-
+function openPaymentWidgetHandler(order_data) {
   const pay_data = {
-    api_key: useRuntimeConfig().public.PAY_API_KEY,
-    amount: pay_amount.value,
+    api_key: order_data?.data?.PAYMENT_API_KEY,
+    amount: pay_plan.value?.amount,
     currency: "KZT",
-    order_id: "17",
+    order_id: `${order_data?.order?.id}`,
     payment_type: "pay",
     payment_method: "ecom",
     items: [
       {
-        merchant_id: useRuntimeConfig().public.PAY_MERCHANT_ID,
-        service_id: useRuntimeConfig().public.PAY_SERVICE_ID,
-        merchant_name: "Merchant name",
-        name: "Name",
+        merchant_id: order_data?.data?.PAYMENT_MID,
+        service_id: order_data?.data?.PAYMENT_SID,
+        merchant_name: "Erudit Web",
+        name: `Оплата за подписку на ${pay_plan.value?.days} дней`,
         quantity: 1,
         amount_one_pcs: 1,
-        amount_sum: pay_amount.value,
+        amount_sum: toRaw(pay_plan.value?.amount),
       },
     ],
     user_id: String(user.value.id),
-    email: user.value.email,
-    success_url: useRuntimeConfig().public.APP_DOMEN + "/cabinet/premium/plans",
+    email: toRaw(user.value.email),
+    success_url: toRaw(order_data?.success_url),
     payment_lifetime: 600,
     create_recurrent_profile: false,
     recurrent_profile_lifetime: 0,
     lang: "ru",
     extra_params: {
-      subscribe_id: selected_plan.value,
-      days: pay_days.value,
+      subscribe_id: toRaw(selected_plan.value),
+      days: toRaw(pay_plan.value?.days),
       user: JSON.stringify(toRaw(user.value)),
     },
-    payment_gateway_host: "https://api.paysage.kz/",
+    payment_gateway_host: order_data?.data?.PAYMENT_HOST,
     payment_widget_host: "https://widget.paysage.kz",
   };
-
-  console.log(pay_data);
 
   openPaymentWidget(
     pay_data,
@@ -174,9 +147,9 @@ definePageMeta({
           />
         </button>
 
-        <div v-if="user?.subscribe">
+        <div v-if="user?.subscribe && user?.subscribe?.status === 'active'">
           <UButton
-            @click="openPaymentWidgetHandler"
+            @click="getPaymentForm"
             class="bg-white hover:bg-white/80 mt-6 text-purple-heart"
             >{{ $t("subscribe") }}</UButton
           >
@@ -194,11 +167,10 @@ definePageMeta({
         </div>
         <UButton
           v-else
-          @click="openPaymentWidgetHandler"
+          @click="getPaymentForm"
           class="bg-white hover:bg-white/80 mt-6 text-purple-heart"
           >{{ $t("start_7_days_free") }}</UButton
         >
-        <ModalsPayment v-model="isPaymentOpen" :html="payment_html" />
       </div>
     </div>
   </main>

@@ -51,7 +51,7 @@ const onStart = () => {
         `/cabinet/test/item?ent_id=${res.data?.user_progress?.id}&subject_id=${res?.data?.test_subject?.subject_id}&round=1`
       );
     })
-    .finally(() => {
+    .catch(() => {
       loading.value = false;
     });
 };

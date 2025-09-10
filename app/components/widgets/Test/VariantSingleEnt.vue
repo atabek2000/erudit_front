@@ -76,7 +76,10 @@ const onChangeAnswer = () => {
             />
           </div>
 
-          <span class="text-sm font-normal text-black">{{ item.label }}</span>
+          <span
+            class="text-sm font-normal text-black"
+            v-html="renderTextWithMath(item?.label)"
+          ></span>
         </div>
       </template>
     </URadioGroup>

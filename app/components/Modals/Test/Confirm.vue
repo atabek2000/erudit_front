@@ -1,27 +1,11 @@
 <script setup>
-const props = defineProps({
-  url: {
-    type: String,
-    default: undefined,
-  },
-});
-
 const isOpen = defineModel();
 const emits = defineEmits(["submit"]);
 const isLoading = ref(false);
 
 const onSubmit = () => {
   isLoading.value = true;
-
-  try {
-    if (props.url) {
-      useRouter().push(props.url);
-    } else {
-      emits("submit");
-    }
-  } finally {
-    isLoading.value = false;
-  }
+  emits("submit");
 };
 </script>
 <template>

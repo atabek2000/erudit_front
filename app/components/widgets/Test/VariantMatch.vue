@@ -64,9 +64,8 @@ function checkAnswers() {
             v-for="q in questions"
             :key="q.id"
             class="p-2 md:p-4 rounded-md md:rounded-xl bg-alabaster border border-catskill-white hover:bg-catskill-white w-full"
-          >
-            {{ q.text }}
-          </li>
+            v-html="renderTextWithMath(q.text)"
+          ></li>
         </ul>
       </div>
 
@@ -81,24 +80,20 @@ function checkAnswers() {
           label-key="text"
           class="w-full p-2 md:p-4 border-1 border-catskill-white ring-0 bg-alabaster"
           @change="checkAnswers"
-        />
-        <!-- <client-only>
-          <draggable
-            v-model="answers"
-            @change="checkAnswers"
-            item-key="id"
-            class="flex flex-col justify-between h-full space-y-2"
-          >
-            <template #item="{ element }">
-              <div
-                class="flex gap-4 p-2 md:p-4 rounded-md md:rounded-xl bg-alabaster border border-catskill-white hover:bg-catskill-white w-full select-none cursor-move"
-              >
-                <UIcon name="i-lucide-align-justify" class="w-5 h-5" />
-                {{ element.text }}
-              </div>
-            </template>
-          </draggable>
-        </client-only> -->
+        >
+          <template #item-label="{ item }"
+            ><span v-html="renderTextWithMath(item?.text)"></span
+          ></template>
+          <template #default="{ modelValue }">
+            <span
+              v-html="
+                renderTextWithMath(
+                  answers?.find((q) => q.id == modelValue)?.text
+                )
+              "
+            ></span>
+          </template>
+        </USelect>
       </div>
     </div>
     <p class="mt-4 text-xs text-gray-500">👉 {{ $t("match_info") }}.</p>

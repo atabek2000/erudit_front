@@ -1,5 +1,7 @@
 <script setup>
 const { point, live, diamond } = useAttribute();
+const { startLoading, stopLoading } = useLoader();
+const { fetchUser } = useCustomAuth();
 
 definePageMeta({
   layout: "menu",
@@ -21,6 +23,26 @@ const minus = () => {
     lifeCount.value--;
     diamonCount.value -= 10;
   }
+};
+
+const exchange = async () => {
+  startLoading();
+  await useFetchApi("swap", {
+    method: "POST",
+    body: {
+      live_swap: 0,
+      diamond_swap: 1,
+      diamond: diamonCount.value,
+      live: lifeCount.value,
+    },
+  })
+    .then(async (res) => {
+      await fetchUser();
+      isSuccessOpen.value = true;
+    })
+    .finally(() => {
+      stopLoading();
+    });
 };
 </script>
 
@@ -73,18 +95,25 @@ const minus = () => {
       {{ $t("life_equals_10_diamonds") }}
     </p>
 
-    <UButton
-      @click="isSuccessOpen = true"
-      :disabled="diamonCount > diamond().value"
-      >{{
-        $t("exchange_10_diamonds_for_1_life", {
-          from: getDiamondsLabel(diamonCount),
-          to: getLifeLabel(lifeCount),
-        })
-      }}</UButton
-    >
+    <UButton @click="exchange" :disabled="diamonCount > diamond().value">{{
+      $t("exchange_10_diamonds_for_1_life", {
+        from: getDiamondsLabel(diamonCount),
+        to: getLifeLabel(lifeCount),
+      })
+    }}</UButton>
 
-    <ModalsDiamondSuccess v-model="isSuccessOpen" />
+    <ModalsDiamondSuccess
+      v-model="isSuccessOpen"
+      :text1="
+        $t('exchanged_30_diamonds_for_3_lives', {
+          diamond: getDiamondsLabel(diamonCount),
+          life: getLifeLabel(lifeCount),
+        })
+      "
+      :text2="
+        $t('remaining_balance', { diamond: getDiamondsLabel(diamond().value) })
+      "
+    />
     <ModalsDiamondError v-model="isErrorOpen" />
   </main>
 </template>

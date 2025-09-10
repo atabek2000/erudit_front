@@ -1,27 +1,100 @@
 <script setup>
 const { live } = useAttribute();
+const { useAuthUser, fetchUser } = useCustomAuth();
+const { data: items } = await useAPI(`list/items`, {});
 
 definePageMeta({
   layout: "menu",
 });
 
+const user = useAuthUser();
 const lifeCount = ref(1);
 const priceCount = ref(100);
 const isSuccessOpen = ref(false);
 const isErrorOpen = ref(false);
+const liveItem = computed(() =>
+  items.value?.data.find((item) => item.type === "live")
+);
 
 const plus = () => {
   if (lifeCount.value < 5) {
     lifeCount.value++;
-    priceCount.value += 100;
+    priceCount.value += liveItem.value?.amount;
   }
 };
 const minus = () => {
   if (lifeCount.value > 1) {
     lifeCount.value--;
-    priceCount.value -= 100;
+    priceCount.value -= liveItem.value?.amount;
   }
 };
+
+const getPaymentForm = async () => {
+  if (!priceCount.value) {
+    useToast().add({
+      title: t("toast.error"),
+      color: "red",
+      description: t("select_plan"),
+    });
+    return;
+  }
+  const body = {
+    entity_id: liveItem.value?.id,
+    entity_type: "App\\Models\\AttributeItem",
+    amount: priceCount.value,
+    count: lifeCount.value,
+  };
+  useFetchApi("payment/init", {
+    method: "POST",
+    body: body,
+  }).then((res) => {
+    openPaymentWidgetHandler(res?.data);
+  });
+};
+
+function openPaymentWidgetHandler(order_data) {
+  const pay_data = {
+    api_key: order_data?.data?.PAYMENT_API_KEY,
+    amount: toRaw(priceCount.value),
+    currency: "KZT",
+    order_id: `${order_data?.order?.id}`,
+    payment_type: "pay",
+    payment_method: "ecom",
+    items: [
+      {
+        merchant_id: order_data?.data?.PAYMENT_MID,
+        service_id: order_data?.data?.PAYMENT_SID,
+        merchant_name: "Erudit Web",
+        name: `Оплата за покупку жизни на ${priceCount.value}тг`,
+        quantity: 1,
+        amount_one_pcs: 1,
+        amount_sum: toRaw(priceCount.value),
+      },
+    ],
+    user_id: String(user.value.id),
+    email: toRaw(user.value.email),
+    success_url: toRaw(order_data?.success_url),
+    payment_lifetime: 600,
+    create_recurrent_profile: false,
+    recurrent_profile_lifetime: 0,
+    lang: "ru",
+    extra_params: {
+      user: JSON.stringify(toRaw(user.value)),
+    },
+    payment_gateway_host: order_data?.data?.PAYMENT_HOST,
+    payment_widget_host: "https://widget.paysage.kz",
+  };
+
+  openPaymentWidget(
+    pay_data,
+    (success) => {
+      console.log(success);
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+}
 </script>
 
 <template>
@@ -74,7 +147,7 @@ const minus = () => {
       {{ $t("life_equals_100_tenge") }}
     </p>
 
-    <UButton @click="isSuccessOpen = true">{{
+    <UButton @click="getPaymentForm">{{
       $t("buy_2_lives_200_tenge", {
         life: getLifeLabel(lifeCount),
         price: priceCount,

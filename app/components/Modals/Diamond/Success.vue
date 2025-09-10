@@ -1,5 +1,9 @@
 <script setup>
 const isOpen = defineModel();
+const props = defineProps({
+  text1: String,
+  text2: String,
+});
 </script>
 
 <template>
@@ -17,10 +21,10 @@ const isOpen = defineModel();
             {{ $t("exchange_successful") }}
           </p>
           <p class="text-base font-medium text-cod-gray/70 mt-2.5">
-            {{ $t("exchanged_30_diamonds_for_3_lives") }}
+            {{ text1 }}
           </p>
           <p class="text-base font-medium text-cod-gray/70">
-            {{ $t("remaining_balance") }}
+            {{ text2 }}
           </p>
         </div>
       </div>

@@ -76,10 +76,7 @@ const onContinue = () => {
         </div>
         <ModalsTestError v-model="isErrorOpen" @onContinue="onContinue" />
         <ModalsTestResult v-model="isResultOpen" />
-        <ModalsTestConfirm
-          v-model="isConfirmOpen"
-          url="/cabinet/mistakes/result"
-        />
+        <ModalsTestConfirm v-model="isConfirmOpen" />
       </div>
     </div>
   </main>

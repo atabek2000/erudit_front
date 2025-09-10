@@ -1,12 +1,15 @@
 import katex from "katex";
 
 export default (input) => {
+  if (!input) {
+    return "";
+  }
   // проверка на LaTeX-формулы
   const regex = /\$([^$]+)\$/g;
 
   if (!regex.test(input)) {
     // если формул нет → вернуть текст как есть
-    return input;
+    return escapeHTML(input);
   }
 
   // заменить формулы на готовый HTML

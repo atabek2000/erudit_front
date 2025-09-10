@@ -47,7 +47,6 @@ function getCycleNumber(index) {
 
 onMounted(async () => {
   await fetchUser();
-  generateBrains();
   setTimeout(() => {
     if (!hasPremium.value) {
       isPremiumOpen.value = true;

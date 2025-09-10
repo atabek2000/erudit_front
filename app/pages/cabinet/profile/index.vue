@@ -63,7 +63,11 @@ const onLogout = () => {
         <SharedScorePanel class="mt-3 hidden lg:flex" />
       </div>
       <img
-        :src="authUser?.avatar || '/avatar.png'"
+        :src="
+          authUser?.avatar
+            ? useRuntimeConfig().public.API_STORAGE + authUser?.avatar
+            : '/avatar.png'
+        "
         alt="avatar"
         class="w-[60px] h-[60px] lg:w-[90px] lg:h-[90px]"
       />

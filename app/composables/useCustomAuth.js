@@ -92,7 +92,7 @@ export default () => {
               });
             }
 
-            reject(error);
+            reject(response?.error);
           },
         });
 

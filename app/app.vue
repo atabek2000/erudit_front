@@ -5,7 +5,7 @@ const { checkRecovery, loadState } = useAttribute();
 
 let t;
 
-onMounted(async () => {
+onBeforeMount(async () => {
   await initAuth().then(() => {
     loadState();
     checkRecovery(); // мгновенный пересчёт при загрузке

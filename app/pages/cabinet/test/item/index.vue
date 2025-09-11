@@ -50,7 +50,7 @@ onMounted(() => {
     useToast().add({
       title: t("toast.error"),
       color: "red",
-      description: "Данный тест вам недоступен!",
+      description: t("test_not_available"),
     });
 
     router.push("/cabinet/test");
@@ -121,7 +121,7 @@ onBeforeUnmount(() => {
 
         <div class="flex justify-between items-center mt-6 flex-wrap gap-2">
           <p class="text-lg font-semibold text-mirage">
-            Сұрақ №{{ currentRound.round }}
+            {{ $t("question") }} №{{ currentRound.round }}
           </p>
           <div class="flex gap-2 items-center">
             <img src="~/assets/svg/alarm.svg" alt="icon" />

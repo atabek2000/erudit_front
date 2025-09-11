@@ -28,23 +28,17 @@ export default () => {
   }
 
   const sendAnswer = async (answers = []) => {
-    const fd = {};
-    answers.forEach(
-      (ans, index) =>
-        // fd.append(`answer_ids[${index}]`, ans)
-        (fd[`answer_ids[${index}]`] = ans)
-    );
-    // fd.append("ent_id", ent_id.value);
-    // fd.append("round_id", currentRound.value.id);
-    // fd.append("question_id", currentRound.value.question.id);
-
-    fd["ent_id"] = ent_id.value;
-    fd["round_id"] = currentRound.value.id;
-    fd["question_id"] = currentRound.value.question.id;
+    const fd = {
+      ent_id: ent_id.value,
+      round_id: currentRound.value.id,
+      question_id: currentRound.value.question.id,
+      answer_ids: [],
+    };
+    answers.forEach((ans) => fd.answer_ids.push(ans));
 
     await useFetchApi("ent/store/round", {
       method: "POST",
-      body: fd,
+      body: JSON.stringify(fd),
     });
   };
 

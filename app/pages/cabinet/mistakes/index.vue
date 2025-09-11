@@ -1,24 +1,30 @@
 <script setup>
+const { hasPremium } = useCustomAuth();
+
+const { data: subjects } = await useAPI("list/subjects", {
+  params: {
+    type: "ent",
+  },
+});
+
+const isLoading = ref(false);
+const isPremiumOpen = ref(false);
+
+const openTest = () => {
+  isLoading.value = true;
+  if (hasPremium.value) {
+    useRouter().push(`/cabinet/mistakes/test/${selectedSubject.value}`);
+  } else {
+    isPremiumOpen.value = true;
+    isLoading.value = false;
+  }
+};
+
 definePageMeta({
   layout: "menu",
 });
 
-const subjects = ref([
-  {
-    id: 1,
-    name: "Математика",
-  },
-  {
-    id: 2,
-    name: "Русский",
-  },
-  {
-    id: 3,
-    name: "Английский",
-  },
-]);
-
-const selectedSubject = ref(subjects.value[0].id);
+const selectedSubject = ref(subjects.value?.data?.[0].id);
 </script>
 
 <template>
@@ -35,13 +41,14 @@ const selectedSubject = ref(subjects.value[0].id);
       <SharedFilterDropdown
         v-model="selectedSubject"
         :label="'Английский'"
-        :items="subjects"
+        :items="subjects?.data"
+        value-key="id"
+        label-key="name"
         class="w-fit"
       />
     </div>
 
-    <UButton class="mt-6" to="/cabinet/mistakes/test/1">{{
-      $t("retake")
-    }}</UButton>
+    <UButton class="mt-6" @click="openTest">{{ $t("retake") }}</UButton>
+    <ModalsPremium v-model="isPremiumOpen" />
   </main>
 </template>

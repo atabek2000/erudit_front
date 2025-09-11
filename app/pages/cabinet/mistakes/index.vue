@@ -40,7 +40,7 @@ const selectedSubject = ref(subjects.value?.data?.[0].id);
       </div>
       <SharedFilterDropdown
         v-model="selectedSubject"
-        :label="'Английский'"
+        :label="$t('subjects')"
         :items="subjects?.data"
         value-key="id"
         label-key="name"

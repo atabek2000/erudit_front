@@ -133,7 +133,9 @@ definePageMeta({
             {{ plan.month_amount != plan.amount ? ` - ${plan.amount} ₸` : "" }}
           </p>
           <div class="">
-            <p class="text-ms font-medium">{{ plan.month_amount }} ₸ / мес</p>
+            <p class="text-ms font-medium">
+              {{ plan.month_amount }} ₸ / {{ $t("month_short") }}
+            </p>
             <p v-if="premiumId === plan.id" class="text-xs font-normal mt-1">
               {{ $t("current_plan") }}
             </p>

@@ -1,10 +1,19 @@
 <script setup>
 const { locale } = useI18n();
 const { initAuth } = useCustomAuth();
+const { checkRecovery, loadState } = useAttribute();
+
+let t;
 
 onMounted(async () => {
-  await initAuth();
+  await initAuth().then(() => {
+    loadState();
+    checkRecovery(); // мгновенный пересчёт при загрузке
+    t = setInterval(checkRecovery, 1000);
+  });
 });
+
+onBeforeUnmount(() => clearInterval(t));
 
 useHead({
   title: `Бесплатная подготовка к ЕНТ для каждого`,

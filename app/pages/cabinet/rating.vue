@@ -16,7 +16,11 @@ const { data, status } = await useAPI("main/rating", {
   },
   watch: [selectedSubject, selectedPeriod, page],
 });
-const { data: subjects } = await useAPI("list/subjects");
+const { data: subjects } = await useAPI("list/subjects", {
+  params: {
+    type: "test",
+  },
+});
 
 const columns = [
   { accessorKey: "id", header: "№" },

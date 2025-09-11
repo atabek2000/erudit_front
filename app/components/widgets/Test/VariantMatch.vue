@@ -70,7 +70,7 @@ function checkAnswers() {
       </div>
 
       <!-- Правая колонка -->
-      <div class="space-y-2">
+      <div class="flex flex-col justify-between gap-2">
         <USelect
           v-for="(item, index) in questions"
           :key="item.id"
@@ -78,7 +78,7 @@ function checkAnswers() {
           :items="answers"
           value-key="id"
           label-key="text"
-          class="w-full p-2 md:p-4 border-1 border-catskill-white ring-0 bg-alabaster"
+          class="w-full p-2 md:p-4 border-1 border-catskill-white ring-0 bg-alabaster min-h-[58px]"
           @change="checkAnswers"
         >
           <template #item-label="{ item }"

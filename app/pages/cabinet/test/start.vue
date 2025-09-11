@@ -1,5 +1,9 @@
 <script setup>
-const { data } = await useAPI("list/subjects");
+const { data } = await useAPI("list/subjects", {
+  params: {
+    type: 'ent'
+  }
+});
 const { data: results } = await useAPI("ent/results");
 const { hasPremium } = useCustomAuth();
 const { t } = useI18n();

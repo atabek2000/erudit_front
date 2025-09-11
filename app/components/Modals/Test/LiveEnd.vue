@@ -1,5 +1,5 @@
 <script setup>
-const { formattedTimeLeft, checkRecovery, loadState } = useAttribute();
+const { formattedTimeLeft } = useAttribute();
 const isOpen = defineModel();
 const emits = defineEmits(["submit"]);
 const props = defineProps({
@@ -8,14 +8,6 @@ const props = defineProps({
     default: true,
   },
 });
-
-let t;
-onMounted(() => {
-  loadState();
-  checkRecovery(); // мгновенный пересчёт при загрузке
-  t = setInterval(checkRecovery, 1000);
-});
-onBeforeUnmount(() => clearInterval(t));
 </script>
 
 <template>

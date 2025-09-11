@@ -1,5 +1,14 @@
 <script setup>
-const { data } = await useAPI("list/subjects");
+const { fetchUser } = useCustomAuth();
+const { data } = await useAPI("list/subjects", {
+  params: {
+    type: "test",
+  },
+});
+
+onMounted(async () => {
+  await fetchUser();
+});
 
 definePageMeta({
   layout: "menu",

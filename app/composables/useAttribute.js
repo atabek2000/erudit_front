@@ -31,7 +31,7 @@ export default () => {
       lastAddedTime().value = null;
       timeLeft().value = 0;
     }
-    localStorage.setItem("user_live", live().value);
+    saveState();
   };
 
   const saveState = () => {
@@ -104,6 +104,7 @@ export default () => {
     return {
       hours: hours,
       minutes: minutes < 10 ? `0${minutes}` : `${minutes}`,
+      seconds: seconds < 10 ? `0${seconds}` : `${seconds}`,
     };
   });
 

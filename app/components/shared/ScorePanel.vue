@@ -3,7 +3,7 @@ const { point, live, diamond, formattedTimeLeft } = useAttribute();
 const { hasPremium } = useCustomAuth();
 </script>
 <template>
-  <div class="flex gap-x-6">
+  <div class="flex gap-x-6 z-50">
     <UPopover arrow>
       <button class="flex gap-2 cursor-pointer">
         <img src="~/assets/svg/star.svg" alt="star" />
@@ -57,9 +57,9 @@ const { hasPremium } = useCustomAuth();
               </p>
               <p v-else class="text-sm font-semibold text-red-orange">
                 {{
-                  `${formattedTimeLeft.hours} ${$t("hour_short")}:${
+                  `${formattedTimeLeft.hours}${$t("hour_short")}:${
                     formattedTimeLeft.minutes
-                  } ${$t("minute_short")}`
+                  }${$t("minute_short")}:${formattedTimeLeft.seconds}с`
                 }}
               </p>
             </div>

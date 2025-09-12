@@ -73,11 +73,7 @@ export default () => {
     // compute points
     await sendAnswer(answers.map((ans) => ans.id)).then(() => {
       answeredQuestions[question_id] = answers.map((ans) => ans.id);
-      if (
-        answers.filter((ans) => ans).length > 1 ||
-        currentRound.value.question.type !== "multiple_answer"
-      )
-        answeredQuestionList.push(question_id);
+      answeredQuestionList.push(question_id);
     });
   };
 

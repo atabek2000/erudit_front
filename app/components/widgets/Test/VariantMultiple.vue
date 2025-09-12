@@ -19,10 +19,9 @@ const selectedAnswerModel = ref(
 );
 
 const onChangeAnswer = () => {
-  const MAX_ANSWER = Math.max(
-    props?.question?.answers?.filter((ans) => ans.is_correct)?.length,
-    2
-  );
+  const MAX_ANSWER = props?.question?.answers?.filter(
+    (ans) => ans.is_correct
+  )?.length;
 
   if (selectedAnswerModel.value.length > MAX_ANSWER) {
     selectedAnswerModel.value = selectedAnswerModel.value.slice(
@@ -36,8 +35,8 @@ const onChangeAnswer = () => {
       correct_answers.push({ id: selectedAnswerModel.value[i] });
     else correct_answers.push({ id: 0 });
   }
-  if (selectedAnswerModel.value.length > 1)
-    emits("onAnswer", props?.question?.id, correct_answers);
+  // if (selectedAnswerModel.value.length >= MAX_ANSWER)
+  emits("onAnswer", props?.question?.id, correct_answers);
 };
 </script>
 

@@ -20,15 +20,18 @@ const selectedAnswerModel = ref(
 
 const onChangeAnswer = () => {
   const correct_answers = [];
-  for (
-    let i = 0;
-    i <
-    Math.max(
-      props?.question?.answers?.filter((ans) => ans.is_correct)?.length,
-      2
+  const MAX_ANSWER = Math.max(
+    props?.question?.answers?.filter((ans) => ans.is_correct)?.length,
+    2
+  );
+
+  if (selectedAnswerModel.value.length > MAX_ANSWER) {
+    selectedAnswerModel.value = selectedAnswerModel.value.slice(
+      selectedAnswerModel.value.length - MAX_ANSWER
     );
-    i++
-  ) {
+  }
+
+  for (let i = 0; i < MAX_ANSWER; i++) {
     if (selectedAnswerModel.value[i])
       correct_answers.push({ id: selectedAnswerModel.value[i] });
     else correct_answers.push({ id: 0 });

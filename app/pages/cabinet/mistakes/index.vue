@@ -29,8 +29,8 @@ const selectedSubject = ref(subjects.value?.data?.[0].id);
 
 <template>
   <main class="bg-white lg:rounded-xl p-4 md:px-8 md:py-6">
-    <div class="flex justify-between">
-      <div>
+    <div class="flex justify-between flex-wrap md:flex-nowrap gap-4">
+      <div class="w-full md:w-auto">
         <p class="text-xl font-semibold text-black">
           {{ $t("work_on_mistakes") }}
         </p>
@@ -44,7 +44,7 @@ const selectedSubject = ref(subjects.value?.data?.[0].id);
         :items="subjects?.data"
         value-key="id"
         label-key="name"
-        class="w-fit"
+        class="w-full md:w-fit"
       />
     </div>
 

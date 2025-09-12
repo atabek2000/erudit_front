@@ -14,22 +14,27 @@ const props = defineProps({
 
 const emits = defineEmits(["onAnswer"]);
 
-const selectedAnswer = ref(props.selectedAnswer ? props.selectedAnswer : []);
+const selectedAnswerModel = ref(
+  props.selectedAnswer ? props.selectedAnswer.filter((ans) => ans) : []
+);
 
 const onChangeAnswer = () => {
-  console.log(
-    props?.question?.answers?.filter((ans) =>
-      selectedAnswer.value.includes(ans.id)
-    )
-  );
-
-  emits(
-    "onAnswer",
-    props?.question?.id,
-    props?.question?.answers?.filter((ans) =>
-      selectedAnswer.value.includes(ans.id)
-    )
-  );
+  const correct_answers = [];
+  for (
+    let i = 0;
+    i <
+    Math.max(
+      props?.question?.answers?.filter((ans) => ans.is_correct)?.length,
+      2
+    );
+    i++
+  ) {
+    if (selectedAnswerModel.value[i])
+      correct_answers.push({ id: selectedAnswerModel.value[i] });
+    else correct_answers.push({ id: 0 });
+  }
+  if (selectedAnswerModel.value.length > 1)
+    emits("onAnswer", props?.question?.id, correct_answers);
 };
 </script>
 
@@ -49,7 +54,7 @@ const onChangeAnswer = () => {
     />
 
     <UCheckboxGroup
-      v-model="selectedAnswer"
+      v-model="selectedAnswerModel"
       :items="
         question?.answers?.map((ans) => ({
           label: ans?.text,
@@ -70,7 +75,7 @@ const onChangeAnswer = () => {
         >
           <div class="">
             <img
-              v-if="selectedAnswer.includes(item.value)"
+              v-if="selectedAnswerModel.includes(item.value)"
               src="~/assets/svg/check/select-black.svg"
               alt="icon"
               width="20"

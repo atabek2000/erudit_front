@@ -186,18 +186,6 @@ onBeforeUnmount(() => {
         <WidgetsTestVariantContextSingle
           v-else-if="
             currentRound?.question?.context &&
-            currentRound?.question?.answers.length &&
-            currentRound?.question?.answers?.filter((ans) => ans.is_correct)
-              .length == 1
-          "
-          :question="currentRound?.question"
-          :selectedAnswer="answeredQuestions[currentRound?.question?.id]?.[0]"
-          @onAnswer="onAnswer"
-          :key="currentRound?.question?.id"
-        />
-        <WidgetsTestVariantContextMultiple
-          v-else-if="
-            currentRound?.question?.context &&
             currentRound?.question?.answers.length
           "
           :question="currentRound?.question"
@@ -208,8 +196,7 @@ onBeforeUnmount(() => {
         <WidgetsTestVariantSingleEnt
           v-else-if="
             currentRound?.question?.answers.length &&
-            currentRound?.question?.answers?.filter((ans) => ans.is_correct)
-              .length == 1
+            currentRound?.question?.type === 'default'
           "
           :question="currentRound?.question"
           :selectedAnswer="answeredQuestions[currentRound?.question?.id]?.[0]"
@@ -217,10 +204,14 @@ onBeforeUnmount(() => {
           :key="currentRound?.question?.id"
         />
         <WidgetsTestVariantMultiple
-          v-else-if="currentRound?.question?.answers.length"
+          v-else-if="
+            currentRound?.question?.answers.length &&
+            currentRound?.question?.type === 'multiple_answer'
+          "
           :question="currentRound?.question"
           :selectedAnswer="answeredQuestions[currentRound?.question?.id]"
           @onAnswer="onAnswer"
+          :key="currentRound?.question?.id"
         />
         <div v-else>
           <p class="text-base font-semibold text-red-orange text-center">

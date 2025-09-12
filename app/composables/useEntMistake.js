@@ -1,9 +1,9 @@
 export default () => {
   const route = useRoute();
 
-  const data = ref({});
-  const answeredQuestions = reactive({});
-  const answeredQuestionList = reactive([]);
+  let data = ref({});
+  let answeredQuestions = reactive({});
+  let answeredQuestionList = reactive([]);
 
   function init(init_data) {
     if (!init_data || !init_data.test_round) return false;
@@ -51,9 +51,10 @@ export default () => {
   };
 
   const goToRound = (to_round_id) => {
-    navigateTo(
-      `/cabinet/mistakes/test/${route.params.id}?round_id=${to_round_id}`
-    );
+    if (route.query.round_id !== String(to_round_id))
+      navigateTo(
+        `/cabinet/mistakes/test/${route.params.id}?round_id=${to_round_id}`
+      );
   };
 
   const goToNextRound = () => {
@@ -74,7 +75,11 @@ export default () => {
     // compute points
     await sendAnswer(answers.map((ans) => ans.id)).then(() => {
       answeredQuestions[question_id] = answers.map((ans) => ans.id);
-      answeredQuestionList.push(question_id);
+      if (
+        answers.filter((ans) => ans).length > 1 ||
+        currentRound.value.question.type !== "multiple_answer"
+      )
+        answeredQuestionList.push(question_id);
     });
   };
 
@@ -111,6 +116,12 @@ export default () => {
     );
   });
 
+  const reset = () => {
+    data = ref({});
+    answeredQuestions = reactive({});
+    answeredQuestionList = reactive([]);
+  };
+
   return {
     data,
     init,
@@ -125,5 +136,6 @@ export default () => {
     goToRound,
     goToNextRound,
     goToPrevRound,
+    reset,
   };
 };

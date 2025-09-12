@@ -7,8 +7,7 @@ const props = defineProps({
     default: {},
   },
   selectedAnswer: {
-    type: Object,
-    default: {},
+    default: null,
   },
 });
 

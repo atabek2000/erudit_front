@@ -30,6 +30,7 @@ const isLangOpen = ref(false);
           v-if="
             !$route.path.startsWith('/cabinet/lessons') &&
             !$route.path.startsWith('/cabinet/test/item') &&
+            !$route.path.startsWith('/cabinet/mistakes') &&
             !$route.path.startsWith('/cabinet/test/start')
           "
           @click="isLangOpen = true"

@@ -20,9 +20,7 @@ const selectedAnswerModel = ref(
 
 const onChangeAnswer = () => {
   const correct_answers = [];
-  const MAX_ANSWER = props?.question?.answers?.filter(
-    (ans) => ans.is_correct
-  )?.length;
+  const MAX_ANSWER = 3;
 
   if (selectedAnswerModel.value.length > MAX_ANSWER) {
     selectedAnswerModel.value = selectedAnswerModel.value.slice(

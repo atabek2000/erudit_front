@@ -40,9 +40,11 @@ const onAnswer = async (question_id, answer) => {
   answers.value.push(answer.is_correct);
   hasAnswer.value = true;
   if (answer.is_correct) {
-  } else if (!hasPremium.value) {
-    setLive(live().value - 1);
-    if (live().value == 0) {
+  }
+  // make mistake
+  else if (!hasPremium.value) {
+    // if life end
+    if (live().value == 1) {
       isLiveEndOpen.value = true;
     } else {
       isErrorOpen.value = true;
@@ -57,6 +59,12 @@ const onAnswer = async (question_id, answer) => {
       answer_id: answer.id,
       test_id: route.params?.id,
     },
+  }).then((res) => {
+    console.log(res?.data?.is_correct);
+
+    if (!hasPremium.value && !res?.data?.is_correct) {
+      setLive(res?.data?.lives_left || live().value - 1);
+    }
   });
 };
 

@@ -1,13 +1,14 @@
 <script setup>
 const { locale } = useI18n();
 const { initAuth } = useCustomAuth();
-const { checkRecovery, loadState } = useAttribute();
+const { checkRecovery, loadState, fetchTimeLeft } = useAttribute();
 
 let t;
 
 onBeforeMount(async () => {
   await initAuth().then(() => {
     loadState();
+    fetchTimeLeft();
     checkRecovery(); // мгновенный пересчёт при загрузке
     t = setInterval(checkRecovery, 1000);
   });

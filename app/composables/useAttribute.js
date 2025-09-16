@@ -31,6 +31,10 @@ export default () => {
       lastAddedTime().value = null;
       timeLeft().value = 0;
     }
+    if (live().value === 0) {
+      lastAddedTime().value = Date.now();
+      fetchTimeLeft();
+    }
     saveState();
   };
 
@@ -45,10 +49,24 @@ export default () => {
     const storedTime = localStorage.getItem("last_added_time");
 
     if (!isNaN(storedLives)) live().value = Math.min(MAX_LIVES, storedLives);
-    if (storedTime) lastAddedTime().value = Number(storedTime);
+    if (storedTime) {
+      lastAddedTime().value = Number(storedTime);
+      const now = Date.now();
+      timeLeft().value = RECOVERY_TIME - (now - lastAddedTime().value);
+    }
   };
 
   // Проверяем таймер и восстанавливаем жизни
+  // const checkRecovery = () => {
+  //   if (live().value >= MAX_LIVES) {
+  //     timeLeft().value = 0;
+  //     return;
+  //   }
+
+  //   if (timeLeft().value) {
+  //     timeLeft().value = timeLeft().value - 1000;
+  //   }
+  // };
   const checkRecovery = () => {
     // console.log("checkRecovery");
 
@@ -93,6 +111,18 @@ export default () => {
     }
   };
 
+  const fetchTimeLeft = async () => {
+    // const { data } = await useFetchApi("list/time");
+    // if (data?.timer_reincarnation_next) {
+    //   const target = new Date(data?.timer_reincarnation_next).getTime(); // в мс
+    //   const now = new Date(data?.time).getTime(); // текущие мс
+    //   lastAddedTime().value = new Date(
+    //     data?.timer_reincarnation_last
+    //   ).getTime();
+    //   timeLeft().value = target - now;
+    // }
+  };
+
   // Форматирование оставшегося времени (MM:SS)
   const formattedTimeLeft = computed(() => {
     const totalSeconds = Math.ceil(timeLeft().value / 1000);
@@ -124,5 +154,6 @@ export default () => {
     formattedTimeLeft,
     checkRecovery,
     loadState,
+    fetchTimeLeft,
   };
 };

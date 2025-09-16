@@ -28,7 +28,12 @@ const onChangeAnswer = () => {
     );
   }
 
-  for (let i = 0; i < MAX_ANSWER; i++) {
+  const MAX_ITER = Math.max(
+    props?.question.answers?.filter((ans) => ans?.is_correct)?.length,
+    selectedAnswerModel.value.length
+  );
+
+  for (let i = 0; i < MAX_ITER; i++) {
     if (selectedAnswerModel.value[i])
       correct_answers.push({ id: selectedAnswerModel.value[i] });
     else correct_answers.push({ id: 0 });

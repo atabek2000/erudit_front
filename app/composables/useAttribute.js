@@ -33,7 +33,6 @@ export default () => {
     }
     if (live().value === 0) {
       lastAddedTime().value = Date.now();
-      fetchTimeLeft();
     }
     saveState();
   };

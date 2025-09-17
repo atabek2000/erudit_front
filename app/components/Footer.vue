@@ -10,9 +10,9 @@
         <p class="font-semibold">{{ $t("contacts") }}</p>
         <nuxt-link to="mailto:info@erudit.kz"> info@erudit.kz </nuxt-link>
         <nuxt-link to="tel:+77066230219"> +77066230219 </nuxt-link>
-        <nuxt-link to="https://go.2gis.com/FaBvs" class="md:max-w-[300px]">
+        <!-- <nuxt-link to="https://go.2gis.com/FaBvs" class="md:max-w-[300px]">
           г. Алматы, Медеуский район, Самал-2, д. 70, офис 1</nuxt-link
-        >
+        > -->
       </div>
 
       <div class="flex flex-col gap-3 md:gap-5">

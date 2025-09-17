@@ -10,20 +10,11 @@
         <p class="font-semibold">{{ $t("contacts") }}</p>
         <nuxt-link to="mailto:info@erudit.kz"> info@erudit.kz </nuxt-link>
         <nuxt-link to="tel:+77066230219"> +77066230219 </nuxt-link>
-      </div>
-      <div class="flex flex-col gap-3 md:gap-5">
-        <p class="font-semibold">{{ $t("requisites") }}</p>
-        <nuxt-link class="md:max-w-[200px]"
-          ><span class="font-light">Адрес:</span> г. Алматы, Медеуский район,
-          Самал-2, д. 70, офис 1</nuxt-link
+        <nuxt-link to="https://go.2gis.com/FaBvs" class="md:max-w-[300px]">
+          г. Алматы, Медеуский район, Самал-2, д. 70, офис 1</nuxt-link
         >
-        <nuxt-link><span class="font-light">БИН:</span> 910826450965</nuxt-link>
-        <nuxt-link
-          ><span class="font-light">KZ:</span> 80722S000018537042</nuxt-link
-        >
-        <nuxt-link><span class="font-light">БИК:</span> CASPKZKA</nuxt-link>
-        <nuxt-link><span class="font-light">КБЕ:</span> 19</nuxt-link>
       </div>
+
       <div class="flex flex-col gap-3 md:gap-5">
         <p class="font-semibold">{{ $t("documents") }}</p>
         <a href="/pdf/offer_agreement.pdf">

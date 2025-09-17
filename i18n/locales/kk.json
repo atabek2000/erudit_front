@@ -225,6 +225,12 @@
   "hour_short": "с",
   "minute_short": "м",
   "test_not_available": "Бұл тест сізге қолжетімсіз!",
+  "online_payment_info": "Онлайн төлем",
+  "return_policy": "Қайтару саясаты",
+  "offer_agreement": "Оферта шарты",
+  "documents": "Құжаттар",
+  "requisites": "Реквизиттер",
+  "contacts": "Байланыс ",
 
   "months_genitive": {
     "1": "қаңтар",

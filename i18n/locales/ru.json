@@ -225,6 +225,12 @@
   "hour_short": "ч",
   "minute_short": "м",
   "test_not_available": "Данный тест вам недоступен!",
+  "online_payment_info": "Оплата онлайн",
+  "return_policy": "Политика возврата",
+  "offer_agreement": "Договор оферты",
+  "documents": "Документы",
+  "requisites": "Реквизиты",
+  "contacts": "Контакты",
 
   "months_genitive": {
     "1": "января",

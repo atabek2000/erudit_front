@@ -6,7 +6,40 @@
       <nuxt-link to="/">
         <img src="/logo/black.png" alt="logo" />
       </nuxt-link>
-      <div class="flex items-center gap-5">
+      <div class="flex flex-col gap-3 md:gap-5">
+        <p class="font-semibold">{{ $t("contacts") }}</p>
+        <nuxt-link to="mailto:info@erudit.kz"> info@erudit.kz </nuxt-link>
+        <nuxt-link to="tel:+77066230219"> +77066230219 </nuxt-link>
+      </div>
+      <div class="flex flex-col gap-3 md:gap-5">
+        <p class="font-semibold">{{ $t("requisites") }}</p>
+        <nuxt-link class="md:max-w-[200px]"
+          ><span class="font-light">Адрес:</span> г. Алматы, Медеуский район,
+          Самал-2, д. 70, офис 1</nuxt-link
+        >
+        <nuxt-link><span class="font-light">БИН:</span> 910826450965</nuxt-link>
+        <nuxt-link
+          ><span class="font-light">KZ:</span> 80722S000018537042</nuxt-link
+        >
+        <nuxt-link><span class="font-light">БИК:</span> CASPKZKA</nuxt-link>
+        <nuxt-link><span class="font-light">КБЕ:</span> 19</nuxt-link>
+      </div>
+      <div class="flex flex-col gap-3 md:gap-5">
+        <p class="font-semibold">{{ $t("documents") }}</p>
+        <a href="/pdf/offer_agreement.pdf">
+          {{ $t("offer_agreement") }}
+        </a>
+        <a href="/pdf/online_payment_info.pdf">
+          {{ $t("online_payment_info") }}
+        </a>
+        <a href="/pdf/privacy_policy.pdf">
+          {{ $t("privacy_policy") }}
+        </a>
+        <a href="/pdf/return_policy.pdf">
+          {{ $t("return_policy") }}
+        </a>
+      </div>
+      <div class="flex items-start gap-5">
         <nuxt-link to="https://wa.me/77066230218">
           <img
             src="~/assets/svg/social/whatsapp.svg"

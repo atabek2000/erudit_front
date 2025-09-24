@@ -60,6 +60,7 @@ function openPaymentWidgetHandler(order_data) {
     order_id: `${order_data?.order?.id}`,
     payment_type: "pay",
     payment_method: "ecom",
+    description: `Оплата за жизни на ${priceCount.value}тг`,
     items: [
       {
         merchant_id: order_data?.data?.PAYMENT_MID,

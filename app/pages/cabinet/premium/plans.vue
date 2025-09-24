@@ -42,6 +42,7 @@ function openPaymentWidgetHandler(order_data) {
     amount: pay_plan.value?.amount,
     currency: "KZT",
     order_id: `${order_data?.order?.id}`,
+    description: `Оплата на ${pay_plan.value?.days} дней`,
     payment_type: "pay",
     payment_method: "ecom",
     items: [

@@ -23,9 +23,10 @@ const onChangeAnswer = () => {
 
 <template>
   <div class="max-w-[670px] mt-6 mx-auto">
-    <p class="text-base md:text-xl font-medium text-mirage text-center">
-      {{ question?.text }}
-    </p>
+    <p
+      class="text-base md:text-xl font-medium text-mirage text-center"
+      v-html="renderTextWithMath(question?.text)"
+    ></p>
 
     <img
       v-if="question?.image"
@@ -85,7 +86,10 @@ const onChangeAnswer = () => {
             />
           </div>
 
-          <span class="text-sm font-normal text-black">{{ item.label }}</span>
+          <span
+            class="text-base font-normal text-black"
+            v-html="renderTextWithMath(item?.label)"
+          ></span>
         </div>
       </template>
     </URadioGroup>

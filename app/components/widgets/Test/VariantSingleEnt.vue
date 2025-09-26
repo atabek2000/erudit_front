@@ -77,7 +77,7 @@ const onChangeAnswer = () => {
           </div>
 
           <span
-            class="text-sm font-normal text-black"
+            class="text-base font-normal text-black"
             v-html="renderTextWithMath(item?.label)"
           ></span>
         </div>

@@ -7,7 +7,7 @@ definePageMeta({
   layout: "menu",
 });
 
-const diamonCount = ref(10);
+const diamonCount = ref(100);
 const lifeCount = ref(1);
 const isSuccessOpen = ref(false);
 const isErrorOpen = ref(false);
@@ -15,13 +15,13 @@ const isErrorOpen = ref(false);
 const plus = () => {
   if (diamonCount.value < 50) {
     lifeCount.value++;
-    diamonCount.value += 10;
+    diamonCount.value += 100;
   }
 };
 const minus = () => {
-  if (diamonCount.value > 10) {
+  if (diamonCount.value > 100) {
     lifeCount.value--;
-    diamonCount.value -= 10;
+    diamonCount.value -= 100;
   }
 };
 

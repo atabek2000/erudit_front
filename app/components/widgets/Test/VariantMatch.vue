@@ -96,6 +96,5 @@ function checkAnswers() {
         </USelect>
       </div>
     </div>
-    <p class="mt-4 text-xs text-gray-500">👉 {{ $t("match_info") }}.</p>
   </div>
 </template>

@@ -87,6 +87,7 @@ export default defineAppConfig({
       slots: {
         root: "w-full",
         base: [" rounded-xl "],
+        itemLabel: "whitespace-normal",
       },
       variants: {
         size: {
